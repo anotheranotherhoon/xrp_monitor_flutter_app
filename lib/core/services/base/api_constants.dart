@@ -12,6 +12,14 @@ class ApiConstants {
   static String _betaDomain = 'http://192.168.219.103:3000';
   static String _prodDomain = 'http://192.168.219.103:3000';
 
+  // static const String devDomain = 'http://192.168.219.103:3000/11';
+  // static const String betaDomain = 'http://192.168.219.103:3000/11';
+  // static const String prodDomain = 'http://192.168.219.103:3000/11';
+  //
+  // static String _devDomain = 'http://192.168.219.103:3000/11';
+  // static String _betaDomain = 'http://192.168.219.103:3000/11';
+  // static String _prodDomain = 'http://192.168.219.103:3000/11';
+
   static const _devImageDomain = '';
   static const _betaImageDomain = '';
   static const _prodImageDomain = '';
