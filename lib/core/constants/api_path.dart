@@ -6,7 +6,7 @@ enum ServerType {
 }
 
 class ApiPath {
-  static ServerType currentServer = ServerType.prod;
+  static ServerType currentServer = ServerType.dev;
 
   static String get apiDomain {
     switch (currentServer) {
@@ -18,7 +18,7 @@ class ApiPath {
   }
   static String get apiUrl {
     String url = apiDomain;
-    url += '/api/';
+    url += '/';
     return url;
   }
 

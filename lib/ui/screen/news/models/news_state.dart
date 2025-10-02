@@ -8,8 +8,9 @@ part 'news_state.freezed.dart';
 @freezed
 abstract class NewsState with _$NewsState {
   const factory NewsState({
-    @Default([]) List<News> post,
+    @Default([]) List<News> item,
     @Default(false) bool isFetching,
+    int? cursorId,
     Pagination? pageInfo,
   }) = _NewsState;
 }
