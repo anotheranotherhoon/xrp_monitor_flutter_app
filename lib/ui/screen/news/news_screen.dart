@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+import 'package:xrp_monitor/core/models/common/response_exception.dart';
 import 'package:xrp_monitor/core/services/news/news_service.dart';
 import 'package:xrp_monitor/ui/screen/news/view_models/news_view_model.dart';
 import 'package:xrp_monitor/ui/screen/news/models/news_state.dart';
@@ -12,6 +13,8 @@ import 'package:xrp_monitor/ui/utils/url_utils.dart';
 import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:xrp_monitor/widgets/dialog/defalut_alert_dialog.dart';
+import 'package:xrp_monitor/widgets/dialog/vertical_two_button_dialog.dart';
 
 part 'news_screen.controller.dart';
 
@@ -100,7 +103,7 @@ class NewsScreen extends HookConsumerWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'Error: $error',
+                '확인중입니다.',
                 style: const TextStyle(color: Colors.red),
                 textAlign: TextAlign.center,
               ),

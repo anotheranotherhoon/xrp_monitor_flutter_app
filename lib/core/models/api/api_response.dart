@@ -25,7 +25,7 @@ abstract class ApiResult with _$ApiResult {
   const factory ApiResult({
     @JsonKey(name: 'page') Pagination? page,
     @JsonKey(name: 'total') int? total,
-    @JsonKey(name: 'nextCursor') int? nextCursor,
+    @JsonKey(name: 'nextCursor') dynamic nextCursor,
     @JsonKey(name: 'list') dynamic list,
     @JsonKey(name: 'data') dynamic data
   }) = _ApiResult;
