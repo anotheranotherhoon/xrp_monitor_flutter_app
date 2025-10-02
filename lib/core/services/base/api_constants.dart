@@ -4,13 +4,13 @@ class ApiConstants {
   static const aos = "ANDROID";
   static const ios = "IOS";
 
-  static const String devDomain = 'https://locall.host/3000';
-  static const String betaDomain = 'https://locall.host/3000';
-  static const String prodDomain = 'https://locall.host/3000';
+  static const String devDomain = 'http://192.168.219.103:3000';
+  static const String betaDomain = 'http://192.168.219.103:3000';
+  static const String prodDomain = 'http://192.168.219.103:3000';
 
-  static String _devDomain = 'https://locall.host/3000';
-  static String _betaDomain = 'https://locall.host/3000';
-  static String _prodDomain = 'https://locall.host/3000';
+  static String _devDomain = 'http://192.168.219.103:3000';
+  static String _betaDomain = 'http://192.168.219.103:3000';
+  static String _prodDomain = 'http://192.168.219.103:3000';
 
   static const _devImageDomain = '';
   static const _betaImageDomain = '';

@@ -17,13 +17,11 @@ class NewsService extends _$NewsService{
   @override
   void build() {}
 
-  Future<ResponseModel<List<News>>> getMagazine(DateTime date) async {
+  Future<ResponseModel<List<News>>> getNews(NewsCursorIdParams params) async {
     try {
-      DateFormat format = DateFormat('yyyy-MM-dd');
-
       final response = await _apiService.get(
-        url: '${ApiPath.apiUrl}v1/magazine',
-        params: {"viewDate": format.format(date)},
+        url: '${ApiPath.apiUrl}news/xrp/cursor',
+        params: params.toJson(),
       );
       if (response.statusCode == 200) {
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
@@ -36,7 +34,8 @@ class NewsService extends _$NewsService{
         return ResponseModel<List<News>>(
           success: true,
           type: ResponseType.success,
-          result: data
+          result: data,
+          cursorId: apiResponse.result?.nextCursor
         );
       } else {
         return ResponseModel(success: false, type: ResponseType.alert);

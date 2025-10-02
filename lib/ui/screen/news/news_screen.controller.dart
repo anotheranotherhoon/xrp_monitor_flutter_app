@@ -13,6 +13,14 @@ class NewsScreenController extends ConsumerWidgetController<NewsScreen> {
     super.build(context);
   }
 
+
+
+  Future<void> _loadMoreNews() async{
+    await ref.read(newsViewModelProvider.notifier).getNextNews();
+  }
+
+
+
 }
 
 
