@@ -9,14 +9,27 @@ class NewsScreenController extends ConsumerWidgetController<NewsScreen> {
 
   @override
   void build(BuildContext context) {
-
+    ref.listen(newsViewModelProvider, (prev, next) {
+      if (!next.isLoading && next.hasError && next.error is ResponseException) {
+        final response = next.error as ResponseException;
+        showDialog<void>(
+          context: context,
+          builder: (context) => DefaultAlertDialog(
+            title: response.response.title,
+            content: response.response.content,
+          ),
+        );
+      }
+    });
     super.build(context);
   }
 
 
 
   Future<void> _loadMoreNews() async{
-    await ref.read(newsViewModelProvider.notifier).getNextNews();
+    await _lock.protect(() async {
+      await ref.read(newsViewModelProvider.notifier).getNextNews();
+    });
   }
 
 

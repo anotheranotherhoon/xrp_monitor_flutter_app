@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:xrp_monitor/core/constants/api_path.dart';
 import 'package:xrp_monitor/core/models/api/api_response.dart';
+import 'package:xrp_monitor/core/models/common/response_exception.dart';
 import 'package:xrp_monitor/core/models/common/response_model.dart';
 import 'package:xrp_monitor/core/services/base/api_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -41,7 +42,14 @@ class NewsService extends _$NewsService{
         return ResponseModel(success: false, type: ResponseType.alert);
       }
     } catch (err) {
-      return ResponseModel(success: false, type: ResponseType.alert);
+      return throw
+        ResponseException(
+            ResponseModel(
+                success: false,
+                type: ResponseType.alert,
+                title: '뉴스 정보 조회 실패',
+            )
+        );
     }
   }
 
