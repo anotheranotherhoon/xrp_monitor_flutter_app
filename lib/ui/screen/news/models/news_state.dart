@@ -1,0 +1,15 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:xrp_monitor/core/models/common/pagination.dart';
+import 'package:xrp_monitor/core/services/news/models/news_model.dart';
+
+
+part 'news_state.freezed.dart';
+
+@freezed
+abstract class NewsState with _$NewsState {
+  const factory NewsState({
+    @Default([]) List<News> post,
+    @Default(false) bool isFetching,
+    Pagination? pageInfo,
+  }) = _NewsState;
+}
