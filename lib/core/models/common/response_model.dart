@@ -24,7 +24,7 @@ abstract class ResponseModel<T extends Object> with _$ResponseModel<T> {
     @Default('') String title,
     @Default('') String content,
     int? code,
-    int? cursorId,
+    dynamic cursorId,
     int? total,
     Pagination? page,
     T? result,
