@@ -12,6 +12,10 @@ class ApiConstants {
   static String _betaDomain = 'http://192.168.219.103:3000';
   static String _prodDomain = 'http://192.168.219.103:3000';
 
+  static String _devWsUrl = 'ws://192.168.219.103:3000';
+  static String _betaWsUrl = 'ws://192.168.219.103:3000';
+  static String _prodWsUrl = 'ws://192.168.219.103:3000';
+
   // static const String devDomain = 'http://192.168.219.103:3000/11';
   // static const String betaDomain = 'http://192.168.219.103:3000/11';
   // static const String prodDomain = 'http://192.168.219.103:3000/11';
@@ -40,6 +44,16 @@ class ApiConstants {
       return _betaDomain;
     }
     return _prodDomain;
+  }
+
+  static String get wsDomain {
+    if (isDev) {
+      return _devWsUrl;
+    }
+    if (isBeta) {
+      return _betaWsUrl;
+    }
+    return _prodWsUrl;
   }
 
   static String get apiUrl {
