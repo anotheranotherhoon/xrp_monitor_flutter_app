@@ -59,6 +59,8 @@ dependencies:
 
   flutter_launcher_icons: ^0.13.1
   package_info_plus: ^8.3.0
+  socket_io_client: ^3.1.2
+  fl_chart: ^1.1.0
 
 flutter_native_splash:
   color: "#15375A"
@@ -85,6 +87,11 @@ dev_dependencies:
   riverpod_lint: ^2.3.10
   freezed: ^3.0.6
   json_serializable: ^6.8.0
+  
+  # Testing dependencies
+  mockito: ^5.4.4
+  integration_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true
