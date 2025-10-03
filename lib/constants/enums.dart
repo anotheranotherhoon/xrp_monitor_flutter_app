@@ -1,7 +1,7 @@
 enum StorageKey {
   //token(value: 'safe_school_token'),
-  token(name: 'justreet_token'),
-  refreshToken(name: 'justreet_refresh_token'),
+  token(name: 'accessToken'),
+  refreshToken(name: 'refreshToken'),
   notice(name: 'notice'),
   reward(name: 'reward');
 
