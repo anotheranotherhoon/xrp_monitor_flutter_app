@@ -16,8 +16,23 @@ class ApiPath {
         return ApiConstants.apiDomain;
     }
   }
+
+  static String get wsDomain {
+    switch (currentServer) {
+      case ServerType.prod:
+        return ApiConstants.wsDomain;
+      case ServerType.dev:
+        return ApiConstants.wsDomain;
+    }
+  }
   static String get apiUrl {
     String url = apiDomain;
+    url += '/';
+    return url;
+  }
+
+  static String get wsUrl {
+    String url = wsDomain;
     url += '/';
     return url;
   }
