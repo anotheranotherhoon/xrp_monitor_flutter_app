@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app_router.gr.dart';
+import 'auth_guard.dart';
 
 class AppReevaluateNotifier with ChangeNotifier {
   void refresh() {
@@ -25,19 +26,35 @@ ChangeNotifierProvider((ref) => AppReevaluateNotifier());
 /// ----------------------------
 /// AppRouter
 /// ----------------------------
+///
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
   AppRouter(this.ref);
 
   final Ref ref;
 
+  List<AutoRouteGuard> get authGuards => [
+    AuthGuard(ref: ref, fallback: [
+      const LoginRoute()]
+    ),
+  ];
+
   @override
   List<AutoRoute> get routes => [
+    // Authentication routes
+    AutoRoute(
+      page: LoginRoute.page,
+      path: '/login',
+    ),
+    AutoRoute(
+      page: SignUpRoute.page,
+      path: '/signup',
+    ),
+    
     // XRP Monitor TabsRootScreen 루트
     AutoRoute(
-      initial: true,
       page: TabsRootRoute.page,
-      path: '/',
+      path: '/',guards: authGuards,
       children: [
         // XRP 가격 차트 및 실시간 모니터링
         AutoRoute(

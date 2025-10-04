@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:xrp_monitor/core/services/base/auth_interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -21,6 +21,7 @@ class LocalStorageService {
     return _prefs.getString(StorageKey.refreshToken.name);
   }
 
+
   Future<void> setUserToken(String token) async {
     await _prefs.setString(StorageKey.token.name, token);
   }
@@ -35,22 +36,15 @@ class LocalStorageService {
 
   Future<void> removeAllToken() async {
     await _prefs.remove(StorageKey.token.name);
-    await _prefs.remove(StorageKey.refreshToken.name);
   }
 
-  //TODO 0820 리프레시토큰 지울것
   Future<void> removeAccessToken() async {
     await _prefs.remove(StorageKey.token.name);
   }
 
-  //TODO 0820 지울것
-  Future<void> removeRefreshToken() async {
-    await _prefs.remove(StorageKey.refreshToken.name);
-  }
 
   Future<void> removeLocalStorage() async {
     await _prefs.remove(StorageKey.token.name);
-    await _prefs.remove(StorageKey.refreshToken.name);
   }
 
   String? getKeyName(String keyName) {
