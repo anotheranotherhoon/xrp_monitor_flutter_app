@@ -45,7 +45,7 @@ class AuthInterceptor extends Interceptor {
       if(refreshToken != null){
         final Dio refreshDio = Dio(BaseOptions(baseUrl: ApiConstants.apiUrl));
         final Response<dynamic> response = await refreshDio.post(
-          'v1/member/login/refresh',
+          'auth//refresh',
           data: {'refreshToken': refreshToken},
         );
         if(response.statusCode == 200){
@@ -73,13 +73,11 @@ class AuthInterceptor extends Interceptor {
           }
         }
       }else{
-        // final router = ref.read(appRouterProvider);
-        // unawaited(router.replaceAll(
-        //     [
-        //       //
-        //       // const LoginRoute()
-        //       const HomeRoute()
-        //     ]));
+        final router = ref.read(appRouterProvider);
+        unawaited(router.replaceAll(
+            [
+              const LoginRoute()
+            ]));
 
       }
 
