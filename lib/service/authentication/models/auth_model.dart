@@ -95,6 +95,7 @@ abstract class LoginResponse with _$LoginResponse {
 abstract class LoginResult with _$LoginResult {
   const factory LoginResult({
     @JsonKey(name: 'accessToken') @Default('') String accessToken,
+    @JsonKey(name: 'refreshToken') @Default('') String refreshToken,
     @JsonKey(name: 'user') LoginUser? user,
   }) = _LoginResult;
 
