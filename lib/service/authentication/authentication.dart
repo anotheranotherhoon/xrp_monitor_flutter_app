@@ -27,15 +27,9 @@ part 'authentication.g.dart';
 class Authentication extends _$Authentication {
   static late final Authentication instance;
   late final SessionService _sessionService;
-  final _lock = Mutex();
-  late final tokenServiceProvider;
   @override
   Future<Session?> build() async {
     instance = this;
-    tokenServiceProvider = Provider<TokenService>((ref) {
-      final ApiService apiService = ref.watch(apiServiceProvider.notifier);
-      return TokenService(apiService);
-    });
     _sessionService = ref.watch(sessionServiceProvider.notifier);
     final String? accessToken = LocalStorageService.instance.getAccessToken();
     final String? refreshToken = LocalStorageService.instance.getRefreshToken();
@@ -53,9 +47,7 @@ class Authentication extends _$Authentication {
       ) : null,
       user: null,
     );
-
-    // state = AsyncValue.data(session);
-
+    state = AsyncValue.data(session);
     return session;
   }
 
