@@ -167,9 +167,7 @@ class LoginScreen extends HookConsumerWidget {
                             email: emailController.text,
                             password: passwordController.text,
                           );
-                          
                           final result = await ref.read(authenticationProvider.notifier).login(request);
-                          print(result.success);
                           if (result.success ) {
                             Fluttertoast.showToast(
                               msg: '로그인 성공!',

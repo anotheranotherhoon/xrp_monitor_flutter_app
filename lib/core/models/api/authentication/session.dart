@@ -11,6 +11,7 @@ part 'session.freezed.dart';
 abstract class Session with _$Session {
   const factory Session({
     Token? accessToken,
+    Token? refreshToken,
     LoginUser? user,
   }) = _Session;
 
