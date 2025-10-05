@@ -4,48 +4,37 @@ part of 'home_screen.dart';
 class HomeScreenController extends ConsumerWidgetController<HomeScreen> {
   HomeScreenController({required super.ref});
 
-
   final _lock = SyncLock();
-  IO.Socket? socket;
+  io.Socket? socket;
   
-  // 캔들 데이터 리스트
-  List<Candle> candleData = [];
+  // StreamController로 변경
+  final _chartDataController = StreamController<ChartData>.broadcast();
+  Stream<ChartData> get chartDataStream => _chartDataController.stream;
   
-  // 가격 데이터 리스트 (차트용)
-  List<double> priceData = [];
-  List<DateTime> timeData = [];
-  
-  // 차트 업데이트를 위한 콜백
-  Function(List<Candle>)? onCandleDataUpdate;
-  Function()? onPriceDataUpdate;
-  
-  // 차트 컴포넌트에서 콜백 등록
-  void registerCandleUpdateCallback(Function(List<Candle>) callback) {
-    onCandleDataUpdate = callback;
-  }
-  
-  void registerPriceUpdateCallback(Function() callback) {
-    onPriceDataUpdate = callback;
-  }
+  // 현재 차트 데이터 상태
+  ChartData _currentChartData = ChartData.empty();
 
 
   @override
   void build(BuildContext context) {
-
     useEffect(() {
       initSocket();
-      return (){
-        socket?.disconnect();
+      return () {
+        _dispose();
       };
     }, []);
     super.build(context);
   }
+  
+  void _dispose() {
+    socket?.disconnect();
+    _chartDataController.close();
+  }
 
   void initSocket() {
-    socket = IO.io('${ApiPath.apiUrl}', <String, dynamic>{
+    socket = io.io(ApiPath.apiUrl, <String, dynamic>{
       'transports': ['websocket'],
     });
-
 
     socket?.onConnect((_) {
       print('Connected to server');
@@ -55,21 +44,25 @@ class HomeScreenController extends ConsumerWidgetController<HomeScreen> {
       });
     });
 
-
     socket!.on('initial-candles', (data) {
       print('Initial candles received: $data');
       if (data != null && data['candles'] is List) {
         try {
-          candleData = (data['candles'] as List)
+          final candles = (data['candles'] as List)
               .map((item) => Candle.fromJson(item as Map<String, dynamic>))
               .toList();
           
-          // 초기 가격 데이터로 차트 초기화
-          priceData = candleData.map((candle) => candle.tradePrice).toList();
-          timeData = candleData.map((candle) => DateTime.parse(candle.candleDateTimeKst)).toList();
+          // ChartData로 초기 데이터 설정
+          _currentChartData = ChartData(
+            candles: candles,
+            prices: candles.map((candle) => candle.tradePrice).toList(),
+            times: candles.map((candle) => DateTime.parse(candle.candleDateTimeKst)).toList(),
+            currentPrice: candles.isNotEmpty ? candles.last.tradePrice : 0.0,
+            timestamp: DateTime.now().millisecondsSinceEpoch,
+          );
           
-          onCandleDataUpdate?.call(candleData);
-          onPriceDataUpdate?.call();
+          // Stream으로 데이터 전송
+          _chartDataController.add(_currentChartData);
         } catch (e) {
           print('Error parsing initial candles: $e');
         }
@@ -81,45 +74,43 @@ class HomeScreenController extends ConsumerWidgetController<HomeScreen> {
       if (data != null && data['trade_price'] != null) {
         double price = double.tryParse(data['trade_price'].toString()) ?? 0.0;
         if (price > 0) {
-          priceData.add(price);
-          timeData.add(DateTime.now());
+          // 현재 데이터에 새 가격 추가 후 크기 제한
+          _currentChartData = _currentChartData
+              .updateCurrentPrice(price)
+              .limitSize(100);
           
-          // 최대 100개 데이터만 유지
-          if (priceData.length > 100) {
-            priceData.removeAt(0);
-            timeData.removeAt(0);
-          }
-          
-          onPriceDataUpdate?.call();
+          // Stream으로 업데이트된 데이터 전송
+          _chartDataController.add(_currentChartData);
         }
       }
     });
+    
     socket!.on('new-candle', (data) {
       print('New candle received: $data');
       if (data != null && data['candle'] != null) {
         try {
-          // 새로운 캔들 데이터를 리스트에 추가
           final newCandle = Candle.fromJson(data['candle']);
-          candleData.add(newCandle);
+          final updatedCandles = [..._currentChartData.candles, newCandle];
           
-          // 가격과 시간 데이터도 추가
-          priceData.add(newCandle.tradePrice);
-          timeData.add(DateTime.parse(newCandle.candleDateTimeKst));
+          // 캔들 데이터 크기 제한 (최대 200개)
+          final limitedCandles = updatedCandles.length > 200 
+              ? updatedCandles.sublist(updatedCandles.length - 200)
+              : updatedCandles;
           
-          // 리스트 크기 제한 (예: 최대 200개)
-          if (candleData.length > 200) {
-            candleData.removeAt(0);
-            priceData.removeAt(0);
-            timeData.removeAt(0);
-          }
+          _currentChartData = _currentChartData.copyWith(
+            candles: limitedCandles,
+            currentPrice: newCandle.tradePrice,
+            timestamp: DateTime.now().millisecondsSinceEpoch,
+          ).updateCurrentPrice(newCandle.tradePrice).limitSize(200);
           
-          onCandleDataUpdate?.call(candleData);
-          onPriceDataUpdate?.call();
+          // Stream으로 업데이트된 데이터 전송
+          _chartDataController.add(_currentChartData);
         } catch (e) {
           print('Error parsing new candle: $e');
         }
       }
-    });}
+    });
+  }
 
 
 }
