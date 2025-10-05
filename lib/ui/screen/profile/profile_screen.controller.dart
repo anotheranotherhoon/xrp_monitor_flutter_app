@@ -17,13 +17,13 @@ class ProfileScreenController extends ConsumerWidgetController<ProfileScreen> {
   void logOut(){
     showDialog(
         context: context,
-        barrierDismissible: false,
         builder: (context){
           return VerticalTwoButtonDialog(
             title: '안내',
             content: Text(
               '로그아웃 하시겠습니까?',
-              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.mainGreen),
+              style: TextStyle(
+                  fontSize: 20.sp, fontWeight: FontWeight.w700, color: CommonColors.black),
               textAlign: TextAlign.center,
             ),
             onConfirm: (){
@@ -58,9 +58,9 @@ class ProfileScreenController extends ConsumerWidgetController<ProfileScreen> {
         
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('수정완료되었습니다!'),
-              backgroundColor: Colors.green,
+            SnackBar(
+              content: Text('수정 완료되었습니다!'),
+              backgroundColor: CommonColors.subBlue,
               duration: Duration(seconds: 2),
             ),
           );
@@ -70,7 +70,7 @@ class ProfileScreenController extends ConsumerWidgetController<ProfileScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('수정에 실패했습니다: $e'),
-              backgroundColor: Colors.red,
+              backgroundColor: CommonColors.mainRed,
               duration: const Duration(seconds: 2),
             ),
           );
