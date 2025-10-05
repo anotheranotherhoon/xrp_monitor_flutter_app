@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
 import 'package:xrp_monitor/ui/screen/youtube/widget/youtube_player_modal.dart';
 import 'package:xrp_monitor/ui/utils/youtube_utils.dart';
@@ -15,7 +16,7 @@ class YoutubeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
       child: InkWell(
         onTap: () => _playVideo(context),
         child: Column(
@@ -26,7 +27,7 @@ class YoutubeCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 16 / 9,
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(4.w)),
                   child: Image.network(
                     _getBestThumbnailUrl(video.thumbnails!),
                     width: double.infinity,
@@ -34,9 +35,9 @@ class YoutubeCard extends StatelessWidget {
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                         color: Colors.grey[300],
-                        child: const Icon(
+                        child: Icon(
                           Icons.play_circle_outline,
-                          size: 64,
+                          size: 64.w,
                           color: Colors.grey,
                         ),
                       );
@@ -47,7 +48,7 @@ class YoutubeCard extends StatelessWidget {
             
             // Content
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,24 +56,24 @@ class YoutubeCard extends StatelessWidget {
                     data: video.title,
                     style: {
                       "*": Style(
-                        fontSize: FontSize(16),
+                        fontSize: FontSize(16.w),
                         fontWeight: FontWeight.bold,
                         maxLines: 2,
                         textOverflow: TextOverflow.ellipsis,
                       ),
                     },
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.w),
                   if (video.channelName.isNotEmpty) ...[
                     Text(
                       video.channelName,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 14.w,
                         color: Colors.grey[600],
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.w),
                   ],
                   Html(
                     data: video.description,
@@ -85,26 +86,26 @@ class YoutubeCard extends StatelessWidget {
                       ),
                     },
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.w),
                   Row(
                     children: [
                       Icon(
                         Icons.access_time,
-                        size: 16,
+                        size: 16.w,
                         color: Colors.grey[600],
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Text(
                         video.createdAt,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.w,
                           color: Colors.grey[600],
                         ),
                       ),
                       const Spacer(),
                       Icon(
                         Icons.play_circle_outline,
-                        size: 20,
+                        size: 20.w,
                         color: Colors.red[600],
                       ),
                     ],
@@ -145,7 +146,7 @@ class YoutubeCard extends StatelessWidget {
     if (videoId != null && YoutubeUtils.isValidVideoId(videoId)) {
       YoutubePlayerModal.show(
         context,
-        videoId: videoId!,
+        videoId: videoId,
         title: video.title.isNotEmpty ? video.title : null,
       );
     } else {

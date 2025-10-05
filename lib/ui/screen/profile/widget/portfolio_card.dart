@@ -25,7 +25,7 @@ class PortfolioCard extends StatelessWidget {
       padding: EdgeInsets.all(24.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(12.0.w),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
@@ -62,7 +62,8 @@ class PortfolioCard extends StatelessWidget {
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             suffix: 'XRP',
           ),
-          SizedBox(height: 20.h),
+
+          SizedBox(height: 10.w),
 
           // 평균 매수가
           PortfolioInput(
@@ -73,46 +74,15 @@ class PortfolioCard extends StatelessWidget {
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             suffix: 'USD',
           ),
-          SizedBox(height: 20.h),
-
+          SizedBox(height: 10.w),
           // 메모
           PortfolioInput(
-            label: 'Notes',
+            label: 'Memo',
             textController: memoController,
             hint: 'Investment notes...',
             maxLines: 3,
           ),
           SizedBox(height: 32.h),
-
-          // 저장 버튼
-          Container(
-            width: double.infinity,
-            height: 48.h,
-            margin: EdgeInsets.symmetric(vertical: 8.h),
-            child: ElevatedButton(
-              onPressed: () {
-                HapticFeedback.selectionClick();
-                print('Save Changes 버튼 클릭됨!');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF0B9687),
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                elevation: 2,
-                shadowColor: Colors.black.withValues(alpha: 0.1),
-              ),
-              child: Text(
-                'Save Changes',
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/core/services/news/models/news_model.dart';
 import 'package:xrp_monitor/ui/utils/url_utils.dart';
 
@@ -15,11 +16,11 @@ class NewsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
       child: InkWell(
         onTap: () => UrlUtils.launchUrl(news.originalLink),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -27,38 +28,38 @@ class NewsCard extends StatelessWidget {
                 data: news.title,
                 style: {
                   "*": Style(
-                    fontSize: FontSize(18),
+                    fontSize: FontSize(18.w),
                     fontWeight: FontWeight.bold,
                     maxLines: 2,
                     textOverflow: TextOverflow.ellipsis,
                   ),
                 },
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.w),
               Html(
                 data: news.description,
                 style: {
                   "*": Style(
-                    fontSize: FontSize(14),
+                    fontSize: FontSize(14.w),
                     color: Colors.grey[600],
                     maxLines: 3,
                     textOverflow: TextOverflow.ellipsis,
                   ),
                 },
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8.w),
               Row(
                 children: [
                   Icon(
                     Icons.access_time,
-                    size: 16,
+                    size: 16.w,
                     color: Colors.grey[600],
                   ),
-                  const SizedBox(width: 4),
+                  SizedBox(width: 4.w),
                   Text(
                     news.createdAt,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 12.w,
                       color: Colors.grey[600],
                     ),
                   ),

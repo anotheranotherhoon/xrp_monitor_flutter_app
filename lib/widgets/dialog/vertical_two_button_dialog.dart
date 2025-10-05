@@ -41,7 +41,7 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                   title,
                   style: TextStyle(
                     color: CommonColors.mainBlack,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                     fontSize: 18.sp,
                   ),
                   textAlign: TextAlign.center,
@@ -52,35 +52,44 @@ class VerticalTwoButtonDialog extends StatelessWidget {
               Flexible(child: content),
 
               SizedBox(height: 16.w),
-
-              ElevatedButton(
-                onPressed: onConfirm,
-                child: Text(
-                  confirmText ?? '완료',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                    color: Colors.white,
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: onConfirm,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 12.w),
+                      ),
+                      child: Text(
+                        confirmText ?? '완료',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(height: 16.w),
-              TextButton(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 12.w),
-                ),
-                onPressed: onCancel,
-                child: Text(
-                  cancelText ?? '취소',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                    color: CommonColors.mainBlack,
+                  SizedBox(width: 12.w), // 버튼 사이 간격
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: onCancel,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 12.w),
+                        backgroundColor: Colors.grey.shade400, // 취소 버튼 색상 예시
+                      ),
+                      child: Text(
+                        cancelText ?? '취소',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+                ],
+              )
             ],
           ),
         ),
