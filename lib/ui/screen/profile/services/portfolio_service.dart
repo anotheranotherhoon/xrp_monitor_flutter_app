@@ -19,15 +19,17 @@ class PortfolioService extends _$PortfolioService{
   @override
   void build() {}
 
-  Future<ResponseModel<Portfolio>> getNPortfolio() async {
+  Future<ResponseModel<Portfolio>> getPortfolio() async {
     try {
       final response = await _apiService.get(
         url: '${ApiPath.apiUrl}xrp/holding',
       );
       if (response.statusCode == 200) {
+        print('response.data, ${response.data}');
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
 
         Portfolio? portfolio;
+        print('(apiResponse.result ${apiResponse.result?.data}');
         if(apiResponse.result?.data != null){
           portfolio = Portfolio.fromJson(apiResponse.result!.data as Map<String, dynamic>);
         }else{
@@ -49,7 +51,46 @@ class PortfolioService extends _$PortfolioService{
           ResponseModel(
             success: false,
             type: ResponseType.alert,
-            title: '뉴스 정보 조회 실패',
+            title: '포트폴리오 조회 실패',
+          )
+      );
+    }
+  }
+
+  Future<ResponseModel<Portfolio>> editPortfolio(PortfolioRequest params) async {
+    try {
+      final response = await _apiService.post(
+        url: '${ApiPath.apiUrl}xrp/holding',
+        params: params.toJson()
+      );
+      if (response.statusCode == 201) {
+        final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
+
+        Portfolio? portfolio;
+        print('(apiResponse.result ${apiResponse.result?.data}');
+        if(apiResponse.result?.data != null){
+          portfolio = Portfolio.fromJson(apiResponse.result!.data as Map<String, dynamic>);
+        }else{
+          portfolio = Portfolio(id: -1, quantity: '0', averagePrice: '0', totalInvested: '0', memo: '', createdAt: '', updatedAt: '');
+        }
+
+        print('portfolio ${portfolio}');
+
+        return ResponseModel<Portfolio>(
+            success: true,
+            type: ResponseType.success,
+            result: portfolio,
+        );
+      } else {
+        return ResponseModel(success: false, type: ResponseType.alert);
+      }
+    } catch (err) {
+      return throw
+      ResponseException(
+          ResponseModel(
+            success: false,
+            type: ResponseType.alert,
+            title: '포트폴리오 조회 실패',
           )
       );
     }
