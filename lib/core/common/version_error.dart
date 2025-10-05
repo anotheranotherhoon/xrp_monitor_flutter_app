@@ -93,7 +93,7 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
               title: '업데이트 안내',
               content: Text(
                 '최신버전의 앱이 존재합니다.\n업데이트를 진행하시겠습니까?',
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.mainGreen),
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.black),
                 textAlign: TextAlign.center,
               ),
               onConfirm: () => openStore(),
@@ -107,7 +107,7 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
               title: '업데이트 안내',
               content: Text(
                 '최신버전의 앱이 존재합니다.\n업데이트를 진행하시겠습니까?',
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.mainGreen),
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.black),
                 textAlign: TextAlign.center,
               ),
               confirmText: '확인',
@@ -119,7 +119,7 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
               title: '시스템 점검',
               content: Text(
                 '보다 안정적인 서비스를 위한 시스템 점검중입니다.\n일시적으로 모든 서비스 이용이 제한되오니 양해 부탁드립니다.',
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.mainGreen),
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.black),
                 textAlign: TextAlign.center,
               ),
               confirmText: '확인',
@@ -134,7 +134,7 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
               title: '시스템 점검',
               content: Text(
                 '보다 안정적인 서비스를 위한 시스템 점검중입니다.\n일시적으로 모든 서비스 이용이 제한되오니 양해 부탁드립니다.',
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.mainGreen),
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.black),
                 textAlign: TextAlign.center,
               ),
               confirmText: '확인',

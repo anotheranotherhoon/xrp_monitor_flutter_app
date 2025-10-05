@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:xrp_monitor/service/authentication/authentication.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/profile/widget/portfolio_card.dart';
-import 'package:xrp_monitor/ui/screen/profile/widget/portfolio_input.dart';
 import 'package:xrp_monitor/ui/utils/sync_lock.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -100,6 +98,7 @@ class ProfileScreen extends HookConsumerWidget {
                   quantityValidator:quantityValidator,
                   averagePriceValidator:averagePriceValidator,
                 ),
+                SizedBox(height: 24.w),
                 ActionButton.edit(
                   onTap: () {
                     controller.editPortfolio(
@@ -109,6 +108,7 @@ class ProfileScreen extends HookConsumerWidget {
                     );
                   },
                 ),
+                SizedBox(height: 24.w),
                 ActionButton.logout(
                   onTap: () {
                     controller.logOut();

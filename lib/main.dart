@@ -73,11 +73,6 @@ class _MyAppState extends ConsumerState<MyApp> {
             title: 'XRP Monitor',
             routerConfig: router.config(),
             theme: defaultTheme,
-            localizationsDelegates: const [
-              // GlobalMaterialLocalizations.delegate,
-              // GlobalWidgetsLocalizations.delegate,
-              // GlobalCupertinoLocalizations.delegate,
-            ],
             builder: (context, child) {
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
