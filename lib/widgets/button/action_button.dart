@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 
 class ActionButton extends StatelessWidget {
   final String text;
@@ -37,10 +39,10 @@ class ActionButton extends StatelessWidget {
     return ActionButton(
       text: '포트폴리오 수정',
       icon: FontAwesomeIcons.penToSquare,
-      backgroundColor: Colors.blue.shade100,
-      borderColor: Colors.blue.shade700,
-      textColor: Colors.blue.shade800,
-      iconColor: Colors.blue.shade800,
+      backgroundColor: CommonColors.white,   // 이전 shade100
+      borderColor: CommonColors.mainBlue,     // 이전 shade700
+      textColor: CommonColors.mainBlue,       // 이전 shade800
+      iconColor: CommonColors.mainBlue,
       onTap: onTap,
       width: width,
       height: height,
@@ -56,10 +58,10 @@ class ActionButton extends StatelessWidget {
     return ActionButton(
       text: 'Logout',
       icon: FontAwesomeIcons.rightFromBracket,
-      backgroundColor: Colors.red.shade100,
-      borderColor: Colors.red.shade700,
-      textColor: Colors.red.shade800,
-      iconColor: Colors.red.shade800,
+      backgroundColor: CommonColors.white,
+      borderColor: CommonColors.mainRed,
+      textColor: CommonColors.mainRed,
+      iconColor: CommonColors.mainRed,
       onTap: onTap,
       width: width,
       height: height,
@@ -75,7 +77,7 @@ class ActionButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         border: Border.all(color: borderColor, width: 2),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.0.w),
         boxShadow: [
           BoxShadow(
             color: borderColor.withOpacity(0.3),
@@ -86,7 +88,7 @@ class ActionButton extends StatelessWidget {
       ),
       child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.0.w),
         clipBehavior: Clip.antiAlias, // splash 효과 영역 제한
         child: InkWell(
           onTap: () {
