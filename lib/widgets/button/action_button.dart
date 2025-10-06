@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 
 class ActionButton extends StatelessWidget {
@@ -37,7 +38,7 @@ class ActionButton extends StatelessWidget {
     double height = 60,
   }) {
     return ActionButton(
-      text: '포트폴리오 수정',
+      text: AppStrings.editPortfolio,
       icon: FontAwesomeIcons.penToSquare,
       backgroundColor: CommonColors.white,   // 이전 shade100
       borderColor: CommonColors.mainBlue,     // 이전 shade700

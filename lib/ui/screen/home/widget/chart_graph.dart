@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/home/models/chart_data.dart';
 import 'package:xrp_monitor/utils/formatter.dart';
@@ -37,7 +38,7 @@ class ChartGraph extends StatelessWidget {
             children: [
               const LoadingIndicator(),
               SizedBox(height: 16.w),
-              Text('차트 데이터 로딩 중...'),
+              Text(AppStrings.loadingChartData),
             ],
           ),
         )

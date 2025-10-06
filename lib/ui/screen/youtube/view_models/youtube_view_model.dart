@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/core/models/common/response_model.dart';
 import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
 import 'package:xrp_monitor/core/services/youtube/youtube_service.dart';
@@ -21,7 +22,7 @@ class YoutubeViewModel extends _$YoutubeViewModel {
   Future<YoutubeState> _fetchYoutubeVideos(String? cursorId) async {
     final ResponseModel<List<YoutubeVideo>> response = await _youtubeService.getYoutubeVideos(
       YoutubeCursorIdParams(
-          q: '리플',
+          q: AppStrings.ripple,
           cursorId: cursorId,
       )
     );

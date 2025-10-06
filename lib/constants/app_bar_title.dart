@@ -1,7 +1,7 @@
 enum AppBarTitle {
   xrpMonitor('XRP Monitor'),
   news('NEWS'),
-  tweet('TWEET'),
+  twitter('TWITTER'),
   youtube('YOUTUBE'),
   setting('SETTING'),
   signUp('회원가입'),

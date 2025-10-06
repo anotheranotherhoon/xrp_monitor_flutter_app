@@ -69,8 +69,8 @@ class AppRouter extends RootStackRouter {
         ),
         // XRP 관련 트위터
         AutoRoute(
-          page: TweetRoute.page,
-          path: 'tweets',
+          page: TwitterRoute.page,
+          path: 'twitter',
         ),
         // XRP 관련 유튜브
         AutoRoute(

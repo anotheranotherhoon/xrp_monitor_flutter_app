@@ -54,7 +54,7 @@ class ChartCurrentPriceCard extends StatelessWidget {
           Text(
             currentPrice > 0
                 ? '${Formatter.formatWithCommaNoLimit(currentPrice)} KRW'
-                : '연결 중...',
+                : AppStrings.connecting,
             style: TextStyle(
               fontSize: 24.w,
               fontWeight: FontWeight.bold,

@@ -2,30 +2,30 @@ import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:xrp_monitor/core/models/common/response_model.dart';
-import 'package:xrp_monitor/core/services/tweet/models/tweet_model.dart';
-import 'package:xrp_monitor/core/services/tweet/tweet_service.dart';
-import 'package:xrp_monitor/ui/screen/tweet/models/tweet_state.dart';
+import 'package:xrp_monitor/core/services/twitter/models/twitter_model.dart';
+import 'package:xrp_monitor/core/services/twitter/twitter_service.dart';
+import 'package:xrp_monitor/ui/screen/twitter/models/twitter_state.dart';
 
 
-part 'tweet_view_model.g.dart';
+part 'twitter_view_model.g.dart';
 
 @riverpod
-class TweetViewModel extends _$TweetViewModel {
-  late final TweetService _tweetService;
+class TwitterViewModel extends _$TwitterViewModel {
+  late final TwitterService _twitterService;
 
   @override
-  FutureOr<TweetState> build() async {
-    _tweetService = ref.read(tweetServiceProvider.notifier);
+  FutureOr<TwitterState> build() async {
+    _twitterService = ref.read(twitterServiceProvider.notifier);
     return await _fetchTweet(null);
   }
 
-  Future<TweetState> _fetchTweet(String? cursorId) async {
-    final ResponseModel<List<Tweet>> response = await _tweetService.getTweetById(
-        TweetIdParams(
+  Future<TwitterState> _fetchTweet(String? cursorId) async {
+    final ResponseModel<List<Twitter>> response = await _twitterService.getTweetById(
+        TwitterIdParams(
           id: '25073877',
         )
     );
-    return TweetState(
+    return TwitterState(
         item: response.result ?? [],
         cursorId:response.cursorId
     );
@@ -40,12 +40,12 @@ class TweetViewModel extends _$TweetViewModel {
     }else{
       try {
         state = AsyncData(state.value!.copyWith(isFetching: true));
-        final TweetState newState = await _fetchTweet(
+        final TwitterState newState = await _fetchTweet(
             state.value?.cursorId
         );
 
         state = AsyncData(
-          TweetState(
+          TwitterState(
             item: [...state.value!.item, ...newState.item],
             cursorId: newState.cursorId ?? null,
             isFetching: false,

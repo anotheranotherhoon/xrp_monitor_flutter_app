@@ -91,8 +91,8 @@ class HomeScreen extends HookConsumerWidget {
               
               // 데이터가 없는 상태
               if (!snapshot.hasData) {
-                return const Center(
-                  child: Text('데이터를 기다리는 중...'),
+                return Center(
+                  child: Text(AppStrings.waitingData),
                 );
               }
               

@@ -88,9 +88,9 @@ class AppStrings {
   //lazyload
   static const String newsLazyLoad = '뉴스 불러오는 중...';
   static const String ytLazyLoad = '유튜브 정보 불러오는 중...';
-  static const String tweetLazyLoad = 'x 불러오는 중...';
+  static const String twitterLazyLoad = 'x 불러오는 중...';
 
-  static const String tweetEmpty = '트윗을 찾을 수 없습니다.';
+  static const String tweetEmpty = '트위터를 찾을 수 없습니다.';
 
   //version_error
 
@@ -99,6 +99,23 @@ class AppStrings {
   static const String updateTextStatus = '최신버전의 앱이 존재합니다.\n업데이트를 진행하시겠습니까?';
   static const String systemTextStatus = '보다 안정적인 서비스를 위한 시스템 점검중입니다.\n일시적으로 모든 서비스 이용이 제한되오니 양해 부탁드립니다.';
 
+  // Additional UI Strings
+  static const String connecting = '연결 중...';
+  static const String waitingData = '데이터를 기다리는 중...';
+  static const String loadingChartData = '차트 데이터 로딩 중...';
+  static const String cannotPlayVideo = '동영상을 재생할 수 없습니다.';
+  static const String videoInfo = '영상 정보';
+  static const String ripple = '리플';
+  static const String twitterOpenFailed = '트위터 열기 실패';
+  static const String portfolioLoadingError = '포트폴리오 로딩 오류';
+  static const String editFailed = '수정에 실패했습니다';
+  static const String portfolioQueryFailed = '포트폴리오 조회 실패';
+  static const String youtubeQueryFailed = '유튜브 정보 조회 실패';
+  static const String newsQueryFailed = '뉴스 정보 조회 실패';
+  static const String signupFailed = '회원가입 실패';
+  static const String signupFailedContent = '회원가입에 실패했습니다.';
+  static const String loginFailed = '로그인 실패';
+  static const String loginFailedContent = '이메일 또는 비밀번호가 잘못되었습니다.';
 
   // Validation Length Messages
   static String nicknameTooShort(int min) => '닉네임은 $min자 이상이어야 합니다';

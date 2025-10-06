@@ -3,20 +3,19 @@ import 'package:xrp_monitor/core/constants/api_path.dart';
 import 'package:xrp_monitor/core/models/api/api_response.dart';
 import 'package:xrp_monitor/core/models/common/response_model.dart';
 import 'package:xrp_monitor/core/services/base/api_service.dart';
-import 'package:xrp_monitor/core/services/tweet/models/tweet_model.dart';
-import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
+import 'package:xrp_monitor/core/services/twitter/models/twitter_model.dart';
 
-part 'tweet_service.g.dart';
+part 'twitter_service.g.dart';
 
 @riverpod
-class TweetService extends _$TweetService {
+class TwitterService extends _$TwitterService {
   late final ApiService _apiService = ref.read(apiServiceProvider.notifier);
   @override
   void build() {
 
   }
 
-  Future<ResponseModel<List<Tweet>>> getTweetById(TweetIdParams params) async {
+  Future<ResponseModel<List<Twitter>>> getTweetById(TwitterIdParams params) async {
     try {
       final response = await _apiService.get(
         url: '${ApiPath.apiUrl}tweet/users/${params.id}/tweets',
@@ -24,13 +23,13 @@ class TweetService extends _$TweetService {
 
       if (response.statusCode == 200) {
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
-        final List<Tweet> data = [];
+        final List<Twitter> data = [];
         for (final Map<String, dynamic> item in apiResponse.result?.list as List) {
-          data.add(Tweet.fromJson(item));
+          data.add(Twitter.fromJson(item));
         }
 
 
-        return ResponseModel<List<Tweet>>(
+        return ResponseModel<List<Twitter>>(
             success: true,
             type: ResponseType.success,
             result: data,
@@ -41,7 +40,7 @@ class TweetService extends _$TweetService {
         return ResponseModel(success: false, type: ResponseType.alert);
       }
     } catch (e) {
-      return ResponseModel<List<Tweet>>(
+      return ResponseModel<List<Twitter>>(
         success: false,
         type: ResponseType.alert,
         title: 'x 정보 조회 실패',

@@ -4,36 +4,36 @@ import 'dart:developer';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'tweet_model.freezed.dart';
-part 'tweet_model.g.dart';
+part 'twitter_model.freezed.dart';
+part 'twitter_model.g.dart';
 
 @freezed
-abstract class Tweet with _$Tweet {
-  const factory Tweet({
+abstract class Twitter with _$Twitter {
+  const factory Twitter({
     @JsonKey(name: 'twId') @Default('') String id,
     @JsonKey(name: 'twText') @Default('') String text,
     @JsonKey(name: 'twCreatedAt') @Default('') String createdAt,
     @JsonKey(name: 'twAuthorId') @Default('') String authorId,
     @JsonKey(name: 'twLang') @Default('') String lang,
 
-  }) = _Tweet;
+  }) = _Twitter;
 
-  const Tweet._();
+  const Twitter._();
 
-  factory Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);
+  factory Twitter.fromJson(Map<String, dynamic> json) => _$TwitterFromJson(json);
 
 }
 
 
 
 @JsonSerializable(includeIfNull: false)
-class TweetIdParams {
-  TweetIdParams({
+class TwitterIdParams {
+  TwitterIdParams({
     required this.id
   });
 
-  factory TweetIdParams.fromJson(Map<String, dynamic> json) => _$TweetIdParamsFromJson(json);
+  factory TwitterIdParams.fromJson(Map<String, dynamic> json) => _$TwitterIdParamsFromJson(json);
 
   final String id;
-  Map<String, dynamic> toJson() => _$TweetIdParamsToJson(this);
+  Map<String, dynamic> toJson() => _$TwitterIdParamsToJson(this);
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/youtube/widget/youtube_player_modal.dart';
@@ -158,8 +159,8 @@ class YoutubeCard extends StatelessWidget {
     } else {
       // video ID를 찾을 수 없는 경우 스낵바 표시
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('동영상을 재생할 수 없습니다.'),
+        SnackBar(
+          content: Text(AppStrings.cannotPlayVideo),
         ),
       );
     }

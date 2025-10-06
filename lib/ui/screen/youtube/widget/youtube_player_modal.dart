@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -122,7 +123,7 @@ class YoutubePlayerModal extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '영상 정보',
+                    AppStrings.videoInfo,
                     style: TextStyle(
                       fontSize: 16.w,
                       fontWeight: FontWeight.w600,

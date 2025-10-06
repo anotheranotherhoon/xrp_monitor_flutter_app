@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 
 class VerticalTwoButtonDialog extends StatelessWidget {
@@ -63,7 +64,7 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                         foregroundColor: CommonColors.white,
                       ),
                       child: Text(
-                        confirmText ?? '완료',
+                        confirmText ?? AppStrings.complete,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.w,
@@ -82,7 +83,7 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                         foregroundColor: CommonColors.white,
                       ),
                       child: Text(
-                        cancelText ?? '취소',
+                        cancelText ?? AppStrings.cancel,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16.w,
