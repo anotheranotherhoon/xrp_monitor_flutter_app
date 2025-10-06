@@ -16,6 +16,7 @@ import 'package:xrp_monitor/ui/utils/sync_lock.dart';
 import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
 import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
+import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -50,7 +51,7 @@ class HomeScreen extends HookConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(),
+                      const LoadingIndicator(),
                       SizedBox(height: 16.0.w),
                       Text(AppStrings.webSocketConnecting),
                     ],
@@ -113,7 +114,7 @@ class HomeScreen extends HookConsumerWidget {
               );
             },
           ),
-          loading: () => Center(child: CircularProgressIndicator()),
+          loading: () => const LoadingScreen(),
           error: (error, stack) => Center(
             child: Text('포트폴리오 로딩 오류: $error'),
           ),

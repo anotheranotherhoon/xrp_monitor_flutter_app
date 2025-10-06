@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/tweet/view_models/tweet_view_model.dart';
 import 'package:xrp_monitor/ui/screen/tweet/models/tweet_state.dart';
@@ -11,6 +12,7 @@ import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
 import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
+import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
 
 part 'tweet_screen.controller.dart';
 
@@ -29,7 +31,7 @@ class TweetScreen extends HookConsumerWidget {
         data: (TweetState tweetState) {
           if (tweetState.item.isEmpty) {
             return const Center(
-              child: Text('No tweets available'),
+              child: Text(AppStrings.tweetEmpty),
             );
           } else {
             return Stack(
@@ -84,9 +86,7 @@ class TweetScreen extends HookConsumerWidget {
             );
           }
         },
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        loading: () => const LoadingScreen(),
         error: (error, stackTrace) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
