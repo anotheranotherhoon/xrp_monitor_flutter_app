@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/setting/widget/portfolio_input.dart';
 
@@ -52,11 +53,11 @@ class PortfolioCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 32.h),
+          SizedBox(height: 32.w),
 
           // XRP 보유량
           PortfolioInput(
-            label: 'XRP Holdings',
+            label: AppStrings.xrpHoldings,
             textController: quantityController,
             hint: '0.00',
             validator: quantityValidator,
@@ -68,7 +69,7 @@ class PortfolioCard extends StatelessWidget {
 
           // 평균 매수가
           PortfolioInput(
-            label: 'Average Price',
+            label: AppStrings.xrpAveragePrice,
             textController: averagePriceController,
             hint: '0.00',
             validator: averagePriceValidator,
@@ -78,7 +79,7 @@ class PortfolioCard extends StatelessWidget {
           SizedBox(height: 10.w),
           // 메모
           PortfolioInput(
-            label: 'Memo',
+            label: AppStrings.xrpMemo,
             textController: memoController,
             hint: 'Investment notes...',
             maxLines: 3,

@@ -31,8 +31,6 @@ class PortfolioViewModel extends _$PortfolioViewModel {
     String? memo,
   }) async {
    try{
-     print('🚀 editPortfolio 시작 - quantity: $quantity, averagePrice: $averagePrice, memo: $memo');
-     
      final ResponseModel<Portfolio> response = await _portfolioService.editPortfolio(
          PortfolioRequest(
              quantity: double.parse(quantity),
@@ -41,19 +39,14 @@ class PortfolioViewModel extends _$PortfolioViewModel {
          )
      );
 
-     print('📡 API 응답 - success: ${response.success}, result: ${response.result}');
-
      if (response.success && response.result != null) {
        state = AsyncValue.data(PortfolioState(
          portfolio: response.result,
        ));
-       print('✅ 상태 업데이트 성공');
      } else {
-       print('❌ API 응답 실패 - success: ${response.success}, result: ${response.result}');
        throw Exception('포트폴리오 수정에 실패했습니다. API 응답 오류');
      }
    } catch(e) {
-     print('💥 에러 발생: $e');
      state = AsyncValue.error(e, StackTrace.current);
      rethrow;
    }

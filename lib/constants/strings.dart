@@ -63,6 +63,16 @@ class AppStrings {
   
   // Button Labels
   static const String editPortfolio = '포트폴리오 수정';
+
+  static const String xrpCurrentPrice = 'XRP 현재가';
+  static const String xrpHoldings = 'XRP 보유량';
+  static const String xrpAveragePrice = '평균 매수가';
+  static const String xrpMemo = '메모';
+
+
+  // webSocket Connect
+  static const String webSocketConnecting = '웹소켓 연결 중...';
+  static const String webSocketConnectingError = '연결 오류가 발생했습니다.';
   
   // Validation Length Messages
   static String nicknameTooShort(int min) => '닉네임은 $min자 이상이어야 합니다';

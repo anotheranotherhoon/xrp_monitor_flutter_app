@@ -7,6 +7,7 @@ import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:xrp_monitor/service/authentication/authentication.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
+import 'package:xrp_monitor/ui/screen/setting/models/portfolio_model.dart';
 import 'package:xrp_monitor/ui/screen/setting/view_models/portfolio_view_model.dart';
 import 'package:xrp_monitor/ui/screen/setting/widget/portfolio_card.dart';
 import 'package:xrp_monitor/ui/utils/sync_lock.dart';
@@ -25,18 +26,16 @@ class SettingScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useWidgetController(() => SettingScreenController(ref: ref), context);
-    final formKey = useMemoized(() => GlobalKey<FormState>(), []);
-    final quantityController = useTextEditingController();
-    final averagePriceController = useTextEditingController();
-    final memoController = useTextEditingController();
-
+    final SettingScreenController controller = useWidgetController(() => SettingScreenController(ref: ref), context);
+    final GlobalKey formKey = useMemoized(() => GlobalKey<FormState>(), []);
+    final TextEditingController quantityController = useTextEditingController();
+    final TextEditingController averagePriceController = useTextEditingController();
+    final TextEditingController memoController = useTextEditingController();
     // Portfolio 상태 감시 및 초기값 설정
-    final portfolioAsyncValue = ref.watch(portfolioViewModelProvider);
-    
+    final AsyncValue<PortfolioState> portfolioAsyncValue = ref.watch(portfolioViewModelProvider);
     useEffect(() {
-      portfolioAsyncValue.whenData((portfolioState) {
-        final portfolio = portfolioState.portfolio;
+      portfolioAsyncValue.whenData((PortfolioState portfolioState) {
+        final Portfolio? portfolio = portfolioState.portfolio;
         if (portfolio != null) {
           quantityController.text = portfolio.quantity;
           averagePriceController.text = portfolio.averagePrice;
@@ -79,7 +78,7 @@ class SettingScreen extends HookConsumerWidget {
                     );
                   },
                 ),
-                SizedBox(height: 24.0.w),
+                SizedBox(height: 12.0.w),
                 ActionButton.logout(
                   onTap: () {
                     controller.logOut();

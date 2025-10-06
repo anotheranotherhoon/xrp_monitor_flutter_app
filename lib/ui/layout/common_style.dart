@@ -14,4 +14,6 @@ class CommonColors {
   static Color grey300 = Color(0xFFF8F9FA);
   static Color grey400 = Color(0xFFBDBDBD);
   static Color grey600 = Color(0xFF757575);
+
+  static Color chartBlue = Color(0xFF0000FF);
 }
