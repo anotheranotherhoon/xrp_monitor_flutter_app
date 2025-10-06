@@ -25,18 +25,18 @@ class SessionService extends _$SessionService {
 
 
 
-  Future<ResponseModel> signUp(SignUpRequest request) async {
+  Future<ResponseModel<bool>> signUp(SignUpRequest request) async {
     try {
       final response = await _apiService.post(
         url: '${ApiPath.apiUrl}auth/register',
         params: request.toJson(),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
         return ResponseModel(
           success: true,
           type: ResponseType.success,
-          result: apiResponse.result,
+          result: true,
         );
       } else {
         return ResponseModel(
@@ -44,6 +44,7 @@ class SessionService extends _$SessionService {
           type: ResponseType.alert,
           title: "회원가입 실패",
           content: "회원가입에 실패했습니다.",
+          result: false,
         );
       }
     } catch (err) {
@@ -53,6 +54,7 @@ class SessionService extends _$SessionService {
         type: ResponseType.alert,
         title: "오류",
         content: err.toString(),
+        result: false,
       );
     }
   }
@@ -64,11 +66,8 @@ class SessionService extends _$SessionService {
         params: request.toJson(),
       );
       if (response.statusCode == 200) {
-        print(response.data!);
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
-        print('apiResponse.result ${apiResponse.result?.data}');
         final LoginResult loginUser = LoginResult.fromJson(apiResponse.result?.data);
-        print(loginUser);
         return ResponseModel(
           success: true,
           type: ResponseType.success,

@@ -109,22 +109,24 @@ class Authentication extends _$Authentication {
 
 
 
-  Future<ResponseModel<SignUpResult>> signUp(SignUpRequest request) async {
+  Future<ResponseModel<bool>> signUp(SignUpRequest request) async {
     try {
       final response = await _sessionService.signUp(request);
       if (response.success && response.result != null) {
-        final signUpResult = SignUpResult.fromJson(response.result as Map<String, dynamic>);
-        // await singInAfter(
-        //   signUpResult.jwtTokenResponse.accessToken,
-        // );
+        return ResponseModel<bool>(
+          success: true,
+          result: true,
+          type: ResponseType.success,
+        );
+      }else{
+        return ResponseModel<bool>(
+          success: false,
+          result: false,
+          type: ResponseType.success,
+        );
       }
-      return ResponseModel<SignUpResult>(
-        success: response.success,
-        result: SignUpResult.fromJson(response.result as Map<String, dynamic>) ,
-        type: ResponseType.success,
-      );
     } catch (e) {
-      return ResponseModel<SignUpResult>(
+      return ResponseModel<bool>(
         success: false,
         type: ResponseType.alert,
       );

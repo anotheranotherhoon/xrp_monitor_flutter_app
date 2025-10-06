@@ -10,6 +10,7 @@ import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/setting/view_models/portfolio_view_model.dart';
 import 'package:xrp_monitor/ui/screen/setting/widget/portfolio_card.dart';
 import 'package:xrp_monitor/ui/utils/sync_lock.dart';
+import 'package:xrp_monitor/utils/validators.dart';
 import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -45,26 +46,7 @@ class SettingScreen extends HookConsumerWidget {
       return null;
     }, [portfolioAsyncValue]);
 
-    // Custom validators
-    String? quantityValidator(String? value) {
-      if (value == null || value.isEmpty) {
-        return '보유 수량을 입력해주세요';
-      }
-      if (double.tryParse(value) == null || double.parse(value) < 0) {
-        return '올바른 수량을 입력해주세요';
-      }
-      return null;
-    }
 
-    String? averagePriceValidator(String? value) {
-      if (value == null || value.isEmpty) {
-        return '평균 매수가를 입력해주세요';
-      }
-      if (double.tryParse(value) == null || double.parse(value) < 0) {
-        return '올바른 가격을 입력해주세요';
-      }
-      return null;
-    }
 
     return Scaffold(
       backgroundColor: CommonColors.grey300,
@@ -84,8 +66,8 @@ class SettingScreen extends HookConsumerWidget {
                   quantityController:quantityController,
                   averagePriceController:averagePriceController,
                   memoController:memoController,
-                  quantityValidator:quantityValidator,
-                  averagePriceValidator:averagePriceValidator,
+                  quantityValidator:Validators.quantityValidator,
+                  averagePriceValidator:Validators.averagePriceValidator,
                 ),
                 SizedBox(height: 24.0.w),
                 ActionButton.edit(
