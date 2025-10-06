@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/initApp.dart';
 import 'package:xrp_monitor/service/storage/local_storage_service.dart';
+import 'package:xrp_monitor/service/native_service.dart';
 import 'package:xrp_monitor/ui/themes/default_theme.dart';
 import 'package:xrp_monitor/ui/utils/size_unit.dart';
 import 'core/common/version_error.dart';
@@ -21,6 +22,12 @@ void main() async{
   Widget app;
   ResponseModel<VersionModel> checkVersionResult = await InitApp.checkVersion();
   if(checkVersionResult.result!.appStatus != 1){
+    // appStatus가 1이 아닐 때 네이티브 알림 및 진동 실행
+    await NativeService.showUpdateNotification(
+      appStatus: checkVersionResult.result!.appStatus,
+      downloadUrl: checkVersionResult.result!.downloadUrl,
+      releaseNotes: checkVersionResult.result!.releaseNotes,
+    );
     app = VersionError(type: checkVersionResult.result!.appStatus );
   }else{
     app = const MyApp();
