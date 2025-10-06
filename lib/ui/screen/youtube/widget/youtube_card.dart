@@ -17,6 +17,7 @@ class YoutubeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: CommonColors.grey300,
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
       child: InkWell(
         onTap: () => _playVideo(context),
@@ -61,6 +62,8 @@ class YoutubeCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         maxLines: 2,
                         textOverflow: TextOverflow.ellipsis,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                       ),
                     },
                   ),
@@ -84,6 +87,8 @@ class YoutubeCard extends StatelessWidget {
                         color: CommonColors.grey600,
                         maxLines: 2,
                         textOverflow: TextOverflow.ellipsis,
+                        margin: Margins.zero,
+                        padding: HtmlPaddings.zero,
                       ),
                     },
                   ),
