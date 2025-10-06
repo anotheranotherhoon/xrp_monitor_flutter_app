@@ -31,7 +31,7 @@ class PortfolioInput extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            fontSize: 14.sp,
+            fontSize: 14.w,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF4A5568),
           ),
@@ -58,7 +58,7 @@ class PortfolioInput extends StatelessWidget {
                 ? [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*'))]
                 : null,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 16.w,
               color: const Color(0xFF2D3748),
               fontWeight: FontWeight.w500,
               height: 1.4,
@@ -67,12 +67,12 @@ class PortfolioInput extends StatelessWidget {
               hintText: hint,
               hintStyle: TextStyle(
                 color: const Color(0xFFA0AEC0),
-                fontSize: 16.sp,
+                fontSize: 16.w,
               ),
               suffixText: suffix,
               suffixStyle: TextStyle(
                 color: const Color(0xFF718096),
-                fontSize: 14.sp,
+                fontSize: 14.w,
                 fontWeight: FontWeight.w500,
               ),
               filled: true,

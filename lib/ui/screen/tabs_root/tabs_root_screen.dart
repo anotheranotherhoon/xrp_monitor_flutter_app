@@ -17,7 +17,7 @@ class TabsRootScreen extends HookConsumerWidget {
         TweetRoute(),   // XRP 트위터
         YoutubeRoute(), // XRP 유튜브
         NewsRoute(),    // XRP 뉴스
-        ProfileRoute(), // 설정
+        SettingRoute(), // 설정
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);

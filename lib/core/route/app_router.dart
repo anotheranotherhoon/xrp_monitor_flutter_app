@@ -79,8 +79,8 @@ class AppRouter extends RootStackRouter {
         ),
         // 설정 및 프로필
         AutoRoute(
-          page: ProfileRoute.page,
-          path: 'profile',
+          page: SettingRoute.page,
+          path: 'setting',
         ),
       ],
     ),

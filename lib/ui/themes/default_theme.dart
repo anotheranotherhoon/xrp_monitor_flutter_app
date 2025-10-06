@@ -13,9 +13,9 @@ final ThemeData defaultTheme = ThemeData(
   ),
 
   textTheme: TextTheme(
-    bodyLarge: TextStyle(fontSize: 16.sp, color: CommonColors.mainBlack),
-    bodyMedium: TextStyle(fontSize: 14.sp, color: CommonColors.mainBlack),
-    labelSmall: TextStyle(fontSize: 12.sp, color: CommonColors.mainBlack),
+    bodyLarge: TextStyle(fontSize: 16.w, color: CommonColors.mainBlack),
+    bodyMedium: TextStyle(fontSize: 14.w, color: CommonColors.mainBlack),
+    labelSmall: TextStyle(fontSize: 12.w, color: CommonColors.mainBlack),
   ),
 
   scaffoldBackgroundColor: CommonColors.white,

@@ -42,7 +42,7 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                   style: TextStyle(
                     color: CommonColors.mainBlack,
                     fontWeight: FontWeight.w700,
-                    fontSize: 18.sp,
+                    fontSize: 18.w,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -64,8 +64,8 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                         confirmText ?? '완료',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.white,
+                          fontSize: 16.w,
+                          color: CommonColors.white,
                         ),
                       ),
                     ),
@@ -82,8 +82,8 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                         cancelText ?? '취소',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 16.sp,
-                          color: Colors.white,
+                          fontSize: 16.w,
+                          color: CommonColors.white,
                         ),
                       ),
                     ),

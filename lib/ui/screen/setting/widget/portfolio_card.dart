@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:xrp_monitor/ui/screen/profile/widget/portfolio_input.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
+import 'package:xrp_monitor/ui/screen/setting/widget/portfolio_input.dart';
 
 class PortfolioCard extends StatelessWidget {
   const PortfolioCard({
@@ -24,11 +25,11 @@ class PortfolioCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(24.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: CommonColors.white,
         borderRadius: BorderRadius.circular(12.0.w),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: CommonColors.mainBlack.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -44,7 +45,7 @@ class PortfolioCard extends StatelessWidget {
               Text(
                 'XRP Portfolio',
                 style: TextStyle(
-                  fontSize: 20.sp,
+                  fontSize: 20.w,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xFF2D3748),
                 ),

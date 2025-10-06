@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:xrp_monitor/constants/app_bar_title.dart';
 
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final AppBarTitle title;
   final VoidCallback? onBackPressed;
   final List<Widget>? actions;
 
@@ -20,9 +21,9 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       surfaceTintColor: CommonColors.white,
       centerTitle: true,
       title: Text(
-        title,
+        title.title,
         style: TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16.w,
           color: CommonColors.mainBlack,
           fontWeight: FontWeight.w600,
         ),
