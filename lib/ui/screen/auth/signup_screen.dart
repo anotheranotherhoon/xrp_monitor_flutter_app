@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,15 +15,20 @@ import 'package:xrp_monitor/widgets/auth/auth_text_field.dart';
 import 'package:xrp_monitor/widgets/auth/auth_button.dart';
 import 'package:xrp_monitor/widgets/auth/auth_link.dart';
 import 'package:xrp_monitor/utils/validators.dart';
+import 'package:xrp_monitor/constants/strings.dart';
+import 'package:xrp_monitor/widgets/base/widget_controller.dart';
+
+part 'signup_screen.controller.dart';
 
 @RoutePage()
-class SignUpScreen extends HookConsumerWidget {
+class SignupScreen extends HookConsumerWidget {
 
 
-  const SignUpScreen({super.key});
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final SignupScreenController controller = useWidgetController(() => SignupScreenController(ref: ref), context);
     final formKey = useMemoized(() => GlobalKey<FormState>(), []);
     final emailController = useTextEditingController();
     final nicknameController = useTextEditingController();
@@ -46,14 +50,14 @@ class SignUpScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 40.w),
-                const AuthHeader(subtitle: '새 계정을 만들어보세요'),
+                const AuthHeader(subtitle: AppStrings.signupSubtitle),
                 SizedBox(height: 40.w),
 
                 // Email Field
                 AuthTextField(
                   controller: emailController,
-                  labelText: '이메일',
-                  hintText: 'example@email.com',
+                  labelText: AppStrings.email,
+                  hintText: AppStrings.emailPlaceholder,
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                   validator: Validators.emailValidator,
@@ -64,8 +68,8 @@ class SignUpScreen extends HookConsumerWidget {
                 // Nickname Field
                 AuthTextField(
                   controller: nicknameController,
-                  labelText: '닉네임',
-                  hintText: '사용할 닉네임을 입력하세요',
+                  labelText: AppStrings.nickname,
+                  hintText: AppStrings.nicknamePlaceholder,
                   prefixIcon: Icons.person_outline,
                   validator: Validators.nicknameValidator,
                 ),
@@ -75,8 +79,8 @@ class SignUpScreen extends HookConsumerWidget {
                 // Password Field
                 AuthTextField(
                   controller: passwordController,
-                  labelText: '비밀번호',
-                  hintText: '비밀번호를 입력하세요',
+                  labelText: AppStrings.password,
+                  hintText: AppStrings.passwordPlaceholder,
                   prefixIcon: Icons.lock_outline,
                   obscureText: true,
                   validator: Validators.passwordValidator,
@@ -87,8 +91,8 @@ class SignUpScreen extends HookConsumerWidget {
                 // Confirm Password Field
                 AuthTextField(
                   controller: confirmPasswordController,
-                  labelText: '비밀번호 확인',
-                  hintText: '비밀번호를 다시 입력하세요',
+                  labelText: AppStrings.passwordConfirm,
+                  hintText: AppStrings.passwordConfirmPlaceholder,
                   prefixIcon: Icons.lock_outline,
                   obscureText: true,
                   validator: (value) => Validators.confirmPasswordValidator(value, passwordController.text),
@@ -97,43 +101,17 @@ class SignUpScreen extends HookConsumerWidget {
                 SizedBox(height: 16.w),
 
                 AuthButton(
-                  text: '회원가입',
+                  text: AppStrings.signup,
                   isLoading: isLoading.value,
                   onPressed: () async {
                     if (formKey.currentState?.validate() ?? false) {
-                      isLoading.value = true;
-                      try {
-                        final request = SignUpRequest(
-                          email: emailController.text,
-                          nickname: nicknameController.text,
-                          password: passwordController.text,
-                        );
-                        final ResponseModel<bool> result = await ref.read(authenticationProvider.notifier).signUp(request);
-                        if (result.success) {
-                          Fluttertoast.showToast(
-                            msg: '회원가입 성공!',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                          );
-                          if (context.mounted) {
-                            context.router.replaceAll([const TabsRootRoute()]);
-                          }
-                        } else {
-                          Fluttertoast.showToast(
-                            msg: '회원가입에 실패했습니다',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                          );
-                        }
-                      } catch (e) {
-                        Fluttertoast.showToast(
-                          msg: '오류가 발생했습니다: $e',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                        );
-                      } finally {
-                        isLoading.value = false;
-                      }
+                      await controller.signUp(
+                        context: context,
+                        email: emailController.text,
+                        nickname: nicknameController.text,
+                        password: passwordController.text,
+                        isLoading: isLoading,
+                      );
                     }
                   },
                 ),
@@ -142,8 +120,8 @@ class SignUpScreen extends HookConsumerWidget {
 
                 // Login Link
                 AuthLink(
-                  questionText: '이미 계정이 있으신가요?',
-                  linkText: '로그인',
+                  questionText: AppStrings.hasAccountQuestion,
+                  linkText: AppStrings.login,
                   onTap: () {
                     context.router.pop();
                   },

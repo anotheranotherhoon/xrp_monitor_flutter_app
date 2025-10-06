@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,6 +14,10 @@ import 'package:xrp_monitor/widgets/auth/auth_text_field.dart';
 import 'package:xrp_monitor/widgets/auth/auth_button.dart';
 import 'package:xrp_monitor/widgets/auth/auth_link.dart';
 import 'package:xrp_monitor/utils/validators.dart';
+import 'package:xrp_monitor/constants/strings.dart';
+import 'package:xrp_monitor/widgets/base/widget_controller.dart';
+
+part 'login_screen.controller.dart';
 
 @RoutePage()
 class LoginScreen extends HookConsumerWidget {
@@ -22,6 +25,7 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final LoginScreenController controller = useWidgetController(() => LoginScreenController(ref: ref), context);
     final formKey = useMemoized(() => GlobalKey<FormState>(), []);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
@@ -42,14 +46,14 @@ class LoginScreen extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                 SizedBox(height: 20.w),
-                const AuthHeader(subtitle: '계정에 로그인하세요'),
+                const AuthHeader(subtitle: AppStrings.loginSubtitle),
                 SizedBox(height: 20.w),
 
                 // Email Field
                 AuthTextField(
                   controller: emailController,
-                  labelText: '이메일',
-                  hintText: 'example@email.com',
+                  labelText: AppStrings.email,
+                  hintText: AppStrings.emailPlaceholder,
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                   validator: Validators.emailValidator,
@@ -60,8 +64,8 @@ class LoginScreen extends HookConsumerWidget {
                 // Password Field
                 AuthTextField(
                   controller: passwordController,
-                  labelText: '비밀번호',
-                  hintText: '비밀번호를 입력하세요',
+                  labelText: AppStrings.password,
+                  hintText: AppStrings.passwordPlaceholder,
                   prefixIcon: Icons.lock_outline,
                   obscureText: !isPasswordVisible.value,
                   suffixIcon: IconButton(
@@ -83,42 +87,16 @@ class LoginScreen extends HookConsumerWidget {
 
                 // 로그인 버튼
                 AuthButton(
-                  text: '로그인',
+                  text: AppStrings.login,
                   isLoading: isLoading.value,
                   onPressed: () async {
                     if (formKey.currentState?.validate() ?? false) {
-                      isLoading.value = true;
-                      try {
-                        final request = LoginRequest(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                        final result = await ref.read(authenticationProvider.notifier).login(request);
-                        if (result.success) {
-                          Fluttertoast.showToast(
-                            msg: '로그인 성공!',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                          );
-                          if (context.mounted) {
-                            context.router.replaceAll([const TabsRootRoute()]);
-                          }
-                        } else {
-                          Fluttertoast.showToast(
-                            msg: '로그인에 실패했습니다',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                          );
-                        }
-                      } catch (e) {
-                        Fluttertoast.showToast(
-                          msg: '오류가 발생했습니다: $e',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                        );
-                      } finally {
-                        isLoading.value = false;
-                      }
+                      await controller.login(
+                        context: context,
+                        email: emailController.text,
+                        password: passwordController.text,
+                        isLoading: isLoading,
+                      );
                     }
                   },
                 ),
@@ -132,10 +110,10 @@ class LoginScreen extends HookConsumerWidget {
 
                 // Sign Up Link
                 AuthLink(
-                  questionText: '계정이 없으신가요?',
-                  linkText: '회원가입',
+                  questionText: AppStrings.noAccountQuestion,
+                  linkText: AppStrings.signup,
                   onTap: () {
-                    context.router.push(const SignUpRoute());
+                    context.router.push(const SignupRoute());
                   },
                 ),
                 ],

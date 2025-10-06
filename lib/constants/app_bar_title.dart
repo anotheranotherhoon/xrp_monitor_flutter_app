@@ -3,7 +3,7 @@ enum AppBarTitle {
   news('NEWS'),
   tweet('TWEET'),
   youtube('YOUTUBE'),
-  profile('PROFILE'),
+  setting('SETTING'),
   signUp('회원가입'),
   signIn('로그인');
 

@@ -50,7 +50,7 @@ class SettingScreen extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: CommonColors.grey300,
-      appBar: DefaultAppBar(title: AppBarTitle.profile),
+      appBar: DefaultAppBar(title: AppBarTitle.setting),
       body: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
