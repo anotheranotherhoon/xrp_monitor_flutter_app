@@ -22,15 +22,23 @@ class DefaultBottomBar extends HookConsumerWidget {
         type: BottomNavigationBarType.fixed,
         selectedIconTheme: IconThemeData(
             size: 30.w,
-            color: CommonColors.black
+            color: CommonColors.mainBlack
         ),
         unselectedIconTheme: IconThemeData(
             size: 24.w,
-            color: CommonColors.black
+            color: CommonColors.mainBlack
         ), // 비선택 아이콘 크기
-        selectedItemColor: CommonColors.black,      // 라벨 색상
-        unselectedItemColor: CommonColors.black,
+        selectedItemColor: CommonColors.mainNavy,      // 라벨 색상
+        unselectedItemColor: CommonColors.mainNavy,
         currentIndex: tabRouter.activeIndex,
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w700, // ✅ 활성 탭 글씨 굵게
+          fontSize: 12.w,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600, // ✅ 비활성 탭은 일반 굵기
+          fontSize: 12.w,
+        ),
         onTap: (index){
           tabRouter.setActiveIndex(index);
         },
@@ -63,10 +71,10 @@ class DefaultBottomBar extends HookConsumerWidget {
               label: 'NEWS'
           ),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.user,
+              icon: FaIcon(FontAwesomeIcons.gear,
                   color: color(tabRouter.activeIndex == 4), // ✅ 3번 탭이면 활성
                   size: 20.w),
-              label: 'PROFILE'
+              label: 'SETTING'
           ),
 
         ]

@@ -7,6 +7,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:xrp_monitor/service/authentication/authentication.dart';
 import 'package:xrp_monitor/service/authentication/models/login_request.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 
 @RoutePage()
 class LoginScreen extends HookConsumerWidget {
@@ -56,7 +57,7 @@ class LoginScreen extends HookConsumerWidget {
               Text(
                 'XRP Monitor',
                 style: TextStyle(
-                  fontSize: 32.sp,
+                  fontSize: 32.w,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
                 ),
@@ -66,8 +67,8 @@ class LoginScreen extends HookConsumerWidget {
               Text(
                 '계정에 로그인하세요',
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.grey[600],
+                  fontSize: 16.w,
+                  color: CommonColors.grey600,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -136,7 +137,7 @@ class LoginScreen extends HookConsumerWidget {
                   child: Text(
                     '비밀번호를 잊으셨나요?',
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 14.w,
                       color: Theme.of(context).primaryColor,
                     ),
                   ),
@@ -152,7 +153,7 @@ class LoginScreen extends HookConsumerWidget {
                 width: double.infinity,
                 height: 60.0, // 고정 픽셀값
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: CommonColors.mainRed,
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Material(
@@ -198,7 +199,7 @@ class LoginScreen extends HookConsumerWidget {
                     child: Center(
                       child: isLoading.value
                           ? CircularProgressIndicator(
-                              color: Colors.white,
+                              color: CommonColors.white,
                               strokeWidth: 2,
                             )
                           : Text(
@@ -206,7 +207,7 @@ class LoginScreen extends HookConsumerWidget {
                               style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: CommonColors.white,
                               ),
                             ),
                     ),
@@ -219,18 +220,18 @@ class LoginScreen extends HookConsumerWidget {
               // Divider
               Row(
                 children: [
-                  Expanded(child: Divider(color: Colors.grey[300])),
+                  Expanded(child: Divider(color: CommonColors.grey300)),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: Text(
                       '또는',
                       style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.grey[600],
+                        fontSize: 14.w,
+                        color: CommonColors.grey600,
                       ),
                     ),
                   ),
-                  Expanded(child: Divider(color: Colors.grey[300])),
+                  Expanded(child: Divider(color: CommonColors.grey300)),
                 ],
               ),
               
@@ -243,8 +244,8 @@ class LoginScreen extends HookConsumerWidget {
                   Text(
                     '계정이 없으신가요? ',
                     style: TextStyle(
-                      fontSize: 14.sp,
-                      color: Colors.grey[600],
+                      fontSize: 14.w,
+                      color: CommonColors.grey600,
                     ),
                   ),
                   GestureDetector(
@@ -254,7 +255,7 @@ class LoginScreen extends HookConsumerWidget {
                     child: Text(
                       '회원가입',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 14.w,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
                       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/core/services/news/models/news_model.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/utils/url_utils.dart';
 
 class NewsCard extends StatelessWidget {
@@ -41,7 +42,7 @@ class NewsCard extends StatelessWidget {
                 style: {
                   "*": Style(
                     fontSize: FontSize(14.w),
-                    color: Colors.grey[600],
+                    color: CommonColors.grey600,
                     maxLines: 3,
                     textOverflow: TextOverflow.ellipsis,
                   ),
@@ -53,14 +54,14 @@ class NewsCard extends StatelessWidget {
                   Icon(
                     Icons.access_time,
                     size: 16.w,
-                    color: Colors.grey[600],
+                    color: CommonColors.grey600,
                   ),
                   SizedBox(width: 4.w),
                   Text(
                     news.createdAt,
                     style: TextStyle(
                       fontSize: 12.w,
-                      color: Colors.grey[600],
+                      color: CommonColors.grey600,
                     ),
                   ),
                 ],
