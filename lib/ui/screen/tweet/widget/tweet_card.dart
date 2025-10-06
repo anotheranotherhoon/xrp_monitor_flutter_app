@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:xrp_monitor/core/services/tweet/models/tweet_model.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 
@@ -15,12 +16,16 @@ class TweetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
+        color: CommonColors.grey300,
+        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
+        elevation: 2,
+        shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.w),
       ),
-      child: Padding(
+      child: InkWell(
+        onTap: () => _openTweet(),
+        borderRadius: BorderRadius.circular(12.w),
+        child: Padding(
         padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +93,41 @@ class TweetCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
+  }
+
+  Future<void> _openTweet() async {
+    if (tweet.id.isEmpty) return;
+    
+    // X(트위터) 앱 URL 스키마들 시도
+    final List<String> appUrls = [
+      'twitter://status?id=${tweet.id}',  // 기존 트위터
+      'x://status?id=${tweet.id}',        // 새로운 X 앱
+    ];
+    // 웹 URL (앱이 없는 경우)
+    final String webUrl = 'https://twitter.com/i/web/status/${tweet.id}';
+    
+    try {
+      // 앱 URL들을 순서대로 시도
+      for (String appUrl in appUrls) {
+        final uri = Uri.parse(appUrl);
+        if (await canLaunchUrl(uri)) {
+          final success = await launchUrl(
+            uri,
+            mode: LaunchMode.externalApplication,
+          );
+          if (success) return; // 성공하면 종료
+        }
+      }
+      
+      // 모든 앱 URL이 실패한 경우 웹으로 열기
+      await launchUrl(
+        Uri.parse(webUrl),
+        mode: LaunchMode.externalApplication,
+      );
+    } catch (e) {
+      debugPrint('트위터 열기 실패: $e');
+    }
   }
 
   String _formatDate(String dateStr) {
