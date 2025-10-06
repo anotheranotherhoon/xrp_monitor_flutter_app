@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/setting/widget/portfolio_input.dart';
 
@@ -52,35 +53,34 @@ class PortfolioCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 32.h),
-
-          // XRP 보유량
-          PortfolioInput(
-            label: 'XRP Holdings',
-            textController: quantityController,
-            hint: '0.00',
-            validator: quantityValidator,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            suffix: 'XRP',
-          ),
-
-          SizedBox(height: 10.w),
-
+          SizedBox(height: 32.w),
           // 평균 매수가
           PortfolioInput(
-            label: 'Average Price',
+            label: AppStrings.xrpAveragePrice,
             textController: averagePriceController,
             hint: '0.00',
             validator: averagePriceValidator,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            suffix: 'USD',
+            suffix: AppStrings.krwUnit,
           ),
+
+          SizedBox(height: 10.w),
+          // XRP 보유량
+          PortfolioInput(
+            label: AppStrings.xrpHoldings,
+            textController: quantityController,
+            hint: '0.00',
+            validator: quantityValidator,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            suffix: AppStrings.xrtUnit,
+          ),
+
           SizedBox(height: 10.w),
           // 메모
           PortfolioInput(
-            label: 'Memo',
+            label: AppStrings.xrpMemo,
             textController: memoController,
-            hint: 'Investment notes...',
+            hint: AppStrings.memoPlaceholder,
             maxLines: 3,
           ),
           SizedBox(height: 32.h),

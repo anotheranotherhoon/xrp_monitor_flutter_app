@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/youtube/view_models/youtube_view_model.dart';
 import 'package:xrp_monitor/ui/screen/youtube/models/youtube_state.dart';
@@ -12,6 +13,7 @@ import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
 import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
 
 part 'youtube_screen.controller.dart';
 
@@ -75,7 +77,7 @@ class YoutubeScreen extends HookConsumerWidget {
                             ),
                             SizedBox(width: 8.w),
                             Text(
-                              'Loading more videos...',
+                              AppStrings.ytLazyLoad,
                               style: TextStyle(color: CommonColors.white),
                             ),
                           ],
@@ -87,9 +89,7 @@ class YoutubeScreen extends HookConsumerWidget {
             );
           }
         },
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        loading: () => const LoadingScreen(),
         error: (error, stackTrace) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
