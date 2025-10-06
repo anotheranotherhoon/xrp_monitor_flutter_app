@@ -10,6 +10,25 @@ class LoginScreenController extends ConsumerWidgetController<LoginScreen> {
 
   }
 
+  /// 키보드 높이를 고려한 토스트 위치 결정
+  ToastGravity _getToastGravity(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    // 키보드가 올라와 있으면 (높이 100 이상) CENTER로, 아니면 BOTTOM으로
+    return bottomInset > 100 ? ToastGravity.CENTER : ToastGravity.BOTTOM;
+  }
+
+  /// 키보드 상태를 고려한 안전한 토스트 표시
+  void _showSafeToast(BuildContext context, String message, {bool isSuccess = false}) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: _getToastGravity(context),
+      backgroundColor: isSuccess ? Colors.green.shade700 : Colors.red.shade700,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
   Future<void> login({
     required BuildContext context,
     required String email,
@@ -27,34 +46,15 @@ class LoginScreenController extends ConsumerWidgetController<LoginScreen> {
       final result = await ref.read(authenticationProvider.notifier).login(request);
       
       if (result.success) {
-        Fluttertoast.showToast(
-          msg: AppStrings.loginSuccess,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.black87,
-          textColor: Colors.white,
-        );
-        
+        // 로그인 성공시 토스트 없이 바로 화면 전환 (화면 전환 자체가 성공 피드백)
         if (context.mounted) {
           context.router.replaceAll([const TabsRootRoute()]);
         }
       } else {
-        Fluttertoast.showToast(
-          msg: AppStrings.loginFailure,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.black87,
-          textColor: Colors.white,
-        );
+        _showSafeToast(context, AppStrings.loginFailure);
       }
     } catch (e) {
-      Fluttertoast.showToast(
-        msg: AppStrings.errorWithDetails(e.toString()),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black87,
-        textColor: Colors.white,
-      );
+      _showSafeToast(context, AppStrings.errorWithDetails(e.toString()));
     } finally {
       isLoading.value = false;
     }
