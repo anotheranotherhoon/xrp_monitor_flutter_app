@@ -59,6 +59,8 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                       onPressed: onConfirm,
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 12.w),
+                        backgroundColor: CommonColors.mainNavy,
+                        foregroundColor: CommonColors.white,
                       ),
                       child: Text(
                         confirmText ?? '완료',
@@ -76,7 +78,8 @@ class VerticalTwoButtonDialog extends StatelessWidget {
                       onPressed: onCancel,
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 12.w),
-                        backgroundColor: Colors.grey.shade400, // 취소 버튼 색상 예시
+                        backgroundColor: CommonColors.grey400,
+                        foregroundColor: CommonColors.white,
                       ),
                       child: Text(
                         cancelText ?? '취소',

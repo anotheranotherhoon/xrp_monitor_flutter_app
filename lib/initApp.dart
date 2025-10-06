@@ -28,7 +28,6 @@ class InitApp {
           break;
       }
     }
-    print(response.result);
     return response;
   }
 

@@ -12,7 +12,6 @@ import 'package:xrp_monitor/ui/themes/default_theme.dart';
 import 'package:xrp_monitor/ui/utils/size_unit.dart';
 import 'core/common/version_error.dart';
 import 'core/route/app_router.dart';
-import 'core/services/base/api_constants.dart';
 
 
 void main() async{
@@ -21,8 +20,7 @@ void main() async{
   await LocalStorageService.instance.init();
   Widget app;
   ResponseModel<VersionModel> checkVersionResult = await InitApp.checkVersion();
-  if(checkVersionResult.result!.appStatus == 1){
-
+  if(checkVersionResult.result!.appStatus != 1){
     app = VersionError(type: checkVersionResult.result!.appStatus );
   }else{
     app = const MyApp();
