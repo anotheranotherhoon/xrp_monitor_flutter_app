@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 @RoutePage()
@@ -33,13 +35,13 @@ class YoutubePlayerScreen extends HookConsumerWidget {
     }, [videoId]);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: CommonColors.mainBlack,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: CommonColors.mainBlack,
+        iconTheme: IconThemeData(color: CommonColors.white),
         title: Text(
           title ?? 'YouTube Player',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: CommonColors.white),
         ),
         actions: [
           IconButton(
@@ -61,7 +63,7 @@ class YoutubePlayerScreen extends HookConsumerWidget {
           ),
           Expanded(
             child: Container(
-              color: Colors.white,
+              color: CommonColors.white,
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +144,7 @@ class _FullScreenPlayer extends HookConsumerWidget {
     }, [videoId]);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: CommonColors.mainBlack,
       body: SafeArea(
         child: Stack(
           children: [
@@ -156,10 +158,10 @@ class _FullScreenPlayer extends HookConsumerWidget {
               top: 16,
               left: 16,
               child: IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.close,
-                  color: Colors.white,
-                  size: 32,
+                  color: CommonColors.white,
+                  size: 32.w,
                 ),
                 onPressed: () {
                   Navigator.pop(context);

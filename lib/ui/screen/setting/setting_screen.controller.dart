@@ -1,8 +1,8 @@
-part of 'profile_screen.dart';
+part of 'setting_screen.dart';
 
 
-class ProfileScreenController extends ConsumerWidgetController<ProfileScreen> {
-  ProfileScreenController({required super.ref});
+class SettingScreenController extends ConsumerWidgetController<SettingScreen> {
+  SettingScreenController({required super.ref});
 
 
   final _lock = SyncLock();
@@ -23,7 +23,7 @@ class ProfileScreenController extends ConsumerWidgetController<ProfileScreen> {
             content: Text(
               '로그아웃 하시겠습니까?',
               style: TextStyle(
-                  fontSize: 20.sp, fontWeight: FontWeight.w700, color: CommonColors.black),
+                  fontSize: 20.w, fontWeight: FontWeight.w700, color: CommonColors.mainBlack),
               textAlign: TextAlign.center,
             ),
             onConfirm: (){

@@ -1,55 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:xrp_monitor/core/services/tweet/models/tweet_model.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 
 class TweetCard extends StatelessWidget {
   final Tweet tweet;
 
   const TweetCard({
-    Key? key,
+    super.key,
     required this.tweet,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.w),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                const CircleAvatar(
-                  radius: 20,
+                CircleAvatar(
+                  radius: 20.w,
                   backgroundColor: Colors.blue,
                   child: Icon(
                     Icons.person,
-                    color: Colors.white,
+                    color: CommonColors.white,
                   ),
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         '@${tweet.authorId}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 16.w,
                         ),
                       ),
                       Text(
                         _formatDate(tweet.createdAt),
                         style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
+                          color: CommonColors.grey600,
+                          fontSize: 12.w,
                         ),
                       ),
                     ],
@@ -57,27 +59,27 @@ class TweetCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.w),
             Text(
               tweet.text,
-              style: const TextStyle(
-                fontSize: 14,
-                height: 1.4,
+              style: TextStyle(
+                fontSize: 14.w,
+                height: 1.4.w,
               ),
             ),
             if (tweet.lang.isNotEmpty) ...[
-              const SizedBox(height: 8),
+              SizedBox(height: 8.w),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.w),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
+                  color: CommonColors.grey200,
+                  borderRadius: BorderRadius.circular(8.w),
                 ),
                 child: Text(
                   tweet.lang.toUpperCase(),
                   style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.grey[600],
+                    fontSize: 10.w,
+                    color: CommonColors.grey600,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

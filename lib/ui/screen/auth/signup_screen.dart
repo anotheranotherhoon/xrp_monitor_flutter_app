@@ -7,6 +7,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:xrp_monitor/service/authentication/authentication.dart';
 import 'package:xrp_monitor/service/authentication/models/signup_request.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 
 @RoutePage()
 class SignUpScreen extends HookConsumerWidget {
@@ -89,7 +90,7 @@ class SignUpScreen extends HookConsumerWidget {
               Text(
                 'XRP Monitor',
                 style: TextStyle(
-                  fontSize: 32.sp,
+                  fontSize: 32.w,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
                 ),
@@ -99,8 +100,8 @@ class SignUpScreen extends HookConsumerWidget {
               Text(
                 '새 계정을 만들어보세요',
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.grey[600],
+                  fontSize: 16.w,
+                  color: CommonColors.grey600,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -217,7 +218,7 @@ class SignUpScreen extends HookConsumerWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor,
-                    foregroundColor: Colors.white,
+                    foregroundColor: CommonColors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.r),
                     ),
@@ -227,14 +228,14 @@ class SignUpScreen extends HookConsumerWidget {
                           height: 20.h,
                           width: 20.h,
                           child: CircularProgressIndicator(
-                            color: Colors.white,
+                            color: CommonColors.white,
                             strokeWidth: 2,
                           ),
                         )
                       : Text(
                           '회원가입',
                           style: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 16.w,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -250,8 +251,8 @@ class SignUpScreen extends HookConsumerWidget {
                   Text(
                     '이미 계정이 있으신가요? ',
                     style: TextStyle(
-                      fontSize: 14.sp,
-                      color: Colors.grey[600],
+                      fontSize: 14.w,
+                      color: CommonColors.grey600,
                     ),
                   ),
                   GestureDetector(
@@ -261,7 +262,7 @@ class SignUpScreen extends HookConsumerWidget {
                     child: Text(
                       '로그인',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 14.w,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
                       ),

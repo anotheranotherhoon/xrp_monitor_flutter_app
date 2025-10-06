@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/youtube/view_models/youtube_view_model.dart';
 import 'package:xrp_monitor/ui/screen/youtube/models/youtube_state.dart';
 import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
 import 'package:xrp_monitor/ui/screen/youtube/widget/youtube_card.dart';
 import 'package:xrp_monitor/ui/utils/sync_lock.dart';
 import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
+import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -21,7 +24,7 @@ class YoutubeScreen extends HookConsumerWidget {
     
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: DefaultAppBar(title: 'YOUTUBE'),
+      appBar: DefaultAppBar(title: AppBarTitle.youtube),
       body: ref.watch(youtubeViewModelProvider).when(
         data: (YoutubeState youtubeState){
           if(youtubeState.item.isEmpty){
@@ -54,26 +57,26 @@ class YoutubeScreen extends HookConsumerWidget {
                     right: 0,
                     child: Center(
                       child: Container(
-                        padding: const EdgeInsets.all(12),
+                        padding: EdgeInsets.all(12.w),
                         decoration: BoxDecoration(
-                          color: Colors.black54,
-                          borderRadius: BorderRadius.circular(8),
+                          color: CommonColors.black,
+                          borderRadius: BorderRadius.circular(8.w),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                              width: 20,
-                              height: 20,
+                              width: 20.w,
+                              height: 20.w,
                               child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                strokeWidth: 2.w,
+                                valueColor: AlwaysStoppedAnimation<Color>(CommonColors.white),
                               ),
                             ),
-                            SizedBox(width: 8),
+                            SizedBox(width: 8.w),
                             Text(
                               'Loading more videos...',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: CommonColors.white),
                             ),
                           ],
                         ),
@@ -91,15 +94,15 @@ class YoutubeScreen extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 Icons.error,
-                size: 64,
-                color: Colors.red,
+                size: 64.w,
+                color: CommonColors.mainRed,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.w),
               Text(
                 '비디오를 불러오는 중 오류가 발생했습니다.',
-                style: const TextStyle(color: Colors.red),
+                style: TextStyle(color: CommonColors.mainRed),
                 textAlign: TextAlign.center,
               ),
             ],

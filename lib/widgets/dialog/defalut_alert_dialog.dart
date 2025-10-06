@@ -24,7 +24,7 @@ class DefaultAlertDialog extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       shadowColor: Colors.transparent,
-      backgroundColor: CommonColors.black,
+      backgroundColor: CommonColors.mainBlack,
       insetPadding: EdgeInsets.all(20.w),
       titlePadding: EdgeInsets.fromLTRB(20.w, 20.w, 20.w, 16.w),
       contentPadding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 0),
@@ -32,11 +32,11 @@ class DefaultAlertDialog extends StatelessWidget {
       title: Text(
         title,
         textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.white),
+        style: TextStyle(fontSize: 18.w, fontWeight: FontWeight.w600, color: CommonColors.white),
       ),
       contentTextStyle: TextStyle(
-        fontSize: 14.sp,
-        color: Colors.white70,
+        fontSize: 14.w,
+        color: CommonColors.white,
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
