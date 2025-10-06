@@ -36,19 +36,6 @@ class VerifyCertParams {
   Map<String, dynamic> toJson() => _$VerifyCertParamsToJson(this);
 }
 
-@freezed
-abstract class SignUpResult with _$SignUpResult {
-  const factory SignUpResult({
-    @JsonKey(name: 'meIdx') @Default(-1) int meIdx,
-    @JsonKey(name: 'rewardReceiveInfo', fromJson: RewardReceiveInfo.fromJson) required RewardReceiveInfo rewardReceiveInfo,
-    @JsonKey(name: 'jwtTokenResponse', fromJson: JwtTokenResponse.fromJson) required JwtTokenResponse jwtTokenResponse,
-
-  }) = _SignUpResult;
-
-  const SignUpResult._();
-
-  factory SignUpResult.fromJson(Map<String, dynamic> json) => _$SignUpResultFromJson(json);
-}
 
 @freezed
 abstract class RewardReceiveInfo with _$RewardReceiveInfo {

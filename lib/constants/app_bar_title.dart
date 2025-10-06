@@ -3,7 +3,9 @@ enum AppBarTitle {
   news('NEWS'),
   tweet('TWEET'),
   youtube('YOUTUBE'),
-  profile('PROFILE');
+  profile('PROFILE'),
+  signUp('회원가입'),
+  signIn('로그인');
 
   const AppBarTitle(this.title);
 

@@ -3,9 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 
 final ThemeData defaultTheme = ThemeData(
+  primaryColor: CommonColors.mainBlue,  // ✅ 여기서 선택
+  secondaryHeaderColor: CommonColors.subBlue,
+  scaffoldBackgroundColor: CommonColors.white,
   fontFamily: 'PretendardJP',
-  splashColor: Color(0xFF00A5DF).withOpacity(0.2),      // 터치 시 물결 색상
-  highlightColor: Color(0xFF00A5DF).withOpacity(0.1),   // 눌렀을 때 배경 음영
+  splashColor: Color(0xFF00A5DF).withOpacity(0.2),
+  highlightColor: Color(0xFF00A5DF).withOpacity(0.1),
   appBarTheme: AppBarTheme(
     toolbarHeight: 44.w,
     elevation: 0,
@@ -17,8 +20,6 @@ final ThemeData defaultTheme = ThemeData(
     bodyMedium: TextStyle(fontSize: 14.w, color: CommonColors.mainBlack),
     labelSmall: TextStyle(fontSize: 12.w, color: CommonColors.mainBlack),
   ),
-
-  scaffoldBackgroundColor: CommonColors.white,
 
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
