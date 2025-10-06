@@ -2,27 +2,47 @@ import '../services/base/api_constants.dart';
 
 enum ServerType {
   dev,
+  beta,
   prod,
 }
 
 class ApiPath {
+
+
+  static const String devDomain = 'http://192.168.219.103:3000';
+  static const String betaDomain = 'http://192.168.219.103:3000';
+  static const String prodDomain = 'http://192.168.219.103:3000';
+
+  static String _devDomain = 'http://192.168.219.103:3000';
+  static String _betaDomain = 'http://192.168.219.103:3000';
+  static String _prodDomain = 'http://192.168.219.103:3000';
+
+  static String devWsUrl = 'ws://192.168.219.103:3000';
+  static String betaWsUrl = 'ws://192.168.219.103:3000';
+  static String prodWsUrl = 'ws://192.168.219.103:3000';
+
+
   static ServerType currentServer = ServerType.dev;
 
   static String get apiDomain {
     switch (currentServer) {
       case ServerType.prod:
-        return ApiConstants.apiDomain;
+        return ApiPath.prodDomain;
+      case ServerType.beta:
+        return ApiPath.betaDomain;
       case ServerType.dev:
-        return ApiConstants.apiDomain;
+        return ApiPath.devDomain;
     }
   }
 
   static String get wsDomain {
     switch (currentServer) {
       case ServerType.prod:
-        return ApiConstants.wsDomain;
+        return ApiPath.prodWsUrl;
+      case ServerType.beta:
+        return ApiPath.betaWsUrl;
       case ServerType.dev:
-        return ApiConstants.wsDomain;
+        return ApiPath.devWsUrl;
     }
   }
   static String get apiUrl {

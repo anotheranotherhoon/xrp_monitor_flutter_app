@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:xrp_monitor/core/constants/api_path.dart';
 import 'package:xrp_monitor/core/route/app_router.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,7 +44,7 @@ class AuthInterceptor extends Interceptor {
     if (err.response?.statusCode == 401) {
       final String? refreshToken = ref.read(authenticationProvider).value?.refreshToken?.token;
       if(refreshToken != null){
-        final Dio refreshDio = Dio(BaseOptions(baseUrl: ApiConstants.apiUrl));
+        final Dio refreshDio = Dio(BaseOptions(baseUrl: ApiPath.apiDomain));
         final Response<dynamic> response = await refreshDio.post(
           'auth//refresh',
           data: {'refreshToken': refreshToken},
@@ -59,7 +60,7 @@ class AuthInterceptor extends Interceptor {
 
           final originalRequest = err.requestOptions;
           final retryDio = Dio(BaseOptions(
-            baseUrl: ApiConstants.apiUrl,
+            baseUrl: ApiPath.apiDomain,
             headers: {...originalRequest.headers},
           ));
 

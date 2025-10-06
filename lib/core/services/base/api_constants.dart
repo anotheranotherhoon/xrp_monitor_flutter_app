@@ -1,122 +1,111 @@
-import 'dart:io';
-
-class ApiConstants {
-  static const aos = "ANDROID";
-  static const ios = "IOS";
-
-  static const String devDomain = 'http://192.168.219.103:3000';
-  static const String betaDomain = 'http://192.168.219.103:3000';
-  static const String prodDomain = 'http://192.168.219.103:3000';
-
-  static String _devDomain = 'http://192.168.219.103:3000';
-  static String _betaDomain = 'http://192.168.219.103:3000';
-  static String _prodDomain = 'http://192.168.219.103:3000';
-
-  static String _devWsUrl = 'ws://192.168.219.103:3000';
-  static String _betaWsUrl = 'ws://192.168.219.103:3000';
-  static String _prodWsUrl = 'ws://192.168.219.103:3000';
-
-  // static const String devDomain = 'http://192.168.219.103:3000/11';
-  // static const String betaDomain = 'http://192.168.219.103:3000/11';
-  // static const String prodDomain = 'http://192.168.219.103:3000/11';
-  //
-  // static String _devDomain = 'http://192.168.219.103:3000/11';
-  // static String _betaDomain = 'http://192.168.219.103:3000/11';
-  // static String _prodDomain = 'http://192.168.219.103:3000/11';
-
-  static const _devImageDomain = '';
-  static const _betaImageDomain = '';
-  static const _prodImageDomain = '';
-
-  static const _aosGoogleApiKey = '';
-  static const _iosGoogleApiKey = '';
-
-
-
-  static var isDev = true;
-  static var isBeta = false;
-
-  static String get apiDomain {
-    if (isDev) {
-      return _devDomain;
-    }
-    if (isBeta) {
-      return _betaDomain;
-    }
-    return _prodDomain;
-  }
-
-  static String get wsDomain {
-    if (isDev) {
-      return _devWsUrl;
-    }
-    if (isBeta) {
-      return _betaWsUrl;
-    }
-    return _prodWsUrl;
-  }
-
-  static String get apiUrl {
-    String url = apiDomain;
-    url += '/api/';
-    return url;
-  }
-
-  static String get imageDomain {
-    if (isDev) {
-      return _devImageDomain;
-    }
-    if (isBeta) {
-      return _betaImageDomain;
-    }
-    return _prodImageDomain;
-  }
-
-  static String get geoApiKey {
-    if(Platform.isIOS){
-      return _iosGoogleApiKey;
-    }else if(Platform.isAndroid){
-      return _aosGoogleApiKey;
-    }else {
-      return '';
-    }
-  }
-
-
-  static String checkVersionApi = '';
-
-  static setCheckVersionApi() {
-    if (isDev) {
-      checkVersionApi = '$devDomain/api/';
-    }else if (isBeta) {
-      checkVersionApi = '$betaDomain/api/';
-    } else {
-      checkVersionApi = '$_prodDomain/api/';
-    }
-  }
-
-  static setIsDomain(domain) {
-    if (isDev) {
-      _devDomain = domain;
-    }else if (isDev) {
-      _betaDomain = domain;
-    } else {
-      _prodDomain = domain;
-    }
-  }
-
-  static setIsDev(api) {
-    if (_devDomain == api) {
-      isDev = true;
-      isBeta = false;
-    }else if (_betaDomain == api) {
-      isDev = false;
-      isBeta = true;
-    } else if (_prodDomain == api) {
-      isDev = false;
-      isBeta = false;
-    }
-  }
-
-
-}
+// import 'dart:io';
+//
+// class ApiConstants {
+//   static const aos = "ANDROID";
+//   static const ios = "IOS";
+//
+//
+//   // static const String devDomain = 'http://192.168.219.103:3000/11';
+//   // static const String betaDomain = 'http://192.168.219.103:3000/11';
+//   // static const String prodDomain = 'http://192.168.219.103:3000/11';
+//   //
+//   // static String _devDomain = 'http://192.168.219.103:3000/11';
+//   // static String _betaDomain = 'http://192.168.219.103:3000/11';
+//   // static String _prodDomain = 'http://192.168.219.103:3000/11';
+//
+//   static const _devImageDomain = '';
+//   static const _betaImageDomain = '';
+//   static const _prodImageDomain = '';
+//
+//   static const _aosGoogleApiKey = '';
+//   static const _iosGoogleApiKey = '';
+//
+//
+//
+//   static var isDev = true;
+//   static var isBeta = false;
+//
+//   static String get apiDomain {
+//     if (isDev) {
+//       return _devDomain;
+//     }
+//     if (isBeta) {
+//       return _betaDomain;
+//     }
+//     return _prodDomain;
+//   }
+//
+//   static String get wsDomain {
+//     if (isDev) {
+//       return _devWsUrl;
+//     }
+//     if (isBeta) {
+//       return _betaWsUrl;
+//     }
+//     return _prodWsUrl;
+//   }
+//
+//   static String get apiUrl {
+//     String url = apiDomain;
+//     url += '/api/';
+//     return url;
+//   }
+//
+//   static String get imageDomain {
+//     if (isDev) {
+//       return _devImageDomain;
+//     }
+//     if (isBeta) {
+//       return _betaImageDomain;
+//     }
+//     return _prodImageDomain;
+//   }
+//
+//   static String get geoApiKey {
+//     if(Platform.isIOS){
+//       return _iosGoogleApiKey;
+//     }else if(Platform.isAndroid){
+//       return _aosGoogleApiKey;
+//     }else {
+//       return '';
+//     }
+//   }
+//
+//
+//   static String checkVersionApi = '';
+//
+//   static setCheckVersionApi() {
+//     if (isDev) {
+//       checkVersionApi = '$devDomain/api/';
+//     }else if (isBeta) {
+//       checkVersionApi = '$betaDomain/api/';
+//     } else {
+//       checkVersionApi = '$_prodDomain/api/';
+//     }
+//   }
+//
+//   static setIsDomain(domain) {
+//     if (isDev) {
+//       _devDomain = domain;
+//     }else if (isDev) {
+//       _betaDomain = domain;
+//     } else {
+//       _prodDomain = domain;
+//     }
+//   }
+//
+//   static setIsDev(api) {
+//     if (_devDomain == api) {
+//       isDev = true;
+//       isBeta = false;
+//     }else if (_betaDomain == api) {
+//       isDev = false;
+//       isBeta = true;
+//     } else if (_prodDomain == api) {
+//       isDev = false;
+//       isBeta = false;
+//     }
+//   }
+//
+//
+// }
