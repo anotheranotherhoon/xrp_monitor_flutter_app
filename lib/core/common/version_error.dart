@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/core/models/common/response_model.dart';
 import 'package:xrp_monitor/core/models/common/version_model.dart';
 import 'package:xrp_monitor/initApp.dart';
@@ -90,27 +91,27 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
           children: [
             if (type == 2)
               VerticalTwoButtonDialog(
-                title: '업데이트 안내',
+                title: AppStrings.updateStatus,
                 content: Text(
-                  '최신버전의 앱이 존재합니다.\n업데이트를 진행하시겠습니까?',
+                  AppStrings.updateTextStatus,
                   style: TextStyle(fontSize: 20.w, fontWeight: FontWeight.w400, color: CommonColors.mainBlack),
                   textAlign: TextAlign.center,
                 ),
                 onConfirm: () => openStore(),
-                confirmText: '확인',
+                confirmText: AppStrings.confirm,
                 onCancel: () {
                   runApp(const ProviderScope(child: MyApp()));
                 },
               ),
             if (type == 3)
               VerticalTwoButtonDialog(
-                title: '시스템 점검',
+                title: AppStrings.systemStatus,
                 content: Text(
-                  '보다 안정적인 서비스를 위한 시스템 점검중입니다.\n일시적으로 모든 서비스 이용이 제한되오니 양해 부탁드립니다.',
+                  AppStrings.systemTextStatus,
                   style: TextStyle(fontSize: 20.w, fontWeight: FontWeight.w400, color: CommonColors.mainBlack),
                   textAlign: TextAlign.center,
                 ),
-                confirmText: '확인',
+                confirmText: AppStrings.confirm,
                 onConfirm:
                     () => {
                   if (Platform.isIOS) {exit(0)} else {SystemNavigator.pop()},
@@ -119,13 +120,13 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
               ),
             if (!(type == 2 || type == 3 || type == 4))
               VerticalTwoButtonDialog(
-                title: '시스템 점검',
+                title: AppStrings.systemStatus,
                 content: Text(
-                  '보다 안정적인 서비스를 위한 시스템 점검중입니다.\n일시적으로 모든 서비스 이용이 제한되오니 양해 부탁드립니다.',
+                  AppStrings.systemTextStatus,
                   style: TextStyle(fontSize: 20.w, fontWeight: FontWeight.w400, color: CommonColors.mainBlack),
                   textAlign: TextAlign.center,
                 ),
-                confirmText: '확인',
+                confirmText: AppStrings.confirm,
                 onConfirm:
                     () => {
                   if (Platform.isIOS) {exit(0)} else {SystemNavigator.pop()},

@@ -19,7 +19,7 @@ class ApiService extends _$ApiService {
     _dio.interceptors.add(AuthInterceptor(ref: ref));
   }
 
-  String _makePathParamater({
+  String _makePathParameter({
     required String url,
     required Map<String, dynamic>? params,
   }) {
@@ -49,7 +49,7 @@ class ApiService extends _$ApiService {
     Map<String, dynamic>? params,
     isTokenLess = false,
   }) async {
-    late final requestUrlString = _makePathParamater(url: url, params: params);
+    late final requestUrlString = _makePathParameter(url: url, params: params);
     final token = LocalStorageService.instance.getAccessToken();
     try {
       final response = await _dio.get<Map<String, dynamic>>(

@@ -88,8 +88,16 @@ class AppStrings {
   //lazyload
   static const String newsLazyLoad = '뉴스 불러오는 중...';
   static const String ytLazyLoad = '유튜브 정보 불러오는 중...';
+  static const String tweetLazyLoad = 'x 불러오는 중...';
 
   static const String tweetEmpty = '트윗을 찾을 수 없습니다.';
+
+  //version_error
+
+  static const String systemStatus = '시스템 점검';
+  static const String updateStatus = '업데이트 안내';
+  static const String updateTextStatus = '최신버전의 앱이 존재합니다.\n업데이트를 진행하시겠습니까?';
+  static const String systemTextStatus = '보다 안정적인 서비스를 위한 시스템 점검중입니다.\n일시적으로 모든 서비스 이용이 제한되오니 양해 부탁드립니다.';
 
 
   // Validation Length Messages
