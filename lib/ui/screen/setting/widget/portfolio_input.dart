@@ -79,27 +79,27 @@ class PortfolioInput extends StatelessWidget {
               fillColor: const Color(0xFFF7FAFC),
               isDense: false, // 밀도를 낮춰서 여백 확보
               contentPadding: maxLines > 1
-                  ? EdgeInsets.symmetric(horizontal: 20.w, vertical: 32.h) // 다중라인: 훨씬 큰 여백
-                  : EdgeInsets.symmetric(horizontal: 20.w, vertical: 22.h), // 단일라인: 충분한 여백
+                  ? EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w) // 다중라인: 훨씬 큰 여백
+                  : EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w), // 단일라인: 충분한 여백
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0.w), // 직접 픽셀값
-                borderSide: const BorderSide(color: Color(0xFFE2E8F0), width: 1.5),
+                borderSide: BorderSide(color: Color(0xFFE2E8F0), width: 1.5.w),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0.w),
-                borderSide: const BorderSide(color: Color(0xFFE2E8F0), width: 1.5),
+                borderSide:BorderSide(color: Color(0xFFE2E8F0), width: 1.5.w),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0.w),
-                borderSide: BorderSide(color: CommonColors.mainNavy, width: 2),
+                borderSide: BorderSide(color: CommonColors.mainNavy, width: 2.w),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0.w),
-                borderSide: BorderSide(color: CommonColors.mainRed, width: 2),
+                borderSide: BorderSide(color: CommonColors.mainRed, width: 2.w),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0.w),
-                borderSide: BorderSide(color: CommonColors.mainRed, width: 2),
+                borderSide: BorderSide(color: CommonColors.mainRed, width: 2.w),
               ),
             ),
           ),

@@ -55,7 +55,6 @@ class SettingScreenController extends ConsumerWidgetController<SettingScreen> {
             averagePrice: averagePrice,
             memo: memo
         );
-        
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

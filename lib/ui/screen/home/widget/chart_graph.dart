@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/home/models/chart_data.dart';
+import 'package:xrp_monitor/utils/formatter.dart';
 
 class ChartGraph extends StatelessWidget {
   const ChartGraph({
@@ -41,15 +42,19 @@ class ChartGraph extends StatelessWidget {
         )
             : LineChart(
           LineChartData(
+            minY: chartData.prices.reduce((min, price) => price < min ? price : min) * 0.9999,
+            maxY: chartData.prices.reduce((max, price) => price > max ? price : max) * 1.0001,
             gridData: FlGridData(show: true),
             titlesData: FlTitlesData(
               leftTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
                   reservedSize: 60,
+                  interval: (chartData.prices.reduce((max, price) => price > max ? price : max) - 
+                           chartData.prices.reduce((min, price) => price < min ? price : min)) / 4,
                   getTitlesWidget: (value, meta) {
                     return Text(
-                      value.toStringAsFixed(0),
+                      Formatter.formatWithCommaAndDecimal(value, 1),
                       style: TextStyle(fontSize: 10.0.w),
                     );
                   },
@@ -59,6 +64,7 @@ class ChartGraph extends StatelessWidget {
                 sideTitles: SideTitles(
                   showTitles: true,
                   reservedSize: 30,
+                  interval: chartData.times.length > 5 ? chartData.times.length / 5 : 1,
                   getTitlesWidget: (value, meta) {
                     if (value.toInt() >= 0 &&
                         value.toInt() < chartData.times.length) {
