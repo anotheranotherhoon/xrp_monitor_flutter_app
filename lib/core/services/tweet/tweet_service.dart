@@ -29,7 +29,6 @@ class TweetService extends _$TweetService {
           data.add(Tweet.fromJson(item));
         }
 
-        print(data);
 
         return ResponseModel<List<Tweet>>(
             success: true,

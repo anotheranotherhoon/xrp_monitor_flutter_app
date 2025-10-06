@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:xrp_monitor/core/services/base/api_constants.dart';
-import 'package:xrp_monitor/core/services/check_version/check_version.dart';
+import 'package:xrp_monitor/core/models/common/response_model.dart';
+import 'package:xrp_monitor/core/models/common/version_model.dart';
+import 'package:xrp_monitor/initApp.dart';
 import 'package:xrp_monitor/main.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/widgets/dialog/vertical_two_button_dialog.dart';
@@ -21,8 +22,8 @@ class VersionError extends ConsumerStatefulWidget {
 }
 
 class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBindingObserver {
-  String appleStoreUrl = 'https://itunes.apple.com/app/id6747378362?mt=8';
-  String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.cubalto.justreetapp';
+  String appleStoreUrl = '';
+  String playStoreUrl = '';
   late int type;
   bool isLoader = false;
 
@@ -59,13 +60,12 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
   }
 
   checkVersion() async {
-    var checkVersionData = await CheckVersionService().runCheckVersion();
-    if (checkVersionData != null && checkVersionData.type == 1) {
-      ApiConstants.setIsDev(checkVersionData.apiDomain);
+    ResponseModel<VersionModel> checkVersionResult = await InitApp.checkVersion();
+    if (checkVersionResult.result!.appStatus == 1) {
       runApp(const ProviderScope(child: MyApp()));
     } else {
       setState(() {
-        type = checkVersionData!.type;
+        type = checkVersionResult.result!.appStatus;
       });
     }
   }
@@ -82,9 +82,10 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: CommonColors.white,
-      body: Column(
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: CommonColors.white,
+        body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // VerticalTwoButtonDialog(title: "제목", content: Text("text $type"), onConfirm: ()=>{}, onCancel: ()=>{})
@@ -134,7 +135,7 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
               title: '시스템 점검',
               content: Text(
                 '보다 안정적인 서비스를 위한 시스템 점검중입니다.\n일시적으로 모든 서비스 이용이 제한되오니 양해 부탁드립니다.',
-                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w400, color: CommonColors.mainBlack),
+                style: TextStyle(fontSize: 20.w, fontWeight: FontWeight.w400, color: CommonColors.mainBlack),
                 textAlign: TextAlign.center,
               ),
               confirmText: '확인',
@@ -145,6 +146,7 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
               onCancel: () {},
             ),
         ],
+      ),
       ),
     );
   }
