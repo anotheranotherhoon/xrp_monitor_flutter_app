@@ -56,7 +56,7 @@ class TweetScreen extends HookConsumerWidget {
                       child: Container(
                         padding: EdgeInsets.all(12.w),
                         decoration: BoxDecoration(
-                          color: CommonColors.black,
+                          color: CommonColors.mainBlack,
                           borderRadius: BorderRadius.circular(8.w),
                         ),
                         child: Row(
