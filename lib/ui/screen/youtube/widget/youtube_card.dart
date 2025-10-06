@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
+import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/youtube/widget/youtube_player_modal.dart';
 import 'package:xrp_monitor/ui/utils/youtube_utils.dart';
 
@@ -34,7 +35,7 @@ class YoutubeCard extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
-                        color: Colors.grey[300],
+                        color: CommonColors.grey300,
                         child: Icon(
                           Icons.play_circle_outline,
                           size: 64.w,
@@ -69,7 +70,7 @@ class YoutubeCard extends StatelessWidget {
                       video.channelName,
                       style: TextStyle(
                         fontSize: 14.w,
-                        color: Colors.grey[600],
+                        color: CommonColors.grey600,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -80,7 +81,7 @@ class YoutubeCard extends StatelessWidget {
                     style: {
                       "*": Style(
                         fontSize: FontSize(12),
-                        color: Colors.grey[600],
+                        color: CommonColors.grey600,
                         maxLines: 2,
                         textOverflow: TextOverflow.ellipsis,
                       ),
@@ -92,21 +93,21 @@ class YoutubeCard extends StatelessWidget {
                       Icon(
                         Icons.access_time,
                         size: 16.w,
-                        color: Colors.grey[600],
+                        color: CommonColors.grey600,
                       ),
                       SizedBox(width: 4.w),
                       Text(
                         video.createdAt,
                         style: TextStyle(
                           fontSize: 12.w,
-                          color: Colors.grey[600],
+                          color: CommonColors.grey600,
                         ),
                       ),
                       const Spacer(),
                       Icon(
                         Icons.play_circle_outline,
                         size: 20.w,
-                        color: Colors.red[600],
+                        color: CommonColors.mainRed,
                       ),
                     ],
                   ),

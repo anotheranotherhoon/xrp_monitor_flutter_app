@@ -1,12 +1,10 @@
-import 'package:intl/intl.dart';
 import 'package:xrp_monitor/core/constants/api_path.dart';
 import 'package:xrp_monitor/core/models/api/api_response.dart';
 import 'package:xrp_monitor/core/models/common/response_exception.dart';
 import 'package:xrp_monitor/core/models/common/response_model.dart';
 import 'package:xrp_monitor/core/services/base/api_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:xrp_monitor/core/services/news/models/news_model.dart';
-import 'package:xrp_monitor/ui/screen/profile/models/portfolio_model.dart';
+import 'package:xrp_monitor/ui/screen/setting/models/portfolio_model.dart';
 
 part 'portfolio_service.g.dart';
 
