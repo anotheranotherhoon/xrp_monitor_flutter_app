@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/tweet/view_models/tweet_view_model.dart';
@@ -23,7 +24,8 @@ class TweetScreen extends HookConsumerWidget {
   
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    
+    final TweetScreenController controller = useWidgetController(() => TweetScreenController(ref: ref), context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(title: AppBarTitle.tweet),
@@ -36,18 +38,21 @@ class TweetScreen extends HookConsumerWidget {
           } else {
             return Stack(
               children: [
-                CustomScrollView(
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final Tweet tweet = tweetState.item[index];
-                          return TweetCard(tweet: tweet);
-                        },
-                        childCount: tweetState.item.length,
+                LazyLoadScrollView(
+                  onEndOfPage: () => controller._loadMoreTweet(),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            final Tweet tweet = tweetState.item[index];
+                            return TweetCard(tweet: tweet);
+                          },
+                          childCount: tweetState.item.length,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 if (tweetState.isFetching)
                   Positioned(
@@ -74,7 +79,7 @@ class TweetScreen extends HookConsumerWidget {
                             ),
                             SizedBox(width: 8.w),
                             Text(
-                              'Loading more tweets...',
+                              AppStrings.tweetLazyLoad,
                               style: TextStyle(color: CommonColors.white),
                             ),
                           ],

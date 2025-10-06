@@ -14,6 +14,12 @@ class TweetScreenController extends ConsumerWidgetController<TweetScreen> {
     super.build(context);
   }
 
+  Future<void> _loadMoreTweet () async{
+    await _lock.protect(() async {
+      await ref.read(tweetViewModelProvider.notifier).getNextTweet();
+    });
+  }
+
 }
 
 
