@@ -54,19 +54,6 @@ class PortfolioCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 32.w),
-
-          // XRP 보유량
-          PortfolioInput(
-            label: AppStrings.xrpHoldings,
-            textController: quantityController,
-            hint: '0.00',
-            validator: quantityValidator,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            suffix: 'XRP',
-          ),
-
-          SizedBox(height: 10.w),
-
           // 평균 매수가
           PortfolioInput(
             label: AppStrings.xrpAveragePrice,
@@ -74,14 +61,26 @@ class PortfolioCard extends StatelessWidget {
             hint: '0.00',
             validator: averagePriceValidator,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            suffix: 'USD',
+            suffix: AppStrings.krwUnit,
           ),
+
+          SizedBox(height: 10.w),
+          // XRP 보유량
+          PortfolioInput(
+            label: AppStrings.xrpHoldings,
+            textController: quantityController,
+            hint: '0.00',
+            validator: quantityValidator,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            suffix: AppStrings.xrtUnit,
+          ),
+
           SizedBox(height: 10.w),
           // 메모
           PortfolioInput(
             label: AppStrings.xrpMemo,
             textController: memoController,
-            hint: 'Investment notes...',
+            hint: AppStrings.memoPlaceholder,
             maxLines: 3,
           ),
           SizedBox(height: 32.h),

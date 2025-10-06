@@ -71,7 +71,7 @@ class ChartCurrentPriceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '평균매수가',
+                  AppStrings.xrpAveragePrice,
                   style: TextStyle(
                     fontSize: 14.w,
                     color: Colors.grey.shade600,
@@ -93,7 +93,7 @@ class ChartCurrentPriceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '보유량',
+                  AppStrings.xrpHoldings,
                   style: TextStyle(
                     fontSize: 14.w,
                     color: Colors.grey.shade600,
@@ -115,7 +115,7 @@ class ChartCurrentPriceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '평가손익',
+                  AppStrings.valuationGainLoss,
                   style: TextStyle(
                     fontSize: 14.w,
                     color: Colors.grey.shade600,
@@ -138,7 +138,7 @@ class ChartCurrentPriceCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '수익률',
+                  AppStrings.roi,
                   style: TextStyle(
                     fontSize: 14.w,
                     color: Colors.grey.shade600,

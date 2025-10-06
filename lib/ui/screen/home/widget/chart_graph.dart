@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/home/models/chart_data.dart';
 import 'package:xrp_monitor/utils/formatter.dart';
+import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
 
 class ChartGraph extends StatelessWidget {
   const ChartGraph({
@@ -34,7 +35,7 @@ class ChartGraph extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(),
+              const LoadingIndicator(),
               SizedBox(height: 16.w),
               Text('차트 데이터 로딩 중...'),
             ],
@@ -42,8 +43,8 @@ class ChartGraph extends StatelessWidget {
         )
             : LineChart(
           LineChartData(
-            minY: chartData.prices.reduce((min, price) => price < min ? price : min) * 0.9999,
-            maxY: chartData.prices.reduce((max, price) => price > max ? price : max) * 1.0001,
+            minY: chartData.prices.reduce((min, price) => price < min ? price : min) * 0.999,
+            maxY: chartData.prices.reduce((max, price) => price > max ? price : max) * 1.001,
             gridData: FlGridData(show: true),
             titlesData: FlTitlesData(
               leftTitles: AxisTitles(
@@ -51,7 +52,7 @@ class ChartGraph extends StatelessWidget {
                   showTitles: true,
                   reservedSize: 60,
                   interval: (chartData.prices.reduce((max, price) => price > max ? price : max) - 
-                           chartData.prices.reduce((min, price) => price < min ? price : min)) / 4,
+                           chartData.prices.reduce((min, price) => price < min ? price : min)) / 3,
                   getTitlesWidget: (value, meta) {
                     return Text(
                       Formatter.formatWithCommaAndDecimal(value, 1),

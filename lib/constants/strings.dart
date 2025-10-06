@@ -69,11 +69,29 @@ class AppStrings {
   static const String xrpAveragePrice = '평균 매수가';
   static const String xrpMemo = '메모';
 
+  static const String memoPlaceholder = '메모';
+
+
 
   // webSocket Connect
   static const String webSocketConnecting = '웹소켓 연결 중...';
   static const String webSocketConnectingError = '연결 오류가 발생했습니다.';
-  
+
+  //
+  static const String valuationGainLoss = '평가손익';
+  static const String roi = '수익률';
+
+  //Unit
+  static const String krwUnit = 'KRW';
+  static const String xrtUnit = 'XRP';
+
+  //lazyload
+  static const String newsLazyLoad = '뉴스 불러오는 중...';
+  static const String ytLazyLoad = '유튜브 정보 불러오는 중...';
+
+  static const String tweetEmpty = '트윗을 찾을 수 없습니다.';
+
+
   // Validation Length Messages
   static String nicknameTooShort(int min) => '닉네임은 $min자 이상이어야 합니다';
   static String nicknameTooLong(int max) => '닉네임은 $max자 이하여야 합니다';
