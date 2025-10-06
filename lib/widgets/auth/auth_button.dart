@@ -20,7 +20,7 @@ class AuthButton extends StatelessWidget {
       width: double.infinity,
       height: 60.0.w,
       decoration: BoxDecoration(
-        color: CommonColors.mainRed,
+        color: CommonColors.mainNavy,
         borderRadius: BorderRadius.circular(12.0.w),
       ),
       child: Material(
