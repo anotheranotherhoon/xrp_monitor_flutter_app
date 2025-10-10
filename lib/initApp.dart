@@ -34,7 +34,11 @@ class InitApp {
 
   static Future<ResponseModel<VersionModel>> _fetchVersion() async {
     try {
-      final response = await dio.Dio().get<Map<String, dynamic>>(
+      final response = await dio.Dio(dio.BaseOptions(
+        connectTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(seconds: 30),
+        sendTimeout: const Duration(seconds: 30),
+      )).get<Map<String, dynamic>>(
         '${ApiPath.apiUrl}version/check',
         queryParameters: {
           'currentVersion': Platform.isIOS ? iosVersion : androidVersion,
