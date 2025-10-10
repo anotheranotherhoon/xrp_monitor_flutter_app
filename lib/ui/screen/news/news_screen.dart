@@ -15,6 +15,7 @@ import 'package:xrp_monitor/ui/utils/sync_lock.dart';
 import 'package:xrp_monitor/ui/utils/url_utils.dart';
 import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
 import 'package:xrp_monitor/constants/app_bar_title.dart';
+import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
@@ -31,7 +32,40 @@ class NewsScreen extends HookConsumerWidget {
     final NewsScreenController controller = useWidgetController(() => NewsScreenController(ref: ref), context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: DefaultAppBar(title: AppBarTitle.news),
+      appBar: DefaultAppBar(
+        title: AppBarTitle.news,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.analytics_outlined),
+            onPressed: () {
+              // 현재 로드된 뉴스 데이터 가져오기
+              final newsAsync = ref.read(newsViewModelProvider);
+              newsAsync.when(
+                data: (newsState) {
+                  if (newsState.item.isNotEmpty) {
+                    context.router.root.push(NewsAnalysisRoute(newsData: newsState.item));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('분석할 뉴스가 없습니다')),
+                    );
+                  }
+                },
+                loading: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('뉴스를 로드 중입니다...')),
+                  );
+                },
+                error: (error, stack) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('뉴스 로드 실패: $error')),
+                  );
+                },
+              );
+            },
+            tooltip: '뉴스 분석 데모',
+          ),
+        ],
+      ),
       body: ref.watch(newsViewModelProvider).when(
         data: (NewsState newsState){
           if(newsState.item.isEmpty){

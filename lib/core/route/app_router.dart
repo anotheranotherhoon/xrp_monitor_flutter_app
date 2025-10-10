@@ -67,6 +67,7 @@ class AppRouter extends RootStackRouter {
           page: NewsRoute.page,
           path: 'news',
         ),
+        // 뉴스 분석 데모
         // XRP 관련 트위터
         AutoRoute(
           page: TwitterRoute.page,
@@ -83,6 +84,12 @@ class AppRouter extends RootStackRouter {
           path: 'setting',
         ),
       ],
+    ),
+    
+    // 독립적인 화면들 (탭 밖)
+    AutoRoute(
+      page: NewsAnalysisRoute.page,
+      path: '/news-analysis',
     ),
   ];
 }
