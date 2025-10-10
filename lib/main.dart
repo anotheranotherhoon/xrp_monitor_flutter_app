@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/initApp.dart';
 import 'package:xrp_monitor/service/storage/local_storage_service.dart';
+import 'package:xrp_monitor/service/storage/secure_storage_service.dart';
 import 'package:xrp_monitor/service/native_service.dart';
 import 'package:xrp_monitor/ui/themes/default_theme.dart';
 import 'package:xrp_monitor/ui/utils/size_unit.dart';

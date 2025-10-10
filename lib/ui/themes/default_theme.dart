@@ -7,8 +7,8 @@ final ThemeData defaultTheme = ThemeData(
   secondaryHeaderColor: CommonColors.subBlue,
   scaffoldBackgroundColor: CommonColors.white,
   fontFamily: 'PretendardJP',
-  splashColor: Color(0xFF00A5DF).withOpacity(0.2),
-  highlightColor: Color(0xFF00A5DF).withOpacity(0.1),
+  splashColor: Color(0xFF00A5DF).withValues(alpha:0.2),
+  highlightColor: Color(0xFF00A5DF).withValues(alpha:0.1),
   appBarTheme: AppBarTheme(
     toolbarHeight: 44.w,
     elevation: 0,

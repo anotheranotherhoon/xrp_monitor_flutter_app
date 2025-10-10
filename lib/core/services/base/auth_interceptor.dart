@@ -6,7 +6,7 @@ import 'package:xrp_monitor/core/route/app_router.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:xrp_monitor/service/authentication/authentication.dart';
-import 'package:xrp_monitor/service/storage/local_storage_service.dart';
+import 'package:xrp_monitor/service/storage/secure_storage_service.dart';
 
 
 class AuthInterceptor extends Interceptor {
@@ -47,8 +47,8 @@ class AuthInterceptor extends Interceptor {
           final String newAccessToken = response.data['result']['data']['accessToken'];
           final String newRefreshToken = response.data['result']['data']['refreshToken'];
 
-          await LocalStorageService.instance.setUserToken(newAccessToken);
-          await LocalStorageService.instance.setUserRefreshToken(newRefreshToken);
+          await SecureStorageService.instance.setUserToken(newAccessToken);
+          await SecureStorageService.instance.setUserRefreshToken(newRefreshToken);
 
           ref.read(authenticationProvider.notifier).updateToken(newAccessToken, newRefreshToken);
 

@@ -2,7 +2,7 @@ import 'package:xrp_monitor/core/models/api/authentication/session.dart';
 import 'package:xrp_monitor/core/models/api/authentication/token.dart';
 import 'package:xrp_monitor/core/models/common/response_model.dart';
 import 'package:xrp_monitor/core/services/session/session_service.dart';
-import 'package:xrp_monitor/service/storage/local_storage_service.dart';
+import 'package:xrp_monitor/service/storage/secure_storage_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'models/signup_request.dart';
 import 'models/login_request.dart';
@@ -19,8 +19,8 @@ class Authentication extends _$Authentication {
   Future<Session?> build() async {
     instance = this;
     _sessionService = ref.watch(sessionServiceProvider.notifier);
-    final String? accessToken = LocalStorageService.instance.getAccessToken();
-    final String? refreshToken = LocalStorageService.instance.getRefreshToken();
+    final String? accessToken = await SecureStorageService.instance.getAccessToken();
+    final String? refreshToken = await SecureStorageService.instance.getRefreshToken();
     if (accessToken == null) {
       return null;
     }
@@ -42,8 +42,8 @@ class Authentication extends _$Authentication {
 
   //#region Sign in
   Future<LoginUser?> singInAfter(LoginResult data) async {
-    await LocalStorageService.instance.setUserToken(data.accessToken);
-    await LocalStorageService.instance.setUserRefreshToken(data.refreshToken);
+    await SecureStorageService.instance.setUserToken(data.accessToken);
+    await SecureStorageService.instance.setUserRefreshToken(data.refreshToken);
     late Session session;
     session = Session(
         accessToken: Token(
@@ -82,13 +82,13 @@ class Authentication extends _$Authentication {
   }
 
 
-  void removeSession() {
-    LocalStorageService.instance.removeAllToken();
+  Future<void> removeSession() async {
+    await SecureStorageService.instance.removeAllToken();
     state = const AsyncValue.data(null);
   }
 
-  void removeAccessSession() {
-    LocalStorageService.instance.removeAccessToken();
+  Future<void> removeAccessSession() async {
+    await SecureStorageService.instance.removeAccessToken();
     state = state.whenData(
           (session) => session?.copyWith(accessToken: null),
     );

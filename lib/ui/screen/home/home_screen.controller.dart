@@ -4,7 +4,6 @@ part of 'home_screen.dart';
 class HomeScreenController extends ConsumerWidgetController<HomeScreen> {
   HomeScreenController({required super.ref});
 
-  final _lock = SyncLock();
   io.Socket? socket;
   
   // StreamController로 변경

@@ -2,10 +2,11 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:xrp_monitor/core/constants/api_path.dart';
 import 'package:xrp_monitor/core/services/base/auth_interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:xrp_monitor/service/storage/local_storage_service.dart';
+import 'package:xrp_monitor/service/storage/secure_storage_service.dart';
 
 part 'api_service.g.dart';
 
@@ -16,9 +17,14 @@ class ApiService extends _$ApiService {
   @override
   void build() {
     _dio = Dio(BaseOptions(
+      baseUrl: ApiPath.apiDomain,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       sendTimeout: const Duration(seconds: 30),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
     ));
     _dio.interceptors.add(AuthInterceptor(ref: ref));
   }
@@ -54,7 +60,7 @@ class ApiService extends _$ApiService {
     isTokenLess = false,
   }) async {
     late final requestUrlString = _makePathParameter(url: url, params: params);
-    final token = LocalStorageService.instance.getAccessToken();
+    final token = await SecureStorageService.instance.getAccessToken();
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         requestUrlString,
@@ -82,7 +88,7 @@ class ApiService extends _$ApiService {
     Map<String, dynamic>? params,
   }) async {
     try {
-      final token = LocalStorageService.instance.getAccessToken();
+      final token = await SecureStorageService.instance.getAccessToken();
       final response = await _dio.post<Map<String, dynamic>>(
         url,
         data: params,
@@ -109,7 +115,7 @@ class ApiService extends _$ApiService {
     Map<String, dynamic>? params,
   }) async {
     try {
-      final token = LocalStorageService.instance.getAccessToken();
+      final token = await SecureStorageService.instance.getAccessToken();
       final response = await _dio.patch<Map<String, dynamic>>(
         url,
         data: params,
@@ -135,7 +141,7 @@ class ApiService extends _$ApiService {
     Map<String, dynamic>? params,
   }) async {
     try {
-      final token = LocalStorageService.instance.getAccessToken();
+      final token = await SecureStorageService.instance.getAccessToken();
       final response = await _dio.delete<Map<String, dynamic>>(
         url,
         data: params,
@@ -161,7 +167,7 @@ class ApiService extends _$ApiService {
     Map<String, dynamic>? params,
   }) async {
     try {
-      final token = LocalStorageService.instance.getAccessToken();
+      final token = await SecureStorageService.instance.getAccessToken();
       final response = await _dio.put<Map<String, dynamic>>(
         url,
         data: params,
