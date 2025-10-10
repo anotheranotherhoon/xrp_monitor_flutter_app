@@ -46,8 +46,8 @@ class NewsAnalysisIsolate {
         analyzedNews.add(analyzedItem);
       }
 
-      // 중요도 점수로 정렬
-      analyzedNews.sort((a, b) => b.importanceScore.compareTo(a.importanceScore));
+      // 정렬은 UI에서 사용자 선택에 따라 처리
+      // analyzedNews.sort((a, b) => b.importanceScore.compareTo(a.importanceScore));
 
       final result = NewsAnalysisResult(
         analyzedNews: analyzedNews,

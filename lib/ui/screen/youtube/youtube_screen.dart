@@ -14,6 +14,8 @@ import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
+import 'package:xrp_monitor/widgets/common/scroll_to_top_button.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'youtube_screen.controller.dart';
 
@@ -23,6 +25,7 @@ class YoutubeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final YoutubeScreenController controller = useWidgetController(() => YoutubeScreenController(ref: ref), context);
+    final scrollController = useScrollController();
     
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -39,6 +42,7 @@ class YoutubeScreen extends HookConsumerWidget {
                 LazyLoadScrollView(
                   onEndOfPage: () => controller._loadMoreVideos(),
                   child: CustomScrollView(
+                    controller: scrollController,
                     slivers: [
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -85,6 +89,11 @@ class YoutubeScreen extends HookConsumerWidget {
                       ),
                     ),
                   ),
+                // 스크롤 탑 버튼
+                ScrollToTopButton(
+                  scrollController: scrollController,
+                  heroTag: "youtube_scroll_top",
+                ),
               ],
             );
           }

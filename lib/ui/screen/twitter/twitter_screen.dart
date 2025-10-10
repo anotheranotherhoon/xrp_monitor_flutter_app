@@ -14,6 +14,8 @@ import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/widgets/base/widget_controller.dart';
 import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
+import 'package:xrp_monitor/widgets/common/scroll_to_top_button.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'twitter_screen.controller.dart';
 
@@ -25,6 +27,7 @@ class TwitterScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TwitterScreenController controller = useWidgetController(() => TwitterScreenController(ref: ref), context);
+    final scrollController = useScrollController();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -41,6 +44,7 @@ class TwitterScreen extends HookConsumerWidget {
                 LazyLoadScrollView(
                   onEndOfPage: () => controller._loadMoreTweet(),
                   child: CustomScrollView(
+                    controller: scrollController,
                     slivers: [
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -87,6 +91,11 @@ class TwitterScreen extends HookConsumerWidget {
                       ),
                     ),
                   ),
+                // 스크롤 탑 버튼
+                ScrollToTopButton(
+                  scrollController: scrollController,
+                  heroTag: "twitter_scroll_top",
+                ),
               ],
             );
           }

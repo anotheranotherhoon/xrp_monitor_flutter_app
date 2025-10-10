@@ -21,6 +21,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/widgets/loading/loading_indicator.dart';
 import 'package:xrp_monitor/widgets/dialog/defalut_alert_dialog.dart';
 import 'package:xrp_monitor/widgets/dialog/vertical_two_button_dialog.dart';
+import 'package:xrp_monitor/widgets/common/scroll_to_top_button.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 part 'news_screen.controller.dart';
 
@@ -30,6 +32,7 @@ class NewsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final NewsScreenController controller = useWidgetController(() => NewsScreenController(ref: ref), context);
+    final scrollController = useScrollController();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: DefaultAppBar(
@@ -78,6 +81,7 @@ class NewsScreen extends HookConsumerWidget {
                 LazyLoadScrollView(
                   onEndOfPage: () => controller._loadMoreNews(),
                   child: CustomScrollView(
+                    controller: scrollController,
                     slivers: [
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -124,6 +128,11 @@ class NewsScreen extends HookConsumerWidget {
                       ),
                     ),
                   ),
+                // 스크롤 탑 버튼
+                ScrollToTopButton(
+                  scrollController: scrollController,
+                  heroTag: "news_scroll_top",
+                ),
               ],
             );
           }
