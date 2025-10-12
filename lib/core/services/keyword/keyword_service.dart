@@ -27,16 +27,10 @@ class KeywordService extends _$KeywordService {
       if (response.statusCode == 200) {
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
         
-        // 디버깅: API 응답 로그
-        print('KeywordService API 응답: ${response.data}');
-        print('apiResponse.result?.data: ${apiResponse.result?.data}');
-        
         KeywordListResponse? keywordData;
         if(apiResponse.result?.data != null){
           keywordData = KeywordListResponse.fromJson(apiResponse.result!.data as Map<String, dynamic>);
-          print('키워드 데이터 파싱 성공');
         }else{
-          print('API 응답에 키워드 데이터가 없어서 빈 배열로 생성');
           keywordData = KeywordListResponse(
             positiveKeywords: [],
             negativeKeywords: [],

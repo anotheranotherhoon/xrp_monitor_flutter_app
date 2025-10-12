@@ -6,7 +6,7 @@ class Validators {
     if (value == null || value.isEmpty) {
       return AppStrings.emailRequired;
     }
-    final emailRegExp = RegExp(ValidationConstants.emailRegExp);
+    final RegExp emailRegExp = RegExp(ValidationConstants.emailRegExp);
     if (!emailRegExp.hasMatch(value)) {
       return AppStrings.emailInvalid;
     }
@@ -33,7 +33,7 @@ class Validators {
     if (value.length < ValidationConstants.minPasswordLength) {
       return AppStrings.passwordTooShort(ValidationConstants.minPasswordLength);
     }
-    final passwordRegExp = RegExp(ValidationConstants.passwordRegExp);
+    final RegExp passwordRegExp = RegExp(ValidationConstants.passwordRegExp);
     if (!passwordRegExp.hasMatch(value)) {
       return AppStrings.passwordInvalid;
     }

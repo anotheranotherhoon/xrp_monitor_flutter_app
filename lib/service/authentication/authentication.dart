@@ -24,7 +24,7 @@ class Authentication extends _$Authentication {
     if (accessToken == null) {
       return null;
     }
-    final session = Session(
+    final Session session = Session(
       accessToken: Token(
         token: accessToken,
         expiredAt: DateTime.now().add(const Duration(hours: 3)),

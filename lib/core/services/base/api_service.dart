@@ -34,9 +34,9 @@ class ApiService extends _$ApiService {
     required Map<String, dynamic>? params,
   }) {
     if (params != null) {
-      final queryString = params.entries.map((entry) {
-        final key = entry.key;
-        final value = entry.value;
+      final String queryString = params.entries.map((entry) {
+        final String key = entry.key;
+        final dynamic value = entry.value;
         if (value is List) {
           return value.map((item) => '$key[]=$item').join('&');
         } else {
@@ -60,9 +60,9 @@ class ApiService extends _$ApiService {
     isTokenLess = false,
   }) async {
     late final requestUrlString = _makePathParameter(url: url, params: params);
-    final token = await SecureStorageService.instance.getAccessToken();
+    final String? token = await SecureStorageService.instance.getAccessToken();
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
+      final Response<Map<String, dynamic>> response = await _dio.get<Map<String, dynamic>>(
         requestUrlString,
         options: Options(
           headers: {
@@ -88,8 +88,8 @@ class ApiService extends _$ApiService {
     Map<String, dynamic>? params,
   }) async {
     try {
-      final token = await SecureStorageService.instance.getAccessToken();
-      final response = await _dio.post<Map<String, dynamic>>(
+      final String? token = await SecureStorageService.instance.getAccessToken();
+      final Response<Map<String, dynamic>> response = await _dio.post<Map<String, dynamic>>(
         url,
         data: params,
         options: Options(

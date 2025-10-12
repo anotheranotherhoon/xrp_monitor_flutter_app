@@ -5,7 +5,7 @@ class SettingScreenController extends ConsumerWidgetController<SettingScreen> {
   SettingScreenController({required super.ref});
 
 
-  final _lock = SyncLock();
+  final SyncLock _lock = SyncLock();
 
   @override
   void build(BuildContext context) {

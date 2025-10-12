@@ -6,7 +6,7 @@ class NewsScreenController extends ConsumerWidgetController<NewsScreen> {
   /// 분석 화면으로 이동할 때 키워드 데이터와 함께 전달
   KeywordListResponse? get keywords => _cachedKeywords;
 
-  final _lock = SyncLock();
+  final SyncLock _lock = SyncLock();
   KeywordListResponse? _cachedKeywords;
 
   @override
@@ -16,7 +16,7 @@ class NewsScreenController extends ConsumerWidgetController<NewsScreen> {
     
     ref.listen(newsViewModelProvider, (prev, next) {
       if (!next.isLoading && next.hasError && next.error is ResponseException) {
-        final response = next.error as ResponseException;
+        final ResponseException response = next.error as ResponseException;
         showDialog<void>(
           context: context,
           builder: (context) => DefaultAlertDialog(
@@ -42,7 +42,7 @@ class NewsScreenController extends ConsumerWidgetController<NewsScreen> {
     if (_cachedKeywords != null) return; // 이미 로드된 경우 스킵
     
     try {
-      final keywordService = ref.read(keywordServiceProvider.notifier);
+      final KeywordService keywordService = ref.read(keywordServiceProvider.notifier);
       final response = await keywordService.getAllKeywords();
       
       if (response.success && response.result != null) {

@@ -6,7 +6,7 @@ class TwitterScreenController extends ConsumerWidgetController<TwitterScreen> {
   TwitterScreenController({required super.ref});
 
 
-  final _lock = SyncLock();
+  final SyncLock _lock = SyncLock();
 
   @override
   void build(BuildContext context) {

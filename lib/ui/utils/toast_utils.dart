@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ToastUtils {
   /// 키보드 높이를 고려한 토스트 위치 결정
   static ToastGravity _getToastGravity(BuildContext context) {
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final double bottomInset = MediaQuery.of(context).viewInsets.bottom;
     // 키보드가 올라와 있으면 (높이 100 이상) CENTER로, 아니면 BOTTOM으로
     return bottomInset > 100 ? ToastGravity.CENTER : ToastGravity.BOTTOM;
   }

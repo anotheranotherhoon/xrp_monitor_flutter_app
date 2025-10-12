@@ -11,23 +11,23 @@ class YoutubeUtils {
     if (url.isEmpty) return null;
 
     // youtu.be 단축 URL 처리
-    final youtuBeRegExp = RegExp(r'(?:youtu\.be\/)([a-zA-Z0-9_-]{11})');
-    final youtuBeMatch = youtuBeRegExp.firstMatch(url);
+    final RegExp youtuBeRegExp = RegExp(r'(?:youtu\.be\/)([a-zA-Z0-9_-]{11})');
+    final RegExpMatch? youtuBeMatch = youtuBeRegExp.firstMatch(url);
     if (youtuBeMatch != null) {
       return youtuBeMatch.group(1);
     }
 
     // 일반 YouTube URL 처리 (watch?v=)
-    final youtubeRegExp = RegExp(r'(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})');
-    final youtubeMatch = youtubeRegExp.firstMatch(url);
+    final RegExp youtubeRegExp = RegExp(r'(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})');
+    final RegExpMatch? youtubeMatch = youtubeRegExp.firstMatch(url);
     if (youtubeMatch != null) {
       return youtubeMatch.group(1);
     }
 
     // URL 파라미터에서 v= 찾기
-    final uri = Uri.tryParse(url);
+    final Uri? uri = Uri.tryParse(url);
     if (uri != null) {
-      final videoId = uri.queryParameters['v'];
+      final String? videoId = uri.queryParameters['v'];
       if (videoId != null && videoId.length == 11) {
         return videoId;
       }
@@ -41,7 +41,7 @@ class YoutubeUtils {
     if (videoId == null || videoId.isEmpty) return false;
     
     // YouTube video ID는 11자리이고 영문자, 숫자, _, - 만 포함
-    final regex = RegExp(r'^[a-zA-Z0-9_-]{11}$');
+    final RegExp regex = RegExp(r'^[a-zA-Z0-9_-]{11}$');
     return regex.hasMatch(videoId);
   }
 
