@@ -1,0 +1,33 @@
+// ignore_for_file: invalid_annotation_target
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'keyword_type.dart';
+
+part 'keyword_model.freezed.dart';
+part 'keyword_model.g.dart';
+
+@freezed
+abstract class Keyword with _$Keyword {
+  const factory Keyword({
+    @JsonKey(name: 'keIdx') @Default(0) int key,
+    @JsonKey(name: 'keKeyword') @Default("") String keyword,
+    @JsonKey(name: 'keWeight') @Default("") String weight,
+    @JsonKey(name: 'keType') @Default(KeywordType.IMPORTANT) KeywordType type,
+    @JsonKey(name: 'keIsActive') @Default(false) bool isActive,
+    @JsonKey(name: 'createdAt') @Default('') String createdAt,
+    @JsonKey(name: 'updatedAt') @Default('') String updatedAt,
+  }) = _Keyword;
+
+  factory Keyword.fromJson(Map<String, dynamic> json) => _$KeywordFromJson(json);
+}
+
+
+@freezed
+abstract class KeywordListResponse with _$KeywordListResponse {
+  const factory KeywordListResponse({
+    required List<Keyword> positiveKeywords,
+    required List<Keyword> negativeKeywords,
+    required List<Keyword> importantKeywords,
+  }) = _KeywordListResponse;
+
+  factory KeywordListResponse.fromJson(Map<String, dynamic> json) => _$KeywordListResponseFromJson(json);
+}

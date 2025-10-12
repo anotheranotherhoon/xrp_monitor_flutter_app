@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/core/services/news/models/analyzed_news_model.dart';
 import 'package:xrp_monitor/core/services/news/models/news_model.dart';
 import 'package:xrp_monitor/core/services/news/isolates/news_analysis_isolate.dart';
+import 'package:xrp_monitor/core/services/keyword/models/keyword_model.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/utils/url_utils.dart';
 import 'package:xrp_monitor/widgets/common/scroll_to_top_button.dart';
@@ -16,12 +17,15 @@ class NewsAnalysisScreen extends HookConsumerWidget {
   const NewsAnalysisScreen({
     super.key,
     this.newsData,
+    this.keywords,
   });
 
   final List<News>? newsData;
+  final KeywordListResponse? keywords;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final isLoading = useState(false);
     final analyzedNews = useState<List<AnalyzedNews>>([]);
     final processingTime = useState<String>('');
@@ -58,13 +62,20 @@ class NewsAnalysisScreen extends HookConsumerWidget {
 
       isLoading.value = true;
       try {
-        // 전달받은 뉴스 데이터를 Isolate에서 직접 분석
-        final analysisResult = await NewsAnalysisIsolate.analyzeNewsAsync(newsData!);
+        // 전달받은 뉴스 데이터를 키워드와 함께 Isolate에서 분석
+        final analysisResult = await NewsAnalysisIsolate.analyzeNewsAsync(
+          newsData!,
+          keywords: keywords,
+        );
         
         analyzedNews.value = analysisResult.analyzedNews;
         // 초기 로드시 정렬 적용
         filteredNews.value = sortNews(analysisResult.analyzedNews);
-        processingTime.value = '분석 완료 (${analysisResult.processingTimeMs}ms)';
+        
+        final keywordInfo = keywords != null 
+            ? ' (키워드: 긍정 ${keywords!.positiveKeywords.length}, 부정 ${keywords!.negativeKeywords.length}, 중요 ${keywords!.importantKeywords.length})'
+            : ' (기본 키워드 사용)';
+        processingTime.value = '분석 완료 (${analysisResult.processingTimeMs}ms)$keywordInfo';
         
       } catch (e) {
         if (context.mounted) {

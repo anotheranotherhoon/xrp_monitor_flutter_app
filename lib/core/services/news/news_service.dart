@@ -1,13 +1,14 @@
-import 'package:intl/intl.dart';
 import 'package:xrp_monitor/core/constants/api_path.dart';
-import 'package:xrp_monitor/core/models/api/api_response.dart';
-import 'package:xrp_monitor/core/models/common/response_exception.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
+import 'package:xrp_monitor/core/services/base/models/api_response.dart';
+import 'package:xrp_monitor/core/services/base/models/response_exception.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/base/api_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:xrp_monitor/core/services/news/models/news_model.dart';
 import 'package:xrp_monitor/core/services/news/models/analyzed_news_model.dart';
 import 'package:xrp_monitor/core/services/news/isolates/news_analysis_isolate.dart';
+import 'package:xrp_monitor/core/services/keyword/keyword_service.dart';
+import 'package:xrp_monitor/core/services/keyword/models/keyword_model.dart';
 
 part 'news_service.g.dart';
 
@@ -16,6 +17,7 @@ part 'news_service.g.dart';
 class NewsService extends _$NewsService{
 
   late final ApiService _apiService = ref.read(apiServiceProvider.notifier);
+  late final KeywordService _keywordService = ref.read(keywordServiceProvider.notifier);
 
   @override
   void build() {}
@@ -55,7 +57,7 @@ class NewsService extends _$NewsService{
     }
   }
 
-  /// 뉴스를 가져와서 Isolate에서 분석하여 반환
+  /// 뉴스를 가져와서 Isolate에서 분석하여 반환 (KeywordService 연동)
   Future<ResponseModel<List<AnalyzedNews>>> getAnalyzedNews(NewsCursorIdParams params) async {
     try {
       // 1. 먼저 원본 뉴스 데이터를 가져옴
@@ -69,15 +71,34 @@ class NewsService extends _$NewsService{
         );
       }
 
-      // 2. Isolate에서 뉴스 분석 수행
-      final NewsAnalysisResult analysisResult = await NewsAnalysisIsolate.analyzeNewsAsync(newsResponse.result!);
+      // 2. KeywordService에서 키워드 데이터 가져오기
+      KeywordListResponse? keywordData;
+      try {
+        final keywordResponse = await _keywordService.getAllKeywords();
+        if (keywordResponse.success && keywordResponse.result != null) {
+          keywordData = keywordResponse.result!;
+        }
+      } catch (e) {
+        // 키워드 조회 실패시 기본 키워드로 동작
+        print('KeywordService 조회 실패, 기본 키워드 사용: $e');
+      }
+
+      // 3. Isolate에서 뉴스 분석 수행 (키워드 데이터 전달)
+      final NewsAnalysisResult analysisResult = await NewsAnalysisIsolate.analyzeNewsAsync(
+        newsResponse.result!,
+        keywords: keywordData,
+      );
+
+      final keywordInfo = keywordData != null 
+          ? ' (키워드: 긍정 ${keywordData.positiveKeywords.length}, 부정 ${keywordData.negativeKeywords.length}, 중요 ${keywordData.importantKeywords.length})'
+          : ' (기본 키워드 사용)';
 
       return ResponseModel<List<AnalyzedNews>>(
         success: true,
         type: ResponseType.success,
         result: analysisResult.analyzedNews,
         cursorId: newsResponse.cursorId,
-        content: '분석 완료 (${analysisResult.processingTimeMs}ms)',
+        content: '분석 완료 (${analysisResult.processingTimeMs}ms)$keywordInfo',
       );
 
     } catch (err) {
