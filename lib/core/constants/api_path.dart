@@ -5,8 +5,6 @@ enum ServerType {
 }
 
 class ApiPath {
-
-
   static const String devDomain = 'http://192.168.219.100:3000';
   static const String betaDomain = 'http://192.168.219.100:3000';
   static const String prodDomain = 'http://192.168.219.100:3000';

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:xrp_monitor/core/models/common/pagination.dart';
+import 'package:xrp_monitor/core/services/base/models/pagination.dart';
 import 'package:xrp_monitor/core/services/twitter/models/twitter_model.dart';
 
 part 'twitter_state.freezed.dart';

@@ -1,6 +1,6 @@
 import 'package:xrp_monitor/service/authentication/models/auth_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:xrp_monitor/core/models/api/authentication/token.dart';
+import 'package:xrp_monitor/core/services/session/models/token.dart';
 
 
 part 'session.freezed.dart';

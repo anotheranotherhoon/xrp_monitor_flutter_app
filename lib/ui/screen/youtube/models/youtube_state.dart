@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:xrp_monitor/core/models/common/pagination.dart';
+import 'package:xrp_monitor/core/services/base/models/pagination.dart';
 import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
 
 part 'youtube_state.freezed.dart';

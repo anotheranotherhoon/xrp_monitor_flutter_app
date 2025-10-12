@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:xrp_monitor/constants/app_bar_title.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:xrp_monitor/service/authentication/authentication.dart';
 import 'package:xrp_monitor/service/authentication/models/signup_request.dart';

@@ -1,6 +1,6 @@
-import 'package:xrp_monitor/core/models/api/authentication/session.dart';
-import 'package:xrp_monitor/core/models/api/authentication/token.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
+import 'package:xrp_monitor/core/services/session/models/session.dart';
+import 'package:xrp_monitor/core/services/session/models/token.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/session/session_service.dart';
 import 'package:xrp_monitor/service/storage/secure_storage_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

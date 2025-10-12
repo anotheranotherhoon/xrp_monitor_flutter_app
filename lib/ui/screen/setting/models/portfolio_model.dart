@@ -7,11 +7,11 @@ part 'portfolio_model.freezed.dart';
 @freezed
 abstract class Portfolio with _$Portfolio {
   const factory Portfolio({
-    @JsonKey(name: 'id') @Default(0) int id,
-    @JsonKey(name: 'quantity') @Default('0') String quantity,
-    @JsonKey(name: 'averagePrice') @Default('0') String averagePrice,
-    @JsonKey(name: 'totalInvested') @Default('0') String totalInvested,
-    @JsonKey(name: 'memo') @Default('') String memo,
+    @JsonKey(name: 'hoIdx') @Default(0) int key,
+    @JsonKey(name: 'hoQuantity') @Default('0') String quantity,
+    @JsonKey(name: 'hoAveragePrice') @Default('0') String averagePrice,
+    @JsonKey(name: 'hoTotalInvested') @Default('0') String totalInvested,
+    @JsonKey(name: 'hoMemo') @Default('') String memo,
     @JsonKey(name: 'createdAt') @Default('') String createdAt,
     @JsonKey(name: 'updatedAt') @Default('') String updatedAt,
   }) = _Portfolio;
@@ -25,9 +25,9 @@ abstract class Portfolio with _$Portfolio {
 @freezed
 abstract class PortfolioRequest with _$PortfolioRequest {
   const factory PortfolioRequest({
-    @JsonKey(name: 'quantity') required double quantity,
-    @JsonKey(name: 'averagePrice') required double averagePrice,
-    @JsonKey(name: 'memo') @Default('') String memo,
+    @JsonKey(name: 'hoQuantity') required double quantity,
+    @JsonKey(name: 'hoAveragePrice') required double averagePrice,
+    @JsonKey(name: 'hoMemo') @Default('') String memo,
   }) = _PortfolioRequest;
 
   const PortfolioRequest._();

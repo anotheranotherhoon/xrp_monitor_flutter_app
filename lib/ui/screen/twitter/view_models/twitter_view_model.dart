@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/twitter/models/twitter_model.dart';
 import 'package:xrp_monitor/core/services/twitter/twitter_service.dart';
 import 'package:xrp_monitor/ui/screen/twitter/models/twitter_state.dart';

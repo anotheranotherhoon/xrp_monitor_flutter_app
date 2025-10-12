@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xrp_monitor/constants/strings.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
-import 'package:xrp_monitor/core/models/common/version_model.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
+import 'package:xrp_monitor/core/services/base/models/version_model.dart';
 import 'package:xrp_monitor/initApp.dart';
 import 'package:xrp_monitor/main.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
@@ -61,7 +61,7 @@ class _VersionErrorState extends ConsumerState<VersionError> with WidgetsBinding
   }
 
   checkVersion() async {
-    ResponseModel<VersionModel> checkVersionResult = await InitApp.checkVersion();
+    ResponseModel<Version> checkVersionResult = await InitApp.checkVersion();
     if (checkVersionResult.result!.appStatus == 1) {
       runApp(const ProviderScope(child: MyApp()));
     } else {

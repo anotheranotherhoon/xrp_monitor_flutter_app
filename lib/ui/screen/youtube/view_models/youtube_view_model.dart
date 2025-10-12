@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:xrp_monitor/constants/strings.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/youtube/models/youtube_model.dart';
 import 'package:xrp_monitor/core/services/youtube/youtube_service.dart';
 import 'package:xrp_monitor/ui/screen/youtube/models/youtube_state.dart';

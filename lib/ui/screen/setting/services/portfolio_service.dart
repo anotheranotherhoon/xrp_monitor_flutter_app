@@ -1,7 +1,7 @@
 import 'package:xrp_monitor/core/constants/api_path.dart';
-import 'package:xrp_monitor/core/models/api/api_response.dart';
-import 'package:xrp_monitor/core/models/common/response_exception.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
+import 'package:xrp_monitor/core/services/base/models/api_response.dart';
+import 'package:xrp_monitor/core/services/base/models/response_exception.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/base/api_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:xrp_monitor/ui/screen/setting/models/portfolio_model.dart';
@@ -31,7 +31,7 @@ class PortfolioService extends _$PortfolioService{
         if(apiResponse.result?.data != null){
           portfolio = Portfolio.fromJson(apiResponse.result!.data as Map<String, dynamic>);
         }else{
-          portfolio = Portfolio(id: -1, quantity: '0', averagePrice: '0', totalInvested: '0', memo: '', createdAt: '', updatedAt: '');
+          portfolio = Portfolio(key: -1, quantity: '0', averagePrice: '0', totalInvested: '0', memo: '', createdAt: '', updatedAt: '');
         }
 
         return ResponseModel<Portfolio>(
@@ -65,14 +65,11 @@ class PortfolioService extends _$PortfolioService{
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
 
         Portfolio? portfolio;
-        print('(apiResponse.result ${apiResponse.result?.data}');
         if(apiResponse.result?.data != null){
           portfolio = Portfolio.fromJson(apiResponse.result!.data as Map<String, dynamic>);
         }else{
-          portfolio = Portfolio(id: -1, quantity: '0', averagePrice: '0', totalInvested: '0', memo: '', createdAt: '', updatedAt: '');
+          portfolio = Portfolio(key: -1, quantity: '0', averagePrice: '0', totalInvested: '0', memo: '', createdAt: '', updatedAt: '');
         }
-
-        print('portfolio ${portfolio}');
 
         return ResponseModel<Portfolio>(
             success: true,

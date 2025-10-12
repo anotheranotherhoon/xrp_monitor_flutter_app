@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:xrp_monitor/core/models/common/response_model.dart';
-import 'package:xrp_monitor/core/models/common/version_model.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
+import 'package:xrp_monitor/core/services/base/models/version_model.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +21,7 @@ void main() async{
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await LocalStorageService.instance.init();
   Widget app;
-  ResponseModel<VersionModel> checkVersionResult = await InitApp.checkVersion();
+  ResponseModel<Version> checkVersionResult = await InitApp.checkVersion();
   if(checkVersionResult.result!.appStatus != 1){
     // appStatus가 1이 아닐 때 네이티브 알림 및 진동 실행
     await NativeService.showUpdateNotification(
