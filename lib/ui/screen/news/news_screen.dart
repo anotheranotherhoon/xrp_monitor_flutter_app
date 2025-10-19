@@ -6,6 +6,7 @@ import 'package:xrp_monitor/constants/strings.dart';
 import 'package:xrp_monitor/core/services/base/models/response_exception.dart';
 import 'package:xrp_monitor/core/services/keyword/keyword_service.dart';
 import 'package:xrp_monitor/core/services/keyword/models/keyword_model.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/ui/layout/common_style.dart';
 import 'package:xrp_monitor/ui/screen/news/view_models/news_view_model.dart';
 import 'package:xrp_monitor/ui/screen/news/models/news_state.dart';

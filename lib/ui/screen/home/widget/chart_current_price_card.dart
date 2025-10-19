@@ -23,8 +23,8 @@ class ChartCurrentPriceCard extends StatelessWidget {
     Color profitColor = CommonColors.grey;
     
     if (portfolio != null && currentPrice > 0) {
-      final avgPrice = double.tryParse(portfolio!.averagePrice) ?? 0;
-      final quantity = double.tryParse(portfolio!.quantity) ?? 0;
+      final double avgPrice = double.tryParse(portfolio!.averagePrice) ?? 0;
+      final double quantity = double.tryParse(portfolio!.quantity) ?? 0;
       
       if (avgPrice > 0 && quantity > 0) {
         profitLoss = (currentPrice - avgPrice) * quantity;

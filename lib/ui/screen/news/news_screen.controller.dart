@@ -43,7 +43,7 @@ class NewsScreenController extends ConsumerWidgetController<NewsScreen> {
     
     try {
       final KeywordService keywordService = ref.read(keywordServiceProvider.notifier);
-      final response = await keywordService.getAllKeywords();
+      final ResponseModel<KeywordListResponse> response = await keywordService.getAllKeywords();
       
       if (response.success && response.result != null) {
         _cachedKeywords = response.result;

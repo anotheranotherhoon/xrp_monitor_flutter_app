@@ -99,7 +99,7 @@ class Authentication extends _$Authentication {
 
   Future<ResponseModel<bool>> signUp(SignUpRequest request) async {
     try {
-      final response = await _sessionService.signUp(request);
+      final ResponseModel<bool> response = await _sessionService.signUp(request);
       if (response.success && response.result != null) {
         return ResponseModel<bool>(
           success: true,

@@ -29,11 +29,11 @@ class SignupScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final SignupScreenController controller = useWidgetController(() => SignupScreenController(ref: ref), context);
-    final formKey = useMemoized(() => GlobalKey<FormState>(), []);
-    final emailController = useTextEditingController();
-    final nicknameController = useTextEditingController();
-    final passwordController = useTextEditingController();
-    final confirmPasswordController = useTextEditingController();
+    final GlobalKey<FormState> formKey = useMemoized(() => GlobalKey<FormState>(), []);
+    final TextEditingController emailController = useTextEditingController();
+    final TextEditingController nicknameController = useTextEditingController();
+    final TextEditingController passwordController = useTextEditingController();
+    final TextEditingController confirmPasswordController = useTextEditingController();
     final isLoading = useState<bool>(false);
 
     return Scaffold(

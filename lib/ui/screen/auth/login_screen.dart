@@ -8,6 +8,8 @@ import 'package:xrp_monitor/constants/app_bar_title.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 import 'package:xrp_monitor/service/authentication/authentication.dart';
 import 'package:xrp_monitor/service/authentication/models/login_request.dart';
+import 'package:xrp_monitor/core/services/base/models/response_model.dart';
+import 'package:xrp_monitor/service/authentication/models/auth_model.dart';
 import 'package:xrp_monitor/widgets/appbar/default_app_bar.dart';
 import 'package:xrp_monitor/widgets/auth/auth_header.dart';
 import 'package:xrp_monitor/widgets/auth/auth_text_field.dart';
