@@ -5,13 +5,13 @@ enum ServerType {
 }
 
 class ApiPath {
-  static const String devDomain = 'http://192.168.219.100:3000';
-  static const String betaDomain = 'http://192.168.219.100:3000';
-  static const String prodDomain = 'http://192.168.219.100:3000';
+  static const String devDomain = 'http://192.168.219.102:3000';
+  static const String betaDomain = 'http://192.168.219.102:3000';
+  static const String prodDomain = 'http://192.168.219.102:3000';
 
-  static String devWsUrl = 'ws://192.168.219.100:3000';
-  static String betaWsUrl = 'ws://192.168.219.100:3000';
-  static String prodWsUrl = 'ws://192.168.219.100:3000';
+  static String devWsUrl = 'ws://192.168.219.102:3000';
+  static String betaWsUrl = 'ws://192.168.219.102:3000';
+  static String prodWsUrl = 'ws://192.168.219.102:3000';
 
 
   static ServerType currentServer = ServerType.dev;

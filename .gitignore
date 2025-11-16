@@ -60,3 +60,4 @@ node_modules/
 *.freezed.dart
 .env
 /ios/Podfile.lock
+CLAUDE.md

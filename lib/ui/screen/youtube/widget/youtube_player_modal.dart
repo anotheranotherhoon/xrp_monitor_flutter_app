@@ -45,6 +45,7 @@ class YoutubePlayerModal extends HookConsumerWidget {
         enableJavaScript: true,
         playsInline: true,
         strictRelatedVideos: true,
+        origin: 'https://www.youtube-nocookie.com',
       ),
     ));
 
