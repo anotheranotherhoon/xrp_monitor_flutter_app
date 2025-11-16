@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/ui/screen/setting/models/portfolio_model.dart';
@@ -19,6 +20,9 @@ class PortfolioViewModel extends _$PortfolioViewModel {
 
   Future<PortfolioState> fetchPortfolio() async {
     final ResponseModel<Portfolio> response = await _portfolioService.getPortfolio();
+    print('DEBUG : 1 ${response.result?.averagePrice}');
+    print('DEBUG : 2  ${response.result?.quantity}');
+    print('DEBUG : 3  ${response.result?.memo}');
     return PortfolioState(
         portfolio: response.result ?? null,
     );

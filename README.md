@@ -19,6 +19,9 @@ samples, guidance on mobile development, and a full API reference.
 ## 📄 요구사항 정의서
 [Google Sheets에서 보기](https://docs.google.com/spreadsheets/d/1YwO_8VIG5E_GJDIp3p9PIb81qf0KCz6gEm8AfujZwU4/edit?gid=1114121392#gid=1114121392)
 
+## 📊 시스템 아키텍처
+
+### 1. 앱 플로우 다이어그램 (App Flow Diagram)
 
 ```mermaid
 flowchart TD
@@ -67,6 +70,13 @@ flowchart TD
 
     News --> NewsAPI[News Service]
     NewsAPI --> NewsCards[News Cards Display]
+    News --> NewsAnalysis[News Analysis]
+    NewsAnalysis --> KeywordService[Keyword Service]
+    NewsAnalysis --> AnalysisIsolate[News Analysis Isolate]
+    AnalysisIsolate --> SentimentAnalysis[Sentiment Analysis]
+    AnalysisIsolate --> KeywordExtraction[Keyword Extraction]
+    AnalysisIsolate --> ImportanceScore[Importance Scoring]
+    NewsAnalysis --> AnalysisResults[Analysis Results Display]
 
     Settings --> Portfolio[Portfolio Management]
     Settings --> Profile[Profile Settings]
@@ -77,12 +87,16 @@ flowchart TD
     TwitterAPI --> TwitterService[Twitter Service]
     YouTubeAPI --> YouTubeService[YouTube Service]
     NewsAPI --> NewsService[News Service]
+    KeywordService --> NewsService
+    AnalysisIsolate --> NewsAnalysisService[News Analysis Service]
 
     %% State Management
     CandleService -.-> Riverpod[Riverpod State Management]
     TwitterService -.-> Riverpod
     YouTubeService -.-> Riverpod
     NewsService -.-> Riverpod
+    NewsAnalysisService -.-> Riverpod
+    KeywordService -.-> Riverpod
     PortfolioService -.-> Riverpod
 
     %% Storage
@@ -97,14 +111,17 @@ flowchart TD
     classDef state fill:#e8f5e8
     classDef api fill:#fff3e0
     classDef native fill:#ffecb3
+    classDef analysis fill:#f1f8e9
 
     class Login,Signup,TabsRoot,Monitor,Twitter,YouTube,News,Settings,VersionError screen
-    class TwitterAPI,YouTubeAPI,NewsAPI,CandleService,TwitterService,YouTubeService,NewsService,PortfolioService,NativeService service
+    class TwitterAPI,YouTubeAPI,NewsAPI,CandleService,TwitterService,YouTubeService,NewsService,PortfolioService,NativeService,KeywordService,NewsAnalysisService service
     class Riverpod,LocalStorage state
     class ChartData,TwitterCards,VideoCards,NewsCards api
     class VersionProcess,NativeNotification,NativeVibration,MethodChannel native
+    class NewsAnalysis,AnalysisIsolate,SentimentAnalysis,KeywordExtraction,ImportanceScore,AnalysisResults analysis
 ```
 
+### 2. 유스케이스 다이어그램 (Use Case Diagram)
 
 ```mermaid
   graph TB
@@ -115,6 +132,7 @@ flowchart TD
     NewsAPI((뉴스 API))
     TwitterAPI((트위터 API))
     YouTubeAPI((유튜브 API))
+    KeywordAPI((키워드 API))
 
 %% Authentication Use Cases
     subgraph "인증 관리"
@@ -147,6 +165,16 @@ flowchart TD
         UC15[XRP 관련 유튜브 영상 조회]
         UC16[영상 재생]
         UC17[트위터 lazy loading]
+    end
+
+%% News Analysis Use Cases
+    subgraph "뉴스 분석 (Isolate)"
+        UC24[뉴스 감성 분석]
+        UC25[뉴스 키워드 추출]
+        UC26[뉴스 중요도 점수 계산]
+        UC27[키워드 관리]
+        UC28[분석 결과 화면 표시]
+        UC29[백그라운드 분석 처리]
     end
 
 %% Settings Use Cases
@@ -183,6 +211,12 @@ flowchart TD
     User --> UC17
     User --> UC18
     User --> UC19
+    User --> UC24
+    User --> UC25
+    User --> UC26
+    User --> UC27
+    User --> UC28
+    User --> UC29
 
 %% Guest relationships
     Guest --> UC1
@@ -196,6 +230,12 @@ flowchart TD
     XRPSystem --> UC6
     XRPSystem --> UC8
     NewsAPI --> UC13
+    NewsAPI --> UC24
+    NewsAPI --> UC25
+    NewsAPI --> UC26
+    KeywordAPI --> UC27
+    KeywordAPI --> UC24
+    KeywordAPI --> UC25
     TwitterAPI --> UC14
     TwitterAPI --> UC17
     YouTubeAPI --> UC15
@@ -225,6 +265,16 @@ flowchart TD
     UC20 -.-> UC22
     UC21 -.-> UC23
     UC22 -.-> UC23
+    UC13 -.-> UC24
+    UC13 -.-> UC25
+    UC24 -.-> UC26
+    UC25 -.-> UC26
+    UC24 -.-> UC29
+    UC25 -.-> UC29
+    UC26 -.-> UC29
+    UC27 -.-> UC24
+    UC27 -.-> UC25
+    UC29 -.-> UC28
 
 %% Authentication requirements
     UC5 -.-> UC2
@@ -238,6 +288,12 @@ flowchart TD
     UC15 -.-> UC2
     UC18 -.-> UC2
     UC19 -.-> UC2
+    UC24 -.-> UC2
+    UC25 -.-> UC2
+    UC26 -.-> UC2
+    UC27 -.-> UC2
+    UC28 -.-> UC2
+    UC29 -.-> UC2
 
 %% Styling
     classDef actor fill:#e1f5fe,stroke:#01579b,stroke-width:2px
@@ -245,7 +301,7 @@ flowchart TD
     classDef system fill:#fff3e0,stroke:#e65100,stroke-width:2px
 
     class User,Guest actor
-    class XRPSystem,NewsAPI,TwitterAPI,YouTubeAPI,AndroidSystem,iOSSystem system
-    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10,UC11,UC12,UC13,UC14,UC15,UC16,UC17,UC18,UC19,UC20,UC21,UC22,UC23 usecase
+    class XRPSystem,NewsAPI,TwitterAPI,YouTubeAPI,KeywordAPI,AndroidSystem,iOSSystem system
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10,UC11,UC12,UC13,UC14,UC15,UC16,UC17,UC18,UC19,UC20,UC21,UC22,UC23,UC24,UC25,UC26,UC27,UC28,UC29 usecase
 
 ```

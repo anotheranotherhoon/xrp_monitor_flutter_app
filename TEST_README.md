@@ -174,9 +174,7 @@ void main() {
 
 4. **디바이스 의존성**: 통합 테스트는 실제 디바이스나 에뮬레이터가 필요합니다.
 
-## 🔄 CI/CD 통합
 
-GitHub Actions 등의 CI/CD 파이프라인에서 테스트를 자동화할 수 있습니다:
 
 ```yaml
 # .github/workflows/test.yml

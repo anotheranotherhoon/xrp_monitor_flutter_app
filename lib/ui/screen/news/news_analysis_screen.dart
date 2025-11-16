@@ -48,47 +48,6 @@ class NewsAnalysisScreen extends HookConsumerWidget {
       return sorted;
     }
 
-
-    Future<void> loadAnalyzedNews() async {
-      // 전달받은 뉴스 데이터가 없으면 리턴
-      if (newsData == null || newsData!.isEmpty) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('분석할 뉴스 데이터가 없습니다')),
-          );
-        }
-        return;
-      }
-
-      isLoading.value = true;
-      try {
-        // 전달받은 뉴스 데이터를 키워드와 함께 Isolate에서 분석
-        final analysisResult = await NewsAnalysisIsolate.analyzeNewsAsync(
-          newsData!,
-          keywords: keywords,
-        );
-        
-        analyzedNews.value = analysisResult.analyzedNews;
-        // 초기 로드시 정렬 적용
-        filteredNews.value = sortNews(analysisResult.analyzedNews);
-        
-        final keywordInfo = keywords != null 
-            ? ' (키워드: 긍정 ${keywords!.positiveKeywords.length}, 부정 ${keywords!.negativeKeywords.length}, 중요 ${keywords!.importantKeywords.length})'
-            : ' (기본 키워드 사용)';
-        processingTime.value = '분석 완료 (${analysisResult.processingTimeMs}ms)$keywordInfo';
-        
-      } catch (e) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('분석 실패: $e')),
-          );
-        }
-      } finally {
-        isLoading.value = false;
-      }
-    }
-
-
     // 필터링 함수
     void filterNewsBySentiment(SentimentType? sentimentType) {
       selectedFilter.value = sentimentType;
@@ -114,6 +73,45 @@ class NewsAnalysisScreen extends HookConsumerWidget {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
         );
+      }
+    }
+
+    Future<void> loadAnalyzedNews() async {
+      // 전달받은 뉴스 데이터가 없으면 리턴
+      if (newsData == null || newsData!.isEmpty) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('분석할 뉴스 데이터가 없습니다')),
+          );
+        }f
+        return;
+      }
+
+      isLoading.value = true;
+      try {
+        // 전달받은 뉴스 데이터를 키워드와 함께 Isolate에서 분석
+        final analysisResult = await NewsAnalysisIsolate.analyzeNewsAsync(
+          newsData!,
+          keywords: keywords,
+        );
+        
+        analyzedNews.value = analysisResult.analyzedNews;
+        // 기존 필터 상태를 유지하며 다시 필터링
+        filterNewsBySentiment(selectedFilter.value);
+        
+        final keywordInfo = keywords != null 
+            ? ' (키워드: 긍정 ${keywords!.positiveKeywords.length}, 부정 ${keywords!.negativeKeywords.length}, 중요 ${keywords!.importantKeywords.length})'
+            : ' (기본 키워드 사용)';
+        processingTime.value = '분석 완료 (${analysisResult.processingTimeMs}ms)$keywordInfo';
+        
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('분석 실패: $e')),
+          );
+        }
+      } finally {
+        isLoading.value = false;
       }
     }
 
