@@ -83,7 +83,7 @@ class NewsAnalysisScreen extends HookConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('분석할 뉴스 데이터가 없습니다')),
           );
-        }f
+        }
         return;
       }
 
