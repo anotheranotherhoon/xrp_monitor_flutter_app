@@ -1,4 +1,4 @@
-# 🚀 XRP Monitor - Real-time Cryptocurrency Tracking System
+# 🚀 XRP Monitor - 실시간 XRP 암호화폐 모니터링 시스템
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.7.2+-02569B?logo=flutter)](https://flutter.dev)
 [![NestJS](https://img.shields.io/badge/NestJS-10.0+-E0234E?logo=nestjs)](https://nestjs.com)
