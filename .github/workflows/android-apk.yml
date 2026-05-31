@@ -31,7 +31,7 @@ jobs:
           cache: true
 
       - name: Install Android NDK
-        run: sdkmanager "ndk;27.0.12077973"
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.0.12077973"
 
       - name: Install dependencies
         run: flutter pub get
