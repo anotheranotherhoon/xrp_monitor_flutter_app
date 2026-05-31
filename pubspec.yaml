@@ -4,7 +4,7 @@ description: "XRP Monitor - Real-time XRP cryptocurrency tracking application."
 #aos
 #version: 1.0.0+1
 #iOS
-version: 1.0.0+2
+version: 1.0.0+3
 
 environment:
   sdk: ^3.7.2
