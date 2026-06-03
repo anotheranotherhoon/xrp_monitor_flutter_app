@@ -11,30 +11,30 @@ part 'twitter_service.g.dart';
 class TwitterService extends _$TwitterService {
   late final ApiService _apiService = ref.read(apiServiceProvider.notifier);
   @override
-  void build() {
+  void build() {}
 
-  }
-
-  Future<ResponseModel<List<Twitter>>> getTweetById(TwitterIdParams params) async {
+  Future<ResponseModel<List<Twitter>>> getTweetById(
+    TwitterIdParams params,
+  ) async {
     try {
       final response = await _apiService.get(
         url: '${ApiPath.apiUrl}tweet/users/${params.id}/tweets',
+        params: params.toJson()..remove('id'),
       );
 
       if (response.statusCode == 200) {
         final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
         final List<Twitter> data = [];
-        for (final Map<String, dynamic> item in apiResponse.result?.list as List) {
+        for (final Map<String, dynamic> item
+            in apiResponse.result?.list as List) {
           data.add(Twitter.fromJson(item));
         }
 
-
         return ResponseModel<List<Twitter>>(
-            success: true,
-            type: ResponseType.success,
-            result: data,
-            cursorId: apiResponse.result?.nextCursor
-
+          success: true,
+          type: ResponseType.success,
+          result: data,
+          cursorId: apiResponse.result?.nextCursor,
         );
       } else {
         return ResponseModel(success: false, type: ResponseType.alert);

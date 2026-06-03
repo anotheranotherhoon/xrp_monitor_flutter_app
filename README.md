@@ -29,12 +29,12 @@ XRP Monitor는 Flutter 기반의 실시간 암호화폐 모니터링 시스템�
 - **Twitter API** XRP 관련 트윗 실시간 모니터링
 - **YouTube API** XRP 분석 영상 자동 큐레이션
 
-### 🔧 고급 Flutter 기능 구현
+### 🔧 Flutter 구현 요소
 - **Riverpod** 기반 상태 관리 with Code Generation
 - **Auto Route** 선언적 라우팅 시스템
 - **Freezed** 불변 데이터 모델 구조
 - **WebView** 통합 브라우저 경험
-- **Push Notifications** Firebase 기반 실시간 알림
+- **Native Notifications** 네이티브 푸시 알림 및 진동 처리
 
 ## 🏗️ 아키텍처
 
@@ -262,14 +262,14 @@ class NewsService extends _$NewsService {
   FutureOr<void> build() {}
 
   Future<ResponseModel<List<NewsModel>>> getNewsList({
-    int page = 1,
+    int cursorId = -1,
     int perPage = 10,
   }) async {
     final apiService = ref.read(apiServiceProvider.notifier);
     
     return await apiService.get<List<NewsModel>>(
       ApiPath.news,
-      queryParameters: {'page': page, 'perPage': perPage},
+      queryParameters: {'cursorId': cursorId, 'perPage': perPage},
       fromJson: (json) => (json as List)
           .map((item) => NewsModel.fromJson(item))
           .toList(),

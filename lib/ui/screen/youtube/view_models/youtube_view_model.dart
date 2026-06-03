@@ -16,40 +16,35 @@ class YoutubeViewModel extends _$YoutubeViewModel {
   @override
   FutureOr<YoutubeState> build() async {
     _youtubeService = ref.read(youtubeServiceProvider.notifier);
-    return await _fetchYoutubeVideos(null);
+    return await _fetchYoutubeVideos('-1');
   }
 
   Future<YoutubeState> _fetchYoutubeVideos(String? cursorId) async {
-    final ResponseModel<List<YoutubeVideo>> response = await _youtubeService.getYoutubeVideos(
-      YoutubeCursorIdParams(
-          q: AppStrings.ripple,
-          cursorId: cursorId,
-      )
-    );
+    final ResponseModel<List<YoutubeVideo>> response = await _youtubeService
+        .getYoutubeVideos(
+          YoutubeCursorIdParams(q: AppStrings.ripple, cursorId: cursorId),
+        );
     return YoutubeState(
-        item: response.result ?? [],
-      cursorId: response.cursorId
+      item: response.result ?? [],
+      cursorId: response.cursorId,
     );
   }
 
-  Future<void> getNextYoutubeVideos() async{
-    if (
-    state.valueOrNull == null ||
-    state.value?.cursorId == null
-    ) {
+  Future<void> getNextYoutubeVideos() async {
+    if (state.valueOrNull == null || state.value?.cursorId == null) {
       return;
-    }else{
+    } else {
       try {
         state = AsyncData(state.value!.copyWith(isFetching: true));
         final YoutubeState newState = await _fetchYoutubeVideos(
-          state.value?.cursorId
+          state.value?.cursorId,
         );
 
         state = AsyncData(
           YoutubeState(
-              item: [...state.value!.item, ...newState.item],
-              cursorId: newState.cursorId ?? null,
-              isFetching: false,
+            item: [...state.value!.item, ...newState.item],
+            cursorId: newState.cursorId,
+            isFetching: false,
           ),
         );
       } catch (err, stack) {

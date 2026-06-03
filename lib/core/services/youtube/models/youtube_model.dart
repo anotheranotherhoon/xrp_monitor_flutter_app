@@ -1,8 +1,5 @@
 // ignore_for_file: invalid_annotation_target
-import 'dart:developer';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'youtube_model.freezed.dart';
 part 'youtube_model.g.dart';
@@ -19,10 +16,10 @@ abstract class YoutubeVideo with _$YoutubeVideo {
     @JsonKey(name: 'thumbnails') YoutubeThumbnails? thumbnails,
   }) = _YoutubeVideo;
 
-const YoutubeVideo._();
+  const YoutubeVideo._();
 
-factory YoutubeVideo.fromJson(Map<String, dynamic> json) => _$YoutubeVideoFromJson(json);
-
+  factory YoutubeVideo.fromJson(Map<String, dynamic> json) =>
+      _$YoutubeVideoFromJson(json);
 }
 
 @freezed
@@ -33,7 +30,8 @@ abstract class YoutubeThumbnails with _$YoutubeThumbnails {
     YoutubeThumbnailItem? high,
   }) = _YoutubeThumbnails;
 
-  factory YoutubeThumbnails.fromJson(Map<String, dynamic> json) => _$YoutubeThumbnailsFromJson(json);
+  factory YoutubeThumbnails.fromJson(Map<String, dynamic> json) =>
+      _$YoutubeThumbnailsFromJson(json);
 }
 
 @freezed
@@ -44,19 +42,23 @@ abstract class YoutubeThumbnailItem with _$YoutubeThumbnailItem {
     @Default(0) int height,
   }) = _YoutubeThumbnailItem;
 
-  factory YoutubeThumbnailItem.fromJson(Map<String, dynamic> json) => _$YoutubeThumbnailItemFromJson(json);
+  factory YoutubeThumbnailItem.fromJson(Map<String, dynamic> json) =>
+      _$YoutubeThumbnailItemFromJson(json);
 }
 
 @JsonSerializable(includeIfNull: false)
 class YoutubeCursorIdParams {
   YoutubeCursorIdParams({
     required this.cursorId,
-    required this.q
+    required this.q,
+    this.perPage = 10,
   });
 
-  factory YoutubeCursorIdParams.fromJson(Map<String, dynamic> json) => _$YoutubeCursorIdParamsFromJson(json);
+  factory YoutubeCursorIdParams.fromJson(Map<String, dynamic> json) =>
+      _$YoutubeCursorIdParamsFromJson(json);
 
   final String? cursorId;
   final String q;
+  final int perPage;
   Map<String, dynamic> toJson() => _$YoutubeCursorIdParamsToJson(this);
 }
