@@ -112,7 +112,7 @@ class TwitterScreen extends HookConsumerWidget {
               ),
               SizedBox(height: 16.w),
               Text(
-                '트윗을 불러오는 중 오류가 발생했습니다.',
+                AppStrings.tweetLoadError,
                 style: TextStyle(color: CommonColors.mainRed),
                 textAlign: TextAlign.center,
               ),
@@ -123,5 +123,4 @@ class TwitterScreen extends HookConsumerWidget {
     );
   }
 }
-
 

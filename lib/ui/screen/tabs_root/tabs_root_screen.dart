@@ -4,7 +4,6 @@ import 'package:xrp_monitor/widgets/appbar/default_bottom_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
 
-
 @RoutePage()
 class TabsRootScreen extends HookConsumerWidget {
   const TabsRootScreen({super.key});
@@ -13,10 +12,10 @@ class TabsRootScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AutoTabsRouter(
       routes: const [
-        HomeRoute(),    // XRP 모니터링
-        TwitterRoute(),   // XRP 트위터
+        HomeRoute(), // XRP 모니터링
+        TwitterRoute(), // CryptoCompare 기사
         YoutubeRoute(), // XRP 유튜브
-        NewsRoute(),    // XRP 뉴스
+        NewsRoute(), // XRP 뉴스
         SettingRoute(), // 설정
       ],
       builder: (context, child) {

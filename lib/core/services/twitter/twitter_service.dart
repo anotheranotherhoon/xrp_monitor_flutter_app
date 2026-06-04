@@ -13,6 +13,45 @@ class TwitterService extends _$TwitterService {
   @override
   void build() {}
 
+  Future<ResponseModel<List<Twitter>>> getCryptoNews({
+    String? cursorId,
+    int perPage = 10,
+  }) async {
+    try {
+      final response = await _apiService.get(
+        url: '${ApiPath.apiUrl}crypto/news/xrp',
+        params: {
+          if (cursorId != null) 'cursorId': cursorId,
+          'perPage': perPage,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final ApiResponse apiResponse = ApiResponse.fromJson(response.data!);
+        final List<Twitter> data = [];
+        for (final Map<String, dynamic> item
+            in apiResponse.result?.list as List) {
+          data.add(Twitter.fromJson(item));
+        }
+
+        return ResponseModel<List<Twitter>>(
+          success: true,
+          type: ResponseType.success,
+          result: data,
+          cursorId: apiResponse.result?.nextCursor,
+        );
+      } else {
+        return ResponseModel(success: false, type: ResponseType.alert);
+      }
+    } catch (e) {
+      return ResponseModel<List<Twitter>>(
+        success: false,
+        type: ResponseType.alert,
+        title: 'Crypto 기사 조회 실패',
+      );
+    }
+  }
+
   Future<ResponseModel<List<Twitter>>> getTweetById(
     TwitterIdParams params,
   ) async {

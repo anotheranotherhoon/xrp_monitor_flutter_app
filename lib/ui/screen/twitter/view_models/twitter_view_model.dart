@@ -20,7 +20,7 @@ class TwitterViewModel extends _$TwitterViewModel {
 
   Future<TwitterState> _fetchTweet(String? cursorId) async {
     final ResponseModel<List<Twitter>> response = await _twitterService
-        .getTweetById(TwitterIdParams(id: '25073877', cursorId: cursorId));
+        .getCryptoNews(cursorId: cursorId);
     return TwitterState(
       item: response.result ?? [],
       cursorId: response.cursorId,
