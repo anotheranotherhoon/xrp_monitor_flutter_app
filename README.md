@@ -26,8 +26,14 @@ XRP Monitor는 Flutter 기반의 실시간 암호화폐 모니터링 시스템�
 
 ### 📰 뉴스 및 소셜 미디어 집계
 - **네이버 뉴스** API 연동 XRP 관련 뉴스 수집
-- **Twitter API** XRP 관련 트윗 실시간 모니터링
+- **CryptoCompare News API** 기반 XRP 관련 암호화폐 기사 수집
 - **YouTube API** XRP 분석 영상 자동 큐레이션
+
+### 🔁 CryptoCompare 사용 및 Twitter 제외 배경
+- 초기 버전에서는 Twitter API를 통해 XRP 관련 트윗을 보여주도록 설계했습니다.
+- 하지만 X(Twitter) API 정책 변경 이후 API 접근 권한, 호출량 제한, 유료 플랜 의존도가 커져 무료 또는 저비용 환경에서 안정적으로 운영하기 어려워졌습니다.
+- 이 앱은 개인/포트폴리오 프로젝트 성격이 강하므로, 운영 비용과 데이터 수집 실패 가능성을 줄이기 위해 CryptoCompare News API 기반 기사 목록으로 전환했습니다.
+- 현재 일부 파일명, 라우트명, 클래스명에는 기존 구현의 `twitter` 명칭이 남아 있지만, 사용자에게 표시되는 콘텐츠는 CryptoCompare 기반 암호화폐 기사입니다.
 
 ### 🔧 Flutter 구현 요소
 - **Riverpod** 기반 상태 관리 with Code Generation
@@ -221,7 +227,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: HomeRoute.page, path: 'monitor', initial: true),
         // XRP 관련 뉴스
         AutoRoute(page: NewsRoute.page, path: 'news'),
-        // XRP 관련 트위터
+        // XRP 관련 CryptoCompare 기사
         AutoRoute(page: TwitterRoute.page, path: 'twitter'),
         // XRP 관련 유튜브
         AutoRoute(page: YoutubeRoute.page, path: 'videos'),
@@ -370,7 +376,7 @@ flowchart TD
     SignupForm -->|Failed| Signup
 
     TabsRoot --> Monitor[Monitor Tab<br/>XRP Price Chart]
-    TabsRoot --> Twitter[Twitter Tab<br/>XRP Twitters]
+    TabsRoot --> Crypto[Crypto Tab<br/>XRP Crypto Articles]
     TabsRoot --> YouTube[YouTube Tab<br/>XRP Videos]
     TabsRoot --> News[News Tab<br/>XRP News]
     TabsRoot --> Settings[Settings Tab<br/>Portfolio & Profile]
@@ -378,9 +384,9 @@ flowchart TD
     Monitor --> ChartData[Real-time Chart Data]
     Monitor --> PriceCard[Current Price Display]
 
-    Twitter --> TwitterAPI[Twitter Service]
-    TwitterAPI --> TwitterCards[Twitter Cards Display]
-    TwitterCards --> LazyLoad[Lazy Loading]
+    Crypto --> CryptoAPI[CryptoCompare Service]
+    CryptoAPI --> CryptoCards[Crypto Article Cards Display]
+    CryptoCards --> LazyLoad[Lazy Loading]
 
     YouTube --> YouTubeAPI[YouTube Service]
     YouTubeAPI --> VideoCards[Video Cards Display]
@@ -402,7 +408,7 @@ flowchart TD
 
     %% Data Flow
     ChartData --> CandleService[Chart Service]
-    TwitterAPI --> TwitterService[Twitter Service]
+    CryptoAPI --> CryptoArticleService[CryptoCompare Article Service]
     YouTubeAPI --> YouTubeService[YouTube Service]
     NewsAPI --> NewsService[News Service]
     KeywordService --> NewsService
@@ -410,7 +416,7 @@ flowchart TD
 
     %% State Management
     CandleService -.-> Riverpod[Riverpod State Management]
-    TwitterService -.-> Riverpod
+    CryptoArticleService -.-> Riverpod
     YouTubeService -.-> Riverpod
     NewsService -.-> Riverpod
     NewsAnalysisService -.-> Riverpod
@@ -431,10 +437,10 @@ flowchart TD
     classDef native fill:#ffecb3
     classDef analysis fill:#f1f8e9
 
-    class Login,Signup,TabsRoot,Monitor,Twitter,YouTube,News,Settings,VersionError screen
-    class TwitterAPI,YouTubeAPI,NewsAPI,CandleService,TwitterService,YouTubeService,NewsService,PortfolioService,NativeService,KeywordService,NewsAnalysisService service
+    class Login,Signup,TabsRoot,Monitor,Crypto,YouTube,News,Settings,VersionError screen
+    class CryptoAPI,YouTubeAPI,NewsAPI,CandleService,CryptoArticleService,YouTubeService,NewsService,PortfolioService,NativeService,KeywordService,NewsAnalysisService service
     class Riverpod,LocalStorage state
-    class ChartData,TwitterCards,VideoCards,NewsCards api
+    class ChartData,CryptoCards,VideoCards,NewsCards api
     class VersionProcess,NativeNotification,NativeVibration,MethodChannel native
     class NewsAnalysis,AnalysisIsolate,SentimentAnalysis,KeywordExtraction,ImportanceScore,AnalysisResults analysis
 ```
@@ -448,7 +454,7 @@ flowchart TD
     Guest((비회원 사용자))
     XRPSystem((XRP 데이터 시스템))
     NewsAPI((뉴스 API))
-    TwitterAPI((트위터 API))
+    CryptoAPI((CryptoCompare API))
     YouTubeAPI((유튜브 API))
     KeywordAPI((키워드 API))
 
@@ -479,10 +485,10 @@ flowchart TD
 %% Content Consumption Use Cases
     subgraph "콘텐츠 소비"
         UC13[XRP 관련 뉴스 조회]
-        UC14[XRP 관련 트윗 조회]
+        UC14[XRP 관련 CryptoCompare 기사 조회]
         UC15[XRP 관련 유튜브 영상 조회]
         UC16[영상 재생]
-        UC17[트위터 lazy loading]
+        UC17[Crypto 기사 lazy loading]
     end
 
 %% News Analysis Use Cases
@@ -554,8 +560,8 @@ flowchart TD
     KeywordAPI --> UC27
     KeywordAPI --> UC24
     KeywordAPI --> UC25
-    TwitterAPI --> UC14
-    TwitterAPI --> UC17
+    CryptoAPI --> UC14
+    CryptoAPI --> UC17
     YouTubeAPI --> UC15
     YouTubeAPI --> UC16
 
@@ -619,7 +625,7 @@ flowchart TD
     classDef system fill:#fff3e0,stroke:#e65100,stroke-width:2px
 
     class User,Guest actor
-    class XRPSystem,NewsAPI,TwitterAPI,YouTubeAPI,KeywordAPI,AndroidSystem,iOSSystem system
+    class XRPSystem,NewsAPI,CryptoAPI,YouTubeAPI,KeywordAPI,AndroidSystem,iOSSystem system
     class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10,UC11,UC12,UC13,UC14,UC15,UC16,UC17,UC18,UC19,UC20,UC21,UC22,UC23,UC24,UC25,UC26,UC27,UC28,UC29 usecase
 
 ```

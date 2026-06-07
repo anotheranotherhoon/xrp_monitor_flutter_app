@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:xrp_monitor/widgets/appbar/default_bottom_bar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:xrp_monitor/core/route/app_router.gr.dart';
+import 'package:xrp_monitor/service/network/network_status_service.dart';
+import 'package:xrp_monitor/widgets/common/offline_status_banner.dart';
 
 @RoutePage()
 class TabsRootScreen extends HookConsumerWidget {
@@ -10,6 +12,8 @@ class TabsRootScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isOnline = ref.watch(networkStatusProvider);
+
     return AutoTabsRouter(
       routes: const [
         HomeRoute(), // XRP 모니터링
@@ -19,10 +23,15 @@ class TabsRootScreen extends HookConsumerWidget {
         SettingRoute(), // 설정
       ],
       builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           body: child, // 현재 활성 탭 화면
-          bottomNavigationBar: DefaultBottomBar(), // 탭 제어
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (!isOnline) const NetworkOfflineBar(),
+              DefaultBottomBar(),
+            ],
+          ),
         );
       },
     );
