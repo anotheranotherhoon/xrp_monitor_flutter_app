@@ -2,12 +2,12 @@ import 'package:xrp_monitor/core/services/session/models/session.dart';
 import 'package:xrp_monitor/core/services/session/models/token.dart';
 import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/session/session_service.dart';
+import 'package:xrp_monitor/service/storage/portfolio_local_database.dart';
 import 'package:xrp_monitor/service/storage/secure_storage_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'models/signup_request.dart';
 import 'models/login_request.dart';
 import 'models/auth_model.dart';
-
 
 part 'authentication.g.dart';
 
@@ -19,8 +19,10 @@ class Authentication extends _$Authentication {
   Future<Session?> build() async {
     instance = this;
     _sessionService = ref.watch(sessionServiceProvider.notifier);
-    final String? accessToken = await SecureStorageService.instance.getAccessToken();
-    final String? refreshToken = await SecureStorageService.instance.getRefreshToken();
+    final String? accessToken =
+        await SecureStorageService.instance.getAccessToken();
+    final String? refreshToken =
+        await SecureStorageService.instance.getRefreshToken();
     if (accessToken == null) {
       return null;
     }
@@ -29,42 +31,39 @@ class Authentication extends _$Authentication {
         token: accessToken,
         expiredAt: DateTime.now().add(const Duration(hours: 3)),
       ),
-      refreshToken: refreshToken != null ? Token(
-        token: refreshToken,
-        expiredAt: DateTime.now().add(const Duration(days: 30)),
-      ) : null,
+      refreshToken:
+          refreshToken != null
+              ? Token(
+                token: refreshToken,
+                expiredAt: DateTime.now().add(const Duration(days: 30)),
+              )
+              : null,
       user: null,
     );
     state = AsyncValue.data(session);
     return session;
   }
 
-
   //#region Sign in
   Future<LoginUser?> singInAfter(LoginResult data) async {
+    await PortfolioLocalDatabase.instance.clear();
     await SecureStorageService.instance.setUserToken(data.accessToken);
     await SecureStorageService.instance.setUserRefreshToken(data.refreshToken);
     late Session session;
     session = Session(
-        accessToken: Token(
-          token: data.accessToken,
-          expiredAt: DateTime.now().add(const Duration(hours: 48)
-          ),
-        ),
+      accessToken: Token(
+        token: data.accessToken,
+        expiredAt: DateTime.now().add(const Duration(hours: 48)),
+      ),
       refreshToken: Token(
         token: data.refreshToken,
-        expiredAt: DateTime.now().add(const Duration(days: 30)
-        ),
+        expiredAt: DateTime.now().add(const Duration(days: 30)),
       ),
-        user:data.user,
+      user: data.user,
     );
     state = AsyncValue.data(session);
     return data.user;
   }
-
-
-
-
 
   void updateToken(String newAccessToken, String newRefreshToken) {
     final Token accessToken = Token(
@@ -76,11 +75,12 @@ class Authentication extends _$Authentication {
       expiredAt: DateTime.now().add(const Duration(hours: 48)),
     );
     state = state.whenData(
-          (session) => session?.copyWith(
-        accessToken: accessToken, refreshToken: refreshToken,),
+      (session) => session?.copyWith(
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      ),
     );
   }
-
 
   Future<void> removeSession() async {
     await SecureStorageService.instance.removeAllToken();
@@ -89,24 +89,21 @@ class Authentication extends _$Authentication {
 
   Future<void> removeAccessSession() async {
     await SecureStorageService.instance.removeAccessToken();
-    state = state.whenData(
-          (session) => session?.copyWith(accessToken: null),
-    );
+    state = state.whenData((session) => session?.copyWith(accessToken: null));
   }
-
-
-
 
   Future<ResponseModel<bool>> signUp(SignUpRequest request) async {
     try {
-      final ResponseModel<bool> response = await _sessionService.signUp(request);
+      final ResponseModel<bool> response = await _sessionService.signUp(
+        request,
+      );
       if (response.success && response.result != null) {
         return ResponseModel<bool>(
           success: true,
           result: true,
           type: ResponseType.success,
         );
-      }else{
+      } else {
         return ResponseModel<bool>(
           success: false,
           result: false,
@@ -114,23 +111,22 @@ class Authentication extends _$Authentication {
         );
       }
     } catch (e) {
-      return ResponseModel<bool>(
-        success: false,
-        type: ResponseType.alert,
-      );
+      return ResponseModel<bool>(success: false, type: ResponseType.alert);
     }
   }
 
   Future<ResponseModel<LoginResult>> login(LoginRequest request) async {
     try {
-      final ResponseModel<LoginResult> response = await _sessionService.login(request);
+      final ResponseModel<LoginResult> response = await _sessionService.login(
+        request,
+      );
       if (response.success && response.result != null) {
         await singInAfter(response.result!);
       }
       return ResponseModel<LoginResult>(
         success: true,
         result: response.result!,
-        type: ResponseType.success
+        type: ResponseType.success,
       );
     } catch (e) {
       return ResponseModel<LoginResult>(
@@ -139,6 +135,4 @@ class Authentication extends _$Authentication {
       );
     }
   }
-
-
 }

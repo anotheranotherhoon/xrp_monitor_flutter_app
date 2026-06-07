@@ -42,6 +42,9 @@ abstract class PortfolioState with _$PortfolioState {
     @Default(null) Portfolio? portfolio,
     @Default(false) bool isLoading,
     @Default(false) bool isEditing,
+    @Default(false) bool isOffline,
+    @Default(false) bool hasPendingSync,
+    DateTime? lastUpdatedAt,
     @Default('') String error,
   }) = _PortfolioState;
 
