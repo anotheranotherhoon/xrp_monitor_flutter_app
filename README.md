@@ -170,8 +170,8 @@ fvm flutter run
 ```
 
 #### Android APK 다운로드
-- 최신 APK: [app-release.apk](https://github.com/anotheranotherhoon/xrp_monitor_flutter_app/releases/download/v1.0.0%2B4/app-release.apk)
-- 릴리즈 페이지: [v1.0.0+4](https://github.com/anotheranotherhoon/xrp_monitor_flutter_app/releases/tag/v1.0.0%2B4)
+- 최신 APK: [app-release.apk](https://github.com/anotheranotherhoon/xrp_monitor_flutter_app/releases/download/v1.0.0%2B6/app-release.apk)
+- 릴리즈 페이지: [v1.0.0+6](https://github.com/anotheranotherhoon/xrp_monitor_flutter_app/releases/tag/v1.0.0%2B6)
 - GitHub Actions는 `v*` 태그가 push되면 release APK를 빌드하고 Release asset으로 업로드합니다.
 
 #### 2️⃣ Flutter Web Admin
@@ -348,7 +348,7 @@ class NewsService extends _$NewsService {
 - **관리자 웹 패널**: [웹 데모 링크 첨부 예정](#)
 
 ### 🌐 라이브 데모 (배포 시)
-- **사용자 앱 APK**: [app-release.apk](https://github.com/anotheranotherhoon/xrp_monitor_flutter_app/releases/download/v1.0.0%2B4/app-release.apk)
+- **사용자 앱 APK**: [app-release.apk](https://github.com/anotheranotherhoon/xrp_monitor_flutter_app/releases/download/v1.0.0%2B6/app-release.apk)
 - **관리자 패널**: [https://admin.xrpmonitor.app](#)
 - **API 문서**: [https://api.xrpmonitor.app/docs](#)
 
