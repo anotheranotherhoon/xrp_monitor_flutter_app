@@ -5,9 +5,10 @@ class UrlUtils {
 
   static Future<void> launchUrl(String url) async {
     final Uri uri = Uri.parse(url);
-    if (await url_launcher.canLaunchUrl(uri)) {
-      await url_launcher.launchUrl(uri, mode: url_launcher.LaunchMode.externalApplication);
-    }
+    await url_launcher.launchUrl(
+      uri,
+      mode: url_launcher.LaunchMode.externalApplication,
+    );
   }
 
   static Future<void> launchUrlInApp(String url) async {

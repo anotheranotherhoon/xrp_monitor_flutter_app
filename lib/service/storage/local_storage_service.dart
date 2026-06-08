@@ -21,7 +21,6 @@ class LocalStorageService {
     return _prefs.getString(StorageKey.refreshToken.name);
   }
 
-
   Future<void> setUserToken(String token) async {
     await _prefs.setString(StorageKey.token.name, token);
   }
@@ -42,7 +41,6 @@ class LocalStorageService {
     await _prefs.remove(StorageKey.token.name);
   }
 
-
   Future<void> removeLocalStorage() async {
     await _prefs.remove(StorageKey.token.name);
   }
@@ -53,5 +51,9 @@ class LocalStorageService {
 
   Future<void> setKeyName(String keyName, String value) async {
     await _prefs.setString(keyName, value);
+  }
+
+  Future<void> removeKeyName(String keyName) async {
+    await _prefs.remove(keyName);
   }
 }

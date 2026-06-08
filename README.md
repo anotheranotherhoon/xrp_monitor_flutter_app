@@ -41,6 +41,7 @@ XRP Monitor는 Flutter 기반의 실시간 암호화폐 모니터링 시스템�
 - **Freezed** 불변 데이터 모델 구조
 - **WebView** 통합 브라우저 경험
 - **Native Notifications** 네이티브 푸시 알림 및 진동 처리
+- **관리자 팝업 노출** 스와이프, 기간 만료, 오늘 하루 숨김 및 외부 링크 처리
 
 ## 🏗️ 아키텍처
 
@@ -87,6 +88,7 @@ fl_chart: ^0.68.0            # 차트 라이브러리
 # 네트워킹
 dio: ^5.8.0+1                # HTTP 클라이언트
 socket_io_client: ^3.1.2     # WebSocket 연결
+url_launcher: ^6.1.14        # 팝업/뉴스 외부 링크 실행
 ```
 
 #### Backend (NestJS)
@@ -97,6 +99,53 @@ socket_io_client: ^3.1.2     # WebSocket 연결
 - **WebSocket** 실시간 데이터 스트리밍
 
 ## 🚀 시작하기
+
+### 로컬 API 서버 연결
+
+NestJS 코드를 배포하기 전에 로컬 서버에서 바로 확인할 수 있습니다.
+
+```bash
+# xrp_monitor_nest_server
+npm run start:dev
+```
+
+Flutter 빌드 모드에 따라 서버 주소가 자동으로 결정됩니다.
+
+```bash
+# Debug/Profile: 로컬 서버
+flutter run
+
+# Release: 운영 서버
+flutter run --release
+```
+
+Debug/Profile에서는 `http://localhost:3000`, Release 빌드는
+`https://xrp-monitor.p-e.kr`을 사용합니다. Android 실기기는 USB 연결 후
+아래 명령으로 Mac의 로컬 서버 포트를 전달합니다.
+
+```bash
+adb -s <device-id> reverse tcp:3000 tcp:3000
+fvm flutter run -d <device-id>
+```
+
+개발 환경의 팝업 이미지는 서버의 `.local-storage/`에 저장되므로 OCI 설정
+없이 등록과 노출을 확인할 수 있습니다.
+
+## 🖼️ 홈 팝업
+
+- 앱 진입 시 서버의 `/popup/active`에서 현재 노출 가능한 팝업 조회
+- 관리자에서 지정한 노출 순서대로 최대 10장까지 좌우 스와이프
+- 둥근 모달, 페이지 인디케이터와 XRP 블루 액션 버튼 적용
+- `닫기`는 현재 앱 실행 중에만 팝업을 숨김
+- `오늘 하루 보지 않기`는 팝업별이 아닌 전체 팝업 모달을 당일 자정까지 숨김
+- 숨김 날짜는 SharedPreferences에 저장하고 다음 날짜에 자동 해제
+- 팝업 종료 시간이 지나면 열린 모달에서도 해당 이미지를 자동 제거
+- `이동 없음` 팝업은 이미지 탭 동작을 비활성화
+- `외부 링크` 팝업은 이미지의 `자세히 보기`를 탭하면 `url_launcher`의
+  `LaunchMode.externalApplication`으로 브라우저를 실행
+
+팝업 API 오류는 홈 화면 전체를 막지 않으며, 팝업 표시만 건너뛰도록
+구성했습니다.
 
 ### Prerequisites
 - Flutter 3.7.2+
