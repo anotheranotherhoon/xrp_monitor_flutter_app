@@ -1,5 +1,17 @@
 # 🚀 XRP Monitor - 실시간 XRP 암호화폐 모니터링 시스템
 
+## Firebase Cloud Messaging
+
+Firebase 프로젝트에 아래 앱을 등록해야 실제 푸시 토큰이 발급됩니다.
+
+- Android: `com.anotherhoon.xrpmonitor`
+- iOS: `com.anotherhoon.xrpmonitor`
+
+`flutterfire configure`를 실행하거나 Firebase Console에서 받은
+`google-services.json`과 `GoogleService-Info.plist`를 각 플랫폼에
+설정합니다. iOS는 Xcode에서 Push Notifications capability와 Background
+Modes의 Remote notifications도 활성화해야 합니다.
+
 [![Flutter](https://img.shields.io/badge/Flutter-3.7.2+-02569B?logo=flutter)](https://flutter.dev)
 [![NestJS](https://img.shields.io/badge/NestJS-10.0+-E0234E?logo=nestjs)](https://nestjs.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript)](https://www.typescriptlang.org)

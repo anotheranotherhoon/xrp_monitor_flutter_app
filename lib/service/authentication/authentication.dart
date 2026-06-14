@@ -2,6 +2,7 @@ import 'package:xrp_monitor/core/services/session/models/session.dart';
 import 'package:xrp_monitor/core/services/session/models/token.dart';
 import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/session/session_service.dart';
+import 'package:xrp_monitor/core/services/notification/push_notification_service.dart';
 import 'package:xrp_monitor/service/storage/portfolio_local_database.dart';
 import 'package:xrp_monitor/service/storage/secure_storage_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -41,6 +42,7 @@ class Authentication extends _$Authentication {
       user: null,
     );
     state = AsyncValue.data(session);
+    await PushNotificationService.instance.registerCurrentToken();
     return session;
   }
 
@@ -62,6 +64,7 @@ class Authentication extends _$Authentication {
       user: data.user,
     );
     state = AsyncValue.data(session);
+    await PushNotificationService.instance.registerCurrentToken();
     return data.user;
   }
 
@@ -83,6 +86,7 @@ class Authentication extends _$Authentication {
   }
 
   Future<void> removeSession() async {
+    await PushNotificationService.instance.unregisterCurrentToken();
     await SecureStorageService.instance.removeAllToken();
     state = const AsyncValue.data(null);
   }

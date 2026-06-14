@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xrp_monitor/core/services/base/models/response_model.dart';
 import 'package:xrp_monitor/core/services/base/models/version_model.dart';
+import 'package:xrp_monitor/core/services/notification/push_notification_service.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +23,7 @@ void main() async {
   ]);
   await LocalStorageService.instance.init();
   await PortfolioLocalDatabase.instance.init();
+  await PushNotificationService.instance.initialize();
   Widget app;
   ResponseModel<Version> checkVersionResult = await InitApp.checkVersion();
   if (checkVersionResult.result!.appStatus != 1) {

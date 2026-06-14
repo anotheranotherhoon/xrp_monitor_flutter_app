@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006422836606",
+    "project_id": "xrp-monitor-9e9ba",
+    "storage_bucket": "xrp-monitor-9e9ba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006422836606:android:d08c5140451ad28c985f2f",
+        "android_client_info": {
+          "package_name": "com.anotherhoon.xrpmonitor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXSq1LCWYBjsLyz2A0vN7hq_7fcCPdIv8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
