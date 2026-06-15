@@ -1,17 +1,5 @@
 # 🚀 XRP Monitor - 실시간 XRP 암호화폐 모니터링 시스템
 
-## Firebase Cloud Messaging
-
-Firebase 프로젝트에 아래 앱을 등록해야 실제 푸시 토큰이 발급됩니다.
-
-- Android: `com.anotherhoon.xrpmonitor`
-- iOS: `com.anotherhoon.xrpmonitor`
-
-`flutterfire configure`를 실행하거나 Firebase Console에서 받은
-`google-services.json`과 `GoogleService-Info.plist`를 각 플랫폼에
-설정합니다. iOS는 Xcode에서 Push Notifications capability와 Background
-Modes의 Remote notifications도 활성화해야 합니다.
-
 [![Flutter](https://img.shields.io/badge/Flutter-3.7.2+-02569B?logo=flutter)](https://flutter.dev)
 [![NestJS](https://img.shields.io/badge/NestJS-10.0+-E0234E?logo=nestjs)](https://nestjs.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript)](https://www.typescriptlang.org)
@@ -54,6 +42,7 @@ XRP Monitor는 Flutter 기반의 실시간 암호화폐 모니터링 시스템�
 - **WebView** 통합 브라우저 경험
 - **Native Notifications** 네이티브 푸시 알림 및 진동 처리
 - **관리자 팝업 노출** 스와이프, 기간 만료, 오늘 하루 숨김 및 외부 링크 처리
+- **Firebase Cloud Messaging** 로그인 회원의 디바이스 토큰 등록 및 푸시 수신
 
 ## 🏗️ 아키텍처
 
@@ -158,6 +147,65 @@ fvm flutter run -d <device-id>
 
 팝업 API 오류는 홈 화면 전체를 막지 않으며, 팝업 표시만 건너뛰도록
 구성했습니다.
+
+## 🔔 Firebase Cloud Messaging
+
+관리자 대시보드에서 선택한 회원에게 발송한 푸시 알림을 수신합니다.
+Firebase 초기화 실패가 앱 실행 전체를 막지 않도록 예외를 처리하며, 인증된
+세션이 있을 때만 디바이스 토큰을 서버에 등록합니다.
+
+### 동작 흐름
+
+1. 앱 시작 시 `Firebase.initializeApp`과 백그라운드 메시지 핸들러를 등록합니다.
+2. 로그인 성공 또는 저장된 로그인 세션 복원 시 알림 권한을 요청합니다.
+3. 권한이 허용되면 현재 FCM 토큰과 플랫폼을 `POST /device-tokens`로 전송합니다.
+4. Firebase가 토큰을 갱신하면 `onTokenRefresh`를 통해 새 토큰을 자동 등록합니다.
+5. 로그아웃 전에 `DELETE /device-tokens`를 호출해 현재 토큰을 비활성화합니다.
+
+지원 플랫폼 값은 `ANDROID`, `IOS`, `WEB`이며 API 요청에는 JWT Access
+Token이 필요합니다.
+
+### Firebase 프로젝트 설정
+
+Firebase 프로젝트에 아래 앱을 등록해야 실제 푸시 토큰이 발급됩니다.
+
+- Android application ID: `com.anotherhoon.xrpmonitor`
+- iOS bundle ID: `com.anotherhoon.xrpmonitor`
+
+FlutterFire CLI로 설정 파일과 `firebase_options.dart`를 생성합니다.
+
+```bash
+flutterfire configure --project=<firebase-project-id>
+```
+
+플랫폼별 파일 위치:
+
+- Android: `android/app/google-services.json`
+- iOS: `ios/Runner/GoogleService-Info.plist`
+- Dart: `lib/firebase_options.dart`
+
+iOS는 Xcode의 Runner target에서 다음 capability도 활성화해야 합니다.
+
+- Push Notifications
+- Background Modes > Remote notifications
+
+Android 13 이상과 iOS에서는 런타임 알림 권한이 필요합니다. 사용자가 권한을
+거부하면 앱의 다른 기능은 정상 동작하지만 FCM 토큰은 서버에 등록되지
+않습니다.
+
+### 주요 구현 파일
+
+| 파일 | 역할 |
+| ---- | ---- |
+| `lib/core/services/notification/push_notification_service.dart` | Firebase 초기화, 권한 요청, 토큰 등록·갱신·해제 |
+| `lib/service/authentication/authentication.dart` | 로그인, 세션 복원, 로그아웃과 토큰 생명주기 연결 |
+| `lib/firebase_options.dart` | FlutterFire 플랫폼별 Firebase 설정 |
+| `android/app/google-services.json` | Android Firebase 앱 설정 |
+| `ios/Runner/GoogleService-Info.plist` | iOS Firebase 앱 설정 |
+
+Firebase 설정 파일과 서버용 Firebase Admin 서비스 계정은 용도가 다릅니다.
+모바일 앱에는 플랫폼 설정 파일만 포함하며, 서버 서비스 계정의 private key는
+앱이나 저장소에 포함하지 않습니다.
 
 ### Prerequisites
 - Flutter 3.7.2+
